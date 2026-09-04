@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mi carrito | LIF Store</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+<div class="topbar py-1">
+  <div class="container d-flex justify-content-end">
+    <a href="login.html">Iniciar sesión</a>
+    <a href="registro.html">Registrarme</a>
+  </div>
+</div>
+
+<nav class="navbar navbar-expand-lg navbar-lif">
+  <div class="container">
+    <a class="navbar-brand" href="index.html">LIF <span>Store</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navMenu">
+      <ul class="navbar-nav mx-auto">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
+        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+        <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
+        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+      </ul>
+      <a href="carrito.html" class="carrito-link d-flex align-items-center gap-2">
+        🛒 Cart (<span class="badge-carrito">0</span>)
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main class="container py-5">
+  <h1 class="seccion-titulo">Mi carrito de compras</h1>
+
+  <div class="row g-5">
+    <div class="col-lg-8">
+      <p id="carrito-vacio" class="text-muted d-none">Tu carrito está vacío. <a href="productos.html">Ver productos</a></p>
+      <div id="lista-carrito"></div>
+    </div>
+    <div class="col-lg-4">
+      <div class="resumen-carrito">
+        <h2 class="h5 fw-oswald">Resumen</h2>
+        <div class="d-flex justify-content-between align-items-center my-3">
+          <span class="fw-oswald">Total</span>
+          <span id="total-carrito" class="card-precio fs-4">$0</span>
+        </div>
+        <label for="cupon" class="small">Cupón de descuento</label>
+        <div class="d-flex gap-2 mb-3">
+          <input type="text" id="cupon" class="form-control form-control-sm" placeholder="Ingresa tu cupón">
+          <button class="btn btn-sm btn-outline-dark" onclick="alert('Cupón no válido para esta demo académica.')">Aplicar</button>
+        </div>
+        <button class="btn btn-lif w-100" onclick="alert('Pago simulado: ¡gracias por tu compra!')">Pagar</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="footer-lif">
+  <div class="container">
+    <div class="linea-copyright">© 2026 LIF Store — Proyecto académico DSY1104, Duoc UC.</div>
+  </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/datos.js"></script>
+<script src="js/validaciones.js"></script>
+<script src="js/carrito.js"></script>
+<script src="js/app.js"></script>
+<script>
+  renderizarCarrito();
+</script>
+</body>
+</html>
