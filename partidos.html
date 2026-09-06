@@ -4,308 +4,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partidos | LIF - Liga Independiente de Fútbol</title>
-    
-    <!-- HOJAS DE ESTILO LOCALES -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
 
-    <!-- ========================================== -->
-    <!-- ENCABEZADO Y NAVEGACIÓN PRINCIPAL (HEADER) -->
-    <!-- ========================================== -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
-            <div class="container">
-                
-                <!-- Logo e Identidad de la Liga -->
+    <!-- NAV BAR (Idéntico al Index para consistencia) -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header">
-                    <span class="fw-bold fs-5">LIF</span>
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-
-                <!-- Botón Toggler para menú colapsable -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Navegación">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <!-- Menú de navegación -->
                 <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link active" href="partidos.html">Partidos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
                     </ul>
-
-                    <!-- Botones de Acción -->
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <a href="login.html" class="btn btn-outline-dark btn-sm fw-semibold">Iniciar sesión</a>
-                        <a href="registro.html" class="btn btn-dark btn-sm">Registrarme</a>
-                        <a href="carrito.html" class="btn btn-dark btn-sm">🎟️ Mis Entradas (<span class="badge-carrito text-white">0</span>)</a>
-                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button">🌙 Modo Oscuro</button>
+                    <div class="d-flex align-items-center gap-2">
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">🎟️ Tickets</a>
                     </div>
                 </div>
-
             </div>
         </nav>
     </header>
 
-    <!-- BANNER DE SECCIÓN -->
-    <section class="bg-dark text-white py-4 text-center">
+    <!-- BANNER HERO DIRECTO -->
+    <section class="hero-green text-white py-4 text-center">
         <div class="container py-2">
-            <span class="badge bg-success mb-2 fw-bold">Campeonato Oficial 2026</span>
-            <h1 class="h3 fw-bold mb-1">Programación, Resultados y Tabla</h1>
-            <p class="small text-white-50 mb-0">Revisa el fixture oficial, marcadores y posiciones actualizadas del torneo LIF</p>
+            <span class="badge bg-light text-success fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Fecha 5</span>
+            <h1 class="fw-black display-6 mb-0">Fixture y Resultados</h1>
         </div>
     </section>
 
-    <!-- BREADCRUMB -->
-    <div class="bg-light py-2 border-bottom mb-4">
-        <div class="container">
-            <small class="text-muted">Inicio » Partidos</small>
+    <!-- CONTENIDO MINIMALISTA (TABLA DE PARTIDOS) -->
+    <main class="container py-5">
+        
+        <!-- BOTONES DE FILTRO -->
+        <div class="d-flex justify-content-center gap-2 mb-4">
+            <button class="btn btn-success rounded-pill px-4 btn-sm fw-bold">Próximos Partidos</button>
+            <button class="btn btn-outline-success rounded-pill px-4 btn-sm fw-bold">Resultados Anteriores</button>
         </div>
-    </div>
 
-    <!-- CONTENIDO PRINCIPAL -->
-    <main class="container mb-5">
-        <div class="row g-4">
-            
-            <!-- LATERAL: CATEGORÍAS Y BOLETERÍA -->
-            <aside class="col-lg-3">
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-success text-white fw-bold">
-                        🏆 Categorías Oficiales
+        <!-- TABLA DE PROGRAMACIÓN -->
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    
+                    <div class="card-header bg-dark-green text-white fw-bold py-3 text-center border-0">
+                        📅 Sábado 12 de Septiembre - Complejo LIF
                     </div>
-                    <div class="list-group list-group-flush">
-                        <a href="#" class="list-group-item list-group-item-action active fw-semibold">Categoría Senior</a>
-                        <a href="#" class="list-group-item list-group-item-action">Categoría Junior</a>
-                        <a href="#" class="list-group-item list-group-item-action">Super Senior</a>
-                        <a href="#" class="list-group-item list-group-item-action">Serie Dorada</a>
-                        <a href="#" class="list-group-item list-group-item-action">Serie Diamante</a>
-                        <a href="#" class="list-group-item list-group-item-action">Super Diamante</a>
-                        <a href="#" class="list-group-item list-group-item-action">Serie Legendarios</a>
-                    </div>
-                </div>
-
-                <div class="bg-light p-3 rounded border text-center">
-                    <span class="fs-4">🎟️</span>
-                    <h6 class="fw-bold mt-2 mb-1">¿Vas a ir a la cancha?</h6>
-                    <p class="small text-muted mb-2">Compra tus e-Tickets digitales y asegura tu acceso directo al recinto.</p>
-                    <a href="entradas.html" class="btn btn-sm btn-success w-100 fw-bold">Comprar Entradas</a>
-                </div>
-            </aside>
-
-            <!-- SECCIÓN CENTRAL DE TABLAS Y PROGRAMACIÓN -->
-            <section class="col-lg-9">
-                
-                <!-- PRÓXIMOS PARTIDOS PROGRAMADOS -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white fw-bold text-success d-flex justify-content-between align-items-center py-3 border-bottom">
-                        <span>📅 Próxima Fecha - Partidos Programados</span>
-                        <span class="badge bg-success">Fixture Oficial</span>
-                    </div>
+                    
                     <div class="table-responsive">
-                        <table class="table table-hover align-middle m-0 small">
-                            <thead class="table-light">
+                        <table class="table table-hover align-middle text-center m-0">
+                            <thead class="table-light extra-small text-muted text-uppercase">
                                 <tr>
-                                    <th>Categoría</th>
-                                    <th>Encuentro</th>
-                                    <th>Cancha / Recinto</th>
-                                    <th>Estado</th>
-                                    <th class="text-center">Entradas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td><span class="badge bg-primary">Junior</span></td>
-                                    <td><strong>Mónica FC vs. Athletic Club</strong></td>
-                                    <td>Cancha 1 (F11)</td>
-                                    <td><span class="badge bg-warning text-dark">Programado</span></td>
-                                    <td class="text-center">
-                                        <a href="entradas.html" class="btn btn-success btn-sm fw-bold">🎟️ Comprar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge bg-primary">Junior</span></td>
-                                    <td><strong>Los Cabros FC vs. Stade Francais</strong></td>
-                                    <td>Cancha 2 (F11)</td>
-                                    <td><span class="badge bg-warning text-dark">Programado</span></td>
-                                    <td class="text-center">
-                                        <a href="entradas.html" class="btn btn-success btn-sm fw-bold">🎟️ Comprar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge bg-success">Senior</span></td>
-                                    <td><strong>Mohicanos vs. Inter de Santiago</strong></td>
-                                    <td>Cancha 3 (F11)</td>
-                                    <td><span class="badge bg-warning text-dark">Programado</span></td>
-                                    <td class="text-center">
-                                        <a href="entradas.html" class="btn btn-success btn-sm fw-bold">🎟️ Comprar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge bg-success">Senior</span></td>
-                                    <td><strong>Cracks FC vs. Cuncunitas FC</strong></td>
-                                    <td>Cancha 1 (F11)</td>
-                                    <td><span class="badge bg-warning text-dark">Programado</span></td>
-                                    <td class="text-center">
-                                        <a href="entradas.html" class="btn btn-success btn-sm fw-bold">🎟️ Comprar</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge bg-dark">Super Senior</span></td>
-                                    <td><strong>Caleuche FC vs. Tigres FC</strong></td>
-                                    <td>Cancha 2 (F11)</td>
-                                    <td><span class="badge bg-warning text-dark">Programado</span></td>
-                                    <td class="text-center">
-                                        <a href="entradas.html" class="btn btn-success btn-sm fw-bold">🎟️ Comprar</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- ÚLTIMOS RESULTADOS FINALIZADOS -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white fw-bold text-dark py-3 border-bottom">
-                        ⚽ Últimos Resultados Finalizados
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped text-center align-middle m-0 small">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Categoría</th>
-                                    <th class="text-end">Local</th>
-                                    <th>Resultado</th>
-                                    <th class="text-start">Visita</th>
+                                    <th>Hora</th>
                                     <th>Cancha</th>
+                                    <th class="text-end w-25">Local</th>
+                                    <th></th>
+                                    <th class="text-start w-25">Visita</th>
+                                    <th>Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><span class="badge bg-success">Senior</span></td>
-                                    <td class="text-end fw-bold">Inter de Santiago</td>
-                                    <td><span class="badge bg-dark px-3 py-2 fs-6">2 - 0</span></td>
-                                    <td class="text-start fw-bold">Zánganos FC</td>
-                                    <td class="text-muted">Cancha 2 (F11)</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge bg-success">Senior</span></td>
-                                    <td class="text-end fw-bold">Cuncunitas FC</td>
-                                    <td><span class="badge bg-dark px-3 py-2 fs-6">3 - 2</span></td>
+                                    <td class="fw-bold text-dark">14:00</td>
+                                    <td class="small">Cancha 1</td>
+                                    <td class="text-end fw-bold">Zánganos FC</td>
+                                    <td class="fw-black text-success fs-5">VS</td>
                                     <td class="text-start fw-bold">Mónica FC</td>
-                                    <td class="text-muted">Cancha 4 (F11)</td>
+                                    <td><span class="badge bg-warning text-dark rounded-pill">Por jugar</span></td>
                                 </tr>
-                                <tr>
-                                    <td><span class="badge bg-success">Senior</span></td>
-                                    <td class="text-end fw-bold">Unión Cordillera</td>
-                                    <td><span class="badge bg-dark px-3 py-2 fs-6">0 - 2</span></td>
-                                    <td class="text-start fw-bold">Cracks FC</td>
-                                    <td class="text-muted">Cancha 3 (F11)</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge bg-primary">Junior</span></td>
-                                    <td class="text-end fw-bold">Stade Francais</td>
-                                    <td><span class="badge bg-dark px-3 py-2 fs-6">5 - 1</span></td>
-                                    <td class="text-start fw-bold">Athletic Club</td>
-                                    <td class="text-muted">Cancha 2 (F11)</td>
-                                </tr>
-                                <tr>
-                                    <td><span class="badge bg-primary">Junior</span></td>
-                                    <td class="text-end fw-bold">Olimpo FC</td>
-                                    <td><span class="badge bg-dark px-3 py-2 fs-6">0 - 3</span></td>
-                                    <td class="text-start fw-bold">Los Cabros FC</td>
-                                    <td class="text-muted">Cancha 3 (F11)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                <!-- TABLA DE POSICIONES OFICIAL -->
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-white fw-bold text-dark py-3 d-flex justify-content-between align-items-center border-bottom">
-                        <span>🏆 Tabla de Posiciones — Serie Senior</span>
-                        <span class="badge bg-secondary">Actualizada</span>
-                    </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover text-center align-middle m-0 small">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>#</th>
-                                    <th class="text-start">Club</th>
-                                    <th>PJ</th>
-                                    <th>PG</th>
-                                    <th>PE</th>
-                                    <th>PP</th>
-                                    <th>GF</th>
-                                    <th>GC</th>
-                                    <th>DIF</th>
-                                    <th>PTS</th>
-                                </tr>
-                            </thead>
-                            <tbody>
                                 <tr class="table-success">
-                                    <td>1</td>
-                                    <td class="text-start fw-bold">Cracks FC</td>
-                                    <td>2</td><td>1</td><td>1</td><td>0</td><td>3</td><td>1</td><td>+2</td><td><strong>4</strong></td>
+                                    <td class="fw-bold text-dark">16:00</td>
+                                    <td class="small">Cancha 1</td>
+                                    <td class="text-end fw-bold">Cracks FC</td>
+                                    <td class="fw-black text-success fs-5">VS</td>
+                                    <td class="text-start fw-bold">Inter Santiago</td>
+                                    <td><span class="badge bg-danger rounded-pill">Destacado</span></td>
                                 </tr>
                                 <tr>
-                                    <td>2</td>
-                                    <td class="text-start fw-bold">Inter de Santiago</td>
-                                    <td>1</td><td>1</td><td>0</td><td>0</td><td>2</td><td>0</td><td>+2</td><td><strong>3</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td class="text-start fw-bold">Cuncunitas FC</td>
-                                    <td>1</td><td>1</td><td>0</td><td>0</td><td>3</td><td>2</td><td>+1</td><td><strong>3</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td class="text-start">Mohicanos</td>
-                                    <td>1</td><td>0</td><td>1</td><td>0</td><td>1</td><td>1</td><td>0</td><td><strong>1</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td class="text-start">Mónica FC</td>
-                                    <td>1</td><td>0</td><td>0</td><td>1</td><td>2</td><td>3</td><td>-1</td><td><strong>0</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td class="text-start">Zánganos FC</td>
-                                    <td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>2</td><td>-2</td><td><strong>0</strong></td>
-                                </tr>
-                                <tr>
-                                    <td>7</td>
-                                    <td class="text-start">Unión Cordillera</td>
-                                    <td>1</td><td>0</td><td>0</td><td>1</td><td>0</td><td>2</td><td>-2</td><td><strong>0</strong></td>
+                                    <td class="fw-bold text-dark">18:00</td>
+                                    <td class="small">Cancha 2</td>
+                                    <td class="text-end fw-bold">Unión Cordillera</td>
+                                    <td class="fw-black text-success fs-5">VS</td>
+                                    <td class="text-start fw-bold">Mohicanos</td>
+                                    <td><span class="badge bg-warning text-dark rounded-pill">Por jugar</span></td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
+                    
                 </div>
-
-            </section>
+            </div>
         </div>
+
     </main>
 
-    <!-- PIE DE PÁGINA -->
-    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
-        <div class="container text-center small text-white-50">
-            <p class="mb-1">LIF — Liga Independiente de Fútbol</p>
-            <p class="mb-0">© 2026 LIF. Todos los derechos reservados.</p>
+    <!-- FOOTER (Idéntico al Index) -->
+    <footer class="bg-dark-green text-white py-3 border-top border-success mt-auto">
+        <div class="container text-center extra-small text-white-50">
+            © 2026 LIF - Liga Independiente de Fútbol.
         </div>
     </footer>
 
-    <!-- SCRIPTS EN 'assets/js/' -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/datos.js"></script>
-    <script src="assets/js/validaciones.js"></script>
-    <script src="assets/js/carrito.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>

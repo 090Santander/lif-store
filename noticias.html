@@ -3,302 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Noticias, crónicas y actualidad de la Liga Independiente de Fútbol (LIF).">
     <title>Noticias | LIF - Liga Independiente de Fútbol</title>
-    
-    <!-- HOJAS DE ESTILO LOCALES -->
+    <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- ========================================== -->
-    <!-- ENCABEZADO Y NAVEGACIÓN PRINCIPAL (HEADER) -->
-    <!-- ========================================== -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
-            <div class="container">
-                
-                <!-- Logo e Identidad de la Liga -->
+    <!-- ==========================================
+         1. NAVEGACIÓN
+         ========================================== -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header">
-                    <span class="fw-bold fs-5">LIF</span>
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-
-                <!-- Botón Toggler para menú colapsable en móviles -->
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Navegación">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
-                <!-- Menú de enlaces de navegación -->
                 <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link active" href="noticias.html">Noticias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
                     </ul>
-
-                    <!-- Botones de Acción de Usuario -->
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <a href="login.html" class="btn btn-outline-dark btn-sm fw-semibold">Iniciar sesión</a>
-                        <a href="registro.html" class="btn btn-dark btn-sm">Registrarme</a>
-                        <a href="carrito.html" class="btn btn-dark btn-sm">🎟️ Mis Entradas (<span class="badge-carrito text-white">0</span>)</a>
-                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button">🌙 Modo Oscuro</button>
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">🎟️ Tickets</a>
                     </div>
                 </div>
-
             </div>
         </nav>
     </header>
 
-    <!-- ========================================== -->
-    <!-- BANNER DE SECCIÓN                          -->
-    <!-- ========================================== -->
-    <section class="bg-dark text-white py-4 text-center">
+    <!-- ==========================================
+         2. BANNER HERO
+         ========================================== -->
+    <section class="hero-green text-white py-4 text-center">
         <div class="container py-2">
-            <span class="badge bg-success mb-2 fw-bold">Actualidad del Torneo</span>
-            <h1 class="h3 fw-bold mb-1">Noticias y Novedades LIF</h1>
-            <p class="small text-white-50 mb-0">Entérate de las crónicas de los partidos, figuras destacadas y novedades del torneo 2026</p>
+            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-2 shadow-sm">Actualidad</span>
+            <h1 class="fw-black display-6 mb-0 text-shadow">Noticias LIF</h1>
+            <p class="mb-0 mt-2 text-white-50 small">Mantente al día con lo último de la liga</p>
         </div>
     </section>
 
-    <!-- BREADCRUMB -->
-    <div class="bg-light py-2 border-bottom mb-4">
-        <div class="container">
-            <small class="text-muted">Inicio » Noticias</small>
+    <!-- ==========================================
+         3. CONTENIDO DE NOTICIAS
+         ========================================== -->
+    <main class="container py-5 flex-grow-1">
+        
+        <!-- Noticia Principal (Destacada) -->
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-5">
+            <div class="row g-0">
+                <div class="col-md-6 bg-dark-green d-flex align-items-center justify-content-center p-5 text-center min-vh-25">
+                    <span class="display-1 text-white opacity-75">🏆</span>
+                </div>
+                <div class="col-md-6 d-flex flex-column justify-content-center p-4 p-md-5">
+                    <div class="mb-2">
+                        <span class="badge bg-success rounded-pill px-3">Oficial</span>
+                        <span class="text-muted small ms-2">Hace 2 horas</span>
+                    </div>
+                    <h2 class="fw-black h3 mb-3 text-dark">Lanzamiento Oficial: Temporada Liguilla 2026</h2>
+                    <p class="text-secondary mb-4">Todo está listo para el arranque de la fase final del torneo. Los 8 mejores equipos se enfrentarán en el complejo principal este fin de semana con aforo completo.</p>
+                    <div>
+                        <a href="#" class="btn btn-success fw-bold rounded-pill px-4 shadow-sm">Leer artículo completo</a>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
 
-    <!-- ========================================== -->
-    <!-- CONTENIDO PRINCIPAL (MAIN)                 -->
-    <!-- ========================================== -->
-    <main class="container mb-5">
-        <div class="row g-4">
+        <!-- Grilla de Noticias Secundarias (3 columnas en PC) -->
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
             
-            <!-- COLUMNA PRINCIPAL DE NOTICIAS -->
-            <section class="col-lg-8">
-                
-                <!-- NOTICIA DESTACADA -->
-                <article class="card border-0 shadow-sm mb-4 overflow-hidden">
-                    <img src="assets/images/noticia-destacada.jpg" class="card-img-top" alt="Cracks FC Líder de Senior" style="max-height: 360px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/800x400?text=Cracks+FC+Lider+Serie+Senior'">
+            <!-- Noticia 1 -->
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover">
+                    <div class="bg-light text-center py-4 border-bottom"><span class="display-4 opacity-75">⚽</span></div>
                     <div class="card-body p-4">
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <span class="badge bg-success">Serie Senior</span>
-                            <small class="text-muted">📅 06 de Septiembre, 2026</small>
-                        </div>
-                        <h2 class="h4 fw-bold text-dark mb-3">Cracks FC toma el liderazgo de la Serie Senior tras una jornada electrizante</h2>
-                        <p class="text-secondary small leading-relaxed">
-                            El conjunto de Cracks FC se posicionó en la cima de la tabla de posiciones tras vencer por 2-0 a Unión Cordillera y rescatar un intenso empate 1-1 frente a Mohicanos. Con 4 puntos acumulados y una solidez defensiva envidiable, se consolida como el principal candidato al título. Por su parte, Inter de Santiago no le pierde pisada tras superar 2-0 a Zánganos FC.
-                        </p>
-                        <a href="#" class="btn btn-success btn-sm fw-bold">Leer noticia completa →</a>
-                    </div>
-                </article>
-
-                <!-- GRID DE NOTICIAS SECUNDARIAS -->
-                <div class="row g-4">
-                    
-                    <!-- NOTICIA 1 -->
-                    <div class="col-md-6">
-                        <article class="card h-100 border-0 shadow-sm">
-                            <img src="assets/images/noticia-junior.jpg" class="card-img-top" alt="Stade Francais Junior" style="height: 180px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x250?text=Stade+Francais+Goleada'">
-                            <div class="card-body d-flex flex-column">
-                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <span class="badge bg-primary">Serie Junior</span>
-                                    <small class="text-muted">05 Sep 2026</small>
-                                </div>
-                                <h3 class="h6 fw-bold card-title">Stade Francais da un golpe de autoridad con goleada 5-1</h3>
-                                <p class="card-text small text-muted flex-grow-1">
-                                    Demostración contundente de eficacia defensiva y ofensiva ante Athletic Club en la Cancha 2. El cuadro galo quedó con la mejor diferencia de gol (+4) en la categoría.
-                                </p>
-                                <a href="#" class="btn btn-outline-success btn-sm fw-bold mt-2">Leer más</a>
-                            </div>
-                        </article>
-                    </div>
-
-                    <!-- NOTICIA 2 -->
-                    <div class="col-md-6">
-                        <article class="card h-100 border-0 shadow-sm">
-                            <img src="assets/images/noticia-legendarios.jpg" class="card-img-top" alt="Mónica FC Legendarios" style="height: 180px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x250?text=Monica+FC+7-0'">
-                            <div class="card-body d-flex flex-column">
-                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <span class="badge bg-dark">Legendarios</span>
-                                    <small class="text-muted">04 Sep 2026</small>
-                                </div>
-                                <h3 class="h6 fw-bold card-title">Mónica FC desata una tormenta de goles en Legendarios</h3>
-                                <p class="card-text small text-muted flex-grow-1">
-                                    En un partido histórico, Mónica FC superó por 7-0 a Coyotes FC en la Cancha 5 (F8), exhibiendo un ritmo de juego arrollador tras reajustar su ataque.
-                                </p>
-                                <a href="#" class="btn btn-outline-success btn-sm fw-bold mt-2">Leer más</a>
-                            </div>
-                        </article>
-                    </div>
-
-                    <!-- NOTICIA 3 -->
-                    <div class="col-md-6">
-                        <article class="card h-100 border-0 shadow-sm">
-                            <img src="assets/images/noticia-dorada.jpg" class="card-img-top" alt="Serie Dorada LIF" style="height: 180px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x250?text=Caleuche+FC+Dorada'">
-                            <div class="card-body d-flex flex-column">
-                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <span class="badge bg-warning text-dark">Serie Dorada</span>
-                                    <small class="text-muted">03 Sep 2026</small>
-                                </div>
-                                <h3 class="h6 fw-bold card-title">Caleuche FC mantiene el paso firme con arco en cero</h3>
-                                <p class="card-text small text-muted flex-grow-1">
-                                    Con triunfos seguidos de 4-0 sobre Sporting Club y 3-0 ante San Juan FC, Caleuche se convierte en la defensa invicta de la Serie Dorada.
-                                </p>
-                                <a href="#" class="btn btn-outline-success btn-sm fw-bold mt-2">Leer más</a>
-                            </div>
-                        </article>
-                    </div>
-
-                    <!-- NOTICIA 4 -->
-                    <div class="col-md-6">
-                        <article class="card h-100 border-0 shadow-sm">
-                            <img src="assets/images/noticia-entradas.jpg" class="card-img-top" alt="Entradas Recinto LIF" style="height: 180px; object-fit: cover;" onerror="this.src='https://via.placeholder.com/400x250?text=Venta+de+Entradas+LIF'">
-                            <div class="card-body d-flex flex-column">
-                                <div class="d-flex align-items-center justify-content-between mb-2">
-                                    <span class="badge bg-secondary">Institucional</span>
-                                    <small class="text-muted">01 Sep 2026</small>
-                                </div>
-                                <h3 class="h6 fw-bold card-title">Habilitada venta anticipada de entradas para la Fecha 5</h3>
-                                <p class="card-text small text-muted flex-grow-1">
-                                    Ya se encuentra disponible el sistema de boletería digital para agilizar el ingreso a las canchas F11 y F8 durante el fin de semana.
-                                </p>
-                                <a href="entradas.html" class="btn btn-outline-success btn-sm fw-bold mt-2">Comprar e-Tickets</a>
-                            </div>
-                        </article>
-                    </div>
-
-                </div>
-
-            </section>
-
-            <!-- BARRA LATERAL (ASIDE) -->
-            <aside class="col-lg-4">
-                
-                <!-- BUSCADOR -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-body">
-                        <h6 class="fw-bold mb-3">🔍 Buscar en Noticias</h6>
-                        <form onsubmit="event.preventDefault();">
-                            <div class="input-group">
-                                <input type="text" class="form-control form-control-sm" placeholder="Ej: Cracks FC, Fixture, Junior...">
-                                <button class="btn btn-success btn-sm" type="submit">Buscar</button>
-                            </div>
-                        </form>
+                        <span class="badge bg-secondary mb-2">Deportes</span>
+                        <h3 class="h5 fw-bold text-dark">Resumen de la Fecha 10</h3>
+                        <p class="small text-muted mb-3">Goleadas, sorpresas y un nuevo líder absoluto en la tabla de posiciones tras el súper clásico.</p>
+                        <a href="#" class="text-success fw-bold text-decoration-none">Leer más →</a>
                     </div>
                 </div>
-
-                <!-- CATEGORÍAS DE NOTICIAS -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-success text-white fw-bold">
-                        📂 Categorías
-                    </div>
-                    <div class="list-group list-group-flush small">
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            Serie Senior <span class="badge bg-success rounded-pill">4</span>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            Serie Junior <span class="badge bg-secondary rounded-pill">3</span>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            Super Senior & Dorada <span class="badge bg-secondary rounded-pill">5</span>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            Diamante & Legendarios <span class="badge bg-secondary rounded-pill">6</span>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                            Comunicados Oficiales <span class="badge bg-secondary rounded-pill">2</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- LO MÁS LEÍDO -->
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white fw-bold text-dark py-3">
-                        🔥 Lo más leído
-                    </div>
-                    <div class="list-group list-group-flush small">
-                        <a href="#" class="list-group-item list-group-item-action py-3">
-                            <div class="fw-bold text-dark mb-1">Tabla de Posiciones de la Serie Senior al día</div>
-                            <small class="text-muted">Revisa cómo marchan los 7 equipos de la categoría tras los últimos cruces.</small>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action py-3">
-                            <div class="fw-bold text-dark mb-1">Coyotes FC vs. Búfalos FC en Diamante</div>
-                            <small class="text-muted">Análisis del contundente triunfo 4-1 de Coyotes FC.</small>
-                        </a>
-                        <a href="#" class="list-group-item list-group-item-action py-3">
-                            <div class="fw-bold text-dark mb-1">Normativa de e-Tickets y acceso a los estadios</div>
-                            <small class="text-muted">Toda la información sobre códigos QR y validación en puerta.</small>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- BANNER COMERCIAL / ENTRADAS -->
-                <div class="bg-dark text-white p-4 rounded text-center shadow-sm">
-                    <span class="fs-1">🎟️</span>
-                    <h5 class="fw-bold mt-2">¡Apoya a tu equipo!</h5>
-                    <p class="small text-white-50 mb-3">Compra tus entradas digitales antes de que se agoten los aforos por cancha.</p>
-                    <a href="entradas.html" class="btn btn-success btn-sm w-100 fw-bold">Ver Entradas Disponibles</a>
-                </div>
-
-            </aside>
-
-        </div>
-    </main>
-
-    <!-- ========================================== -->
-    <!-- PIE DE PÁGINA (FOOTER)                     -->
-    <!-- ========================================== -->
-    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
-        <div class="container">
-            <div class="row g-4">
-                
-                <!-- Columna 1: Info Institucional -->
-                <div class="col-md-4">
-                    <h6 class="fw-bold text-success">LIF — Liga Independiente de Fútbol</h6>
-                    <p class="small text-white-50">Sitio oficial de la Liga Independiente de Fútbol.</p>
-                </div>
-
-                <!-- Columna 2: Enlaces Rápidos -->
-                <div class="col-md-4">
-                    <h6 class="fw-bold">Navegación</h6>
-                    <a href="partidos.html" class="d-block text-white-50 text-decoration-none small mb-1">Partidos</a>
-                    <a href="entradas.html" class="d-block text-white-50 text-decoration-none small mb-1">Entradas</a>
-                    <a href="noticias.html" class="d-block text-white-50 text-decoration-none small mb-1">Noticias</a>
-                    <a href="contacto.html" class="d-block text-white-50 text-decoration-none small">Contacto</a>
-                </div>
-
-                <!-- Columna 3: Suscripción Boletín -->
-                <div class="col-md-4">
-                    <h6 class="fw-bold">Boletín Informativo</h6>
-                    <p class="small text-white-50">Recibe las novedades del campeonato en tu correo.</p>
-                    <form class="d-flex gap-2" onsubmit="event.preventDefault(); this.reset();">
-                        <input type="email" class="form-control form-control-sm" placeholder="Tu correo" required>
-                        <button class="btn btn-success btn-sm" type="submit">Suscribir</button>
-                    </form>
-                </div>
-
             </div>
 
-            <hr class="border-secondary mt-4 mb-3">
-            
-            <!-- Derechos de autor -->
-            <div class="text-center small text-white-50">
-                © 2026 LIF (Liga Independiente de Fútbol). Todos los derechos reservados.
+            <!-- Noticia 2 -->
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover">
+                    <div class="bg-light text-center py-4 border-bottom"><span class="display-4 opacity-75">⚖️</span></div>
+                    <div class="card-body p-4">
+                        <span class="badge bg-danger mb-2">Tribunal</span>
+                        <h3 class="h5 fw-bold text-dark">Nuevas Sanciones Disciplinarias</h3>
+                        <p class="small text-muted mb-3">El tribunal ha publicado el acta N° 05 con duras sanciones para los equipos involucrados en incidentes.</p>
+                        <a href="actas.html" class="text-success fw-bold text-decoration-none">Ver Acta →</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Noticia 3 -->
+            <div class="col">
+                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover">
+                    <div class="bg-light text-center py-4 border-bottom"><span class="display-4 opacity-75">🏟️</span></div>
+                    <div class="card-body p-4">
+                        <span class="badge bg-primary mb-2">Infraestructura</span>
+                        <h3 class="h5 fw-bold text-dark">Mejoras en el Complejo Norte</h3>
+                        <p class="small text-muted mb-3">Se han inaugurado nuevas graderías techadas para mejorar la experiencia de nuestros hinchas.</p>
+                        <a href="complejos.html" class="text-success fw-bold text-decoration-none">Ver Complejo →</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Paginación de Bootstrap -->
+        <nav aria-label="Navegación de páginas de noticias">
+            <ul class="pagination justify-content-center">
+                <li class="page-item disabled">
+                    <a class="page-link border-0 shadow-sm rounded-start-pill text-muted" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+                </li>
+                <li class="page-item active" aria-current="page">
+                    <a class="page-link border-0 shadow-sm bg-success text-white" href="#">1</a>
+                </li>
+                <li class="page-item"><a class="page-link border-0 shadow-sm text-success" href="#">2</a></li>
+                <li class="page-item"><a class="page-link border-0 shadow-sm text-success" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link border-0 shadow-sm rounded-end-pill text-success fw-bold" href="#">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+
+    </main>
+
+    <!-- ==========================================
+         4. FOOTER ESTRUCTURADO
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="reglamento.html" class="text-success text-decoration-none fw-bold">Reglamento Oficial</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- ========================================== -->
-    <!-- SCRIPTS ENLAZADOS LOCALMENTE               -->
-    <!-- ========================================== -->
+    <!-- ==========================================
+         5. SCRIPTS
+         ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/datos.js"></script>
-    <script src="assets/js/validaciones.js"></script>
-    <script src="assets/js/carrito.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>

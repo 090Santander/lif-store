@@ -1,5 +1,5 @@
 /**
- * datos.js - Base de datos simulada para la Liga Independiente de Fútbol (LIF)
+ * datos.js - Base de datos simulada para LIF
  */
 
 const DATOS_LIF = {

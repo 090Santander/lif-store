@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sedes, canchas y complejos deportivos de la Liga Independiente de Fútbol (LIF).">
+    <title>Complejos | LIF - Liga Independiente de Fútbol</title>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <!-- ==========================================
+         1. NAVEGACIÓN
+         ========================================== -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">🎟️ Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==========================================
+         2. BANNER HERO
+         ========================================== -->
+    <section class="hero-green text-white py-4 text-center">
+        <div class="container py-2">
+            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-2 shadow-sm">Infraestructura</span>
+            <h1 class="fw-black display-6 mb-0 text-shadow">Nuestras Sedes</h1>
+            <p class="mb-0 mt-2 text-white-50 small">Conoce dónde se vive la pasión de nuestra liga</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         3. CONTENIDO PRINCIPAL (TABS / PESTAÑAS)
+         ========================================== -->
+    <main class="container py-5 flex-grow-1">
+        
+        <!-- Pestañas de Navegación de Sedes -->
+        <ul class="nav nav-pills justify-content-center mb-5 gap-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active rounded-pill px-4 fw-bold shadow-sm" id="pills-principal-tab" data-bs-toggle="pill" data-bs-target="#pills-principal" type="button" role="tab" aria-controls="pills-principal" aria-selected="true">
+                    🏟️ Sede Principal
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link rounded-pill px-4 fw-bold shadow-sm bg-white text-secondary" id="pills-norte-tab" data-bs-toggle="pill" data-bs-target="#pills-norte" type="button" role="tab" aria-controls="pills-norte" aria-selected="false">
+                    🥅 Sede Norte
+                </button>
+            </li>
+        </ul>
+
+        <!-- Contenido de las Pestañas -->
+        <div class="tab-content" id="pills-tabContent">
+            
+            <!-- CONTENIDO SEDE PRINCIPAL -->
+            <div class="tab-pane fade show active" id="pills-principal" role="tabpanel" aria-labelledby="pills-principal-tab">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="row g-0">
+                        <!-- Columna de Información -->
+                        <div class="col-lg-6 p-4 p-md-5 d-flex flex-column justify-content-center">
+                            <span class="badge bg-success mb-3 align-self-start px-3 py-2 rounded-pill">Sede Oficial LIF</span>
+                            <h2 class="h3 fw-black text-dark mb-2">Complejo Deportivo Principal</h2>
+                            <p class="text-muted fw-bold mb-4">📍 Av. Las Industrias, San Joaquín.</p>
+                            <p class="text-secondary mb-4">Nuestra sede matriz cuenta con 3 canchas de pasto sintético certificadas con estándar FIFA, graderías techadas con capacidad para 500 espectadores e iluminación LED de última generación para partidos nocturnos.</p>
+                            
+                            <h3 class="h6 fw-bold text-dark mb-3">Servicios disponibles:</h3>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="badge bg-light text-dark border p-2">🚗 Estacionamiento Privado</span>
+                                <span class="badge bg-light text-dark border p-2">🚿 Camarines con Agua Caliente</span>
+                                <span class="badge bg-light text-dark border p-2">🍔 Casino y Cafetería</span>
+                                <span class="badge bg-light text-dark border p-2">🚑 Primeros Auxilios</span>
+                            </div>
+                            
+                            <!-- Botón con enlace real a Google Maps abriendo en pestaña nueva -->
+                            <a href="https://maps.google.com/?q=San+Joaquin+Santiago+Chile" target="_blank" rel="noopener noreferrer" class="btn btn-success fw-bold rounded-pill shadow-sm align-self-start px-4">Cómo llegar (Ver Mapa)</a>
+                        </div>
+                        
+                        <!-- Columna del Mapa (Google Maps Real) -->
+                        <div class="col-lg-6 bg-light border-start">
+                            <div class="ratio ratio-1x1 h-100 min-vh-50">
+                                <!-- Iframe real de Google Maps -->
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26615.11162386903!2d-70.639148!3d-33.498844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662cffd37173e35%3A0xc3c544d673ea93cb!2sSan%20Joaqu%C3%ADn%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1700000000000!5m2!1ses!2scl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CONTENIDO SEDE NORTE -->
+            <div class="tab-pane fade" id="pills-norte" role="tabpanel" aria-labelledby="pills-norte-tab">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="row g-0 flex-lg-row-reverse">
+                        <!-- Columna de Información -->
+                        <div class="col-lg-6 p-4 p-md-5 d-flex flex-column justify-content-center">
+                            <span class="badge bg-secondary mb-3 align-self-start px-3 py-2 rounded-pill">Sede Alternativa</span>
+                            <h2 class="h3 fw-black text-dark mb-2">Canchas Norte FC</h2>
+                            <p class="text-muted fw-bold mb-4">📍 Av. Independencia, Sector Norte.</p>
+                            <p class="text-secondary mb-4">Sede tradicional utilizada principalmente para las series Junior, Femenina y partidos amistosos. Destaca por mantener 2 canchas de pasto natural en excelente estado y un ambiente altamente familiar.</p>
+                            
+                            <h3 class="h6 fw-bold text-dark mb-3">Servicios disponibles:</h3>
+                            <div class="d-flex flex-wrap gap-2 mb-4">
+                                <span class="badge bg-light text-dark border p-2">🚗 Estacionamiento Público</span>
+                                <span class="badge bg-light text-dark border p-2">🚿 Camarines Básicos</span>
+                                <span class="badge bg-light text-dark border p-2">🥤 Kiosco</span>
+                            </div>
+                            
+                            <!-- Botón con enlace real a Google Maps abriendo en pestaña nueva -->
+                            <a href="https://maps.google.com/?q=Independencia+Santiago+Chile" target="_blank" rel="noopener noreferrer" class="btn btn-secondary fw-bold rounded-pill shadow-sm align-self-start px-4">Cómo llegar (Ver Mapa)</a>
+                        </div>
+                        
+                        <!-- Columna del Mapa (Google Maps Real) -->
+                        <div class="col-lg-6 bg-light border-end">
+                            <div class="ratio ratio-1x1 h-100 min-vh-50">
+                                <!-- Iframe real de Google Maps -->
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26636.564753738097!2d-70.6698182!3d-33.4150821!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9662c5e533087027%3A0x868d40049964e590!2sIndependencia%2C%20Regi%C3%B3n%20Metropolitana!5e0!3m2!1ses!2scl!4v1700000000000!5m2!1ses!2scl" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- ==========================================
+         4. FOOTER ESTRUCTURADO
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="reglamento.html" class="text-success text-decoration-none fw-bold">Reglamento Oficial</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         5. SCRIPTS
+         ========================================== -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    
+    <!-- Script opcional para que los botones de tabs inactivos mantengan el estilo gris -->
+    <script>
+        document.querySelectorAll('button[data-bs-toggle="pill"]').forEach(button => {
+            button.addEventListener('shown.bs.tab', event => {
+                event.target.classList.remove('bg-white', 'text-secondary');
+                event.relatedTarget.classList.add('bg-white', 'text-secondary');
+            });
+        });
+    </script>
+</body>
+</html>

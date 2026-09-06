@@ -1,118 +1,107 @@
-/* ==========================================
-   VARIABLES DE TEMA Y COLORES
-   ========================================== */
+/* ==========================================================================
+   LIF - HOJA DE ESTILOS MINIMALISTA (TEMA VERDE)
+   ========================================================================== */
+
+/* --- VARIABLES GLOBALES --- */
 :root {
-    --verde-primario: #2ecc71;
-    --verde-hover: #27ae60;
-    --verde-oscuro: #1e8449;
-    --verde-suave: #e8f8f0;
+    --lif-green-dark: #0a3622;
+    --lif-green: #198754;
+    --lif-bg-soft: #f4f7f5;
+    --lif-accent: #ffc107;
+    --lif-text: #212529;
+    --lif-transition: all 0.25s ease-in-out;
 }
 
-/* ==========================================
-   SOBRESCRITURA DE CLASES BOOTSTRAP
-   ========================================== */
-.bg-primary {
-    background-color: var(--verde-primario) !important;
+/* --- BASE Y TIPOGRAFÍA --- */
+body {
+    background-color: var(--lif-bg-soft);
+    color: var(--lif-text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 
-.text-primary {
-    color: var(--verde-primario) !important;
+.fw-black { font-weight: 900; }
+.extra-small { font-size: 0.75rem; }
+
+/* --- ENCABEZADO Y LOGO --- */
+.bg-dark-green {
+    background-color: var(--lif-green-dark) !important;
 }
 
-/* Botón Principal (Verde) */
-.btn-primary {
-    background-color: var(--verde-primario) !important;
-    border-color: var(--verde-primario) !important;
-    color: #000000 !important;
-    font-weight: 600;
-    transition: all 0.2s ease-in-out;
-}
-
-.btn-primary:hover,
-.btn-primary:focus {
-    background-color: var(--verde-hover) !important;
-    border-color: var(--verde-hover) !important;
-    color: #ffffff !important;
-}
-
-/* Botón Outline Verde */
-.btn-outline-primary {
-    color: var(--verde-oscuro) !important;
-    border-color: var(--verde-primario) !important;
-    font-weight: 600;
-}
-
-.btn-outline-primary:hover {
-    background-color: var(--verde-primario) !important;
-    border-color: var(--verde-primario) !important;
-    color: #000000 !important;
-}
-
-/* ==========================================
-   HEADER Y NAVBAR
-   ========================================== */
-.navbar-verde {
-    background-color: var(--verde-primario) !important;
-}
-
-.navbar-verde .navbar-brand {
-    color: #000000 !important;
-}
-
-.navbar-verde .nav-link {
-    color: #111111 !important;
-    font-weight: 600;
-    padding-left: 0.8rem !important;
-    padding-right: 0.8rem !important;
-    transition: color 0.2s ease;
-}
-
-.navbar-verde .nav-link:hover,
-.navbar-verde .nav-link.active {
-    color: #ffffff !important;
-}
-
-/* Ajustes de tamaño reducidos */
 .logo-header {
-    max-height: 150px;
+    height: 48px;
     width: auto;
+    object-fit: contain;
 }
 
-.header-compact {
-    padding-top: 0.35rem !important;
-    padding-bottom: 0.35rem !important;
+.nav-link {
+    font-size: 0.9rem;
+    transition: var(--lif-transition);
 }
 
-/* ==========================================
-   CARRUSEL Y SECCIONES
-   ========================================== */
-.hero-carousel .carousel-item {
-    min-height: 360px;
+.nav-link:hover, .nav-link.active {
+    color: var(--lif-accent) !important;
 }
 
-.hero-carousel h1, 
-.hero-carousel h2 {
-    letter-spacing: -0.5px;
+/* --- HERO Y TARJETAS MINIMALISTAS --- */
+.hero-green {
+    background: linear-gradient(135deg, var(--lif-green-dark) 0%, var(--lif-green) 100%);
+    border-bottom: 4px solid var(--lif-accent);
 }
 
-/* ==========================================
-   SOPORTE DE MODO OSCURO (JS)
-   ========================================== */
-body.modo-oscuro {
-    background-color: #121212 !important;
-    color: #e0e0e0 !important;
+.card-hover {
+    transition: var(--lif-transition);
+    border: 1px solid rgba(25, 135, 84, 0.12) !important;
 }
 
-body.modo-oscuro .card {
-    background-color: #1e1e1e !important;
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(10, 54, 34, 0.12) !important;
+}
+
+/* ==========================================================================
+   MODO OSCURO (DARK MODE) COMPATIBLE CON BOOTSTRAP
+   ========================================================================== */
+
+/* 1. Fondo principal (Mantenemos tu tono verde súper oscuro: #121815) */
+body.dark-mode, 
+body.dark-mode.bg-light {
+    background-color: #121815 !important;
+    color: #e9ecef !important;
+}
+
+/* 2. Tarjetas y fondos blancos pasan a tu verde secundario oscuro (#1a231e) */
+body.dark-mode .bg-light,
+body.dark-mode .bg-white,
+body.dark-mode .card,
+body.dark-mode .list-group-item,
+body.dark-mode .table {
+    background-color: #1a231e !important;
+    color: #f8f9fa !important;
+    border-color: #2c3e35 !important;
+}
+
+/* 3. Textos que eran oscuros ahora son blancos para que se lean bien */
+body.dark-mode .text-dark,
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5,
+body.dark-mode h6 {
     color: #ffffff !important;
 }
 
-body.modo-oscuro .bg-light {
-    background-color: #1a1a1a !important;
-    color: #ffffff !important;
+/* 4. Textos secundarios a gris clarito */
+body.dark-mode .text-muted,
+body.dark-mode .text-secondary {
+    color: #adb5bd !important;
 }
 
-body.modo-oscuro .text-muted {
-    color: #a0a0a0 !important;
+/* 5. Bordes en general (un gris-verde sutil) */
+body.dark-mode .border,
+body.dark-mode .border-bottom,
+body.dark-mode .border-top,
+body.dark-mode .border-start,
+body.dark-mode .border-end {
+    border-color: #2c3e35 !important;
 }

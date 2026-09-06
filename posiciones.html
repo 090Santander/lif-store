@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Posiciones | LIF - Liga Independiente de Fútbol</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body>
+
+    <!-- NAV BAR (Consistente con todo el sitio) -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="posiciones.html">Posiciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-2">
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">🎟️ Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- BANNER HERO -->
+    <section class="hero-green text-white py-4 text-center">
+        <div class="container py-2">
+            <span class="badge bg-light text-success fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Estadísticas</span>
+            <h1 class="fw-black display-6 mb-0">Tabla de Posiciones</h1>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL (TABLA) -->
+    <main class="container py-5">
+        
+        <!-- SELECTOR DE CATEGORÍA (Diseño de "Píldoras") -->
+        <ul class="nav nav-pills justify-content-center mb-4 gap-2">
+            <li class="nav-item"><a class="nav-link active bg-success rounded-pill fw-bold" href="#">Serie Senior</a></li>
+            <li class="nav-item"><a class="nav-link text-dark rounded-pill fw-bold border" href="#">Serie Honor</a></li>
+            <li class="nav-item"><a class="nav-link text-dark rounded-pill fw-bold border" href="#">Serie Junior</a></li>
+        </ul>
+
+        <!-- TABLA PRINCIPAL DE CLASIFICACIÓN -->
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle text-center m-0">
+                            <!-- Cabecera de la tabla -->
+                            <thead class="bg-dark-green text-white extra-small text-uppercase">
+                                <tr>
+                                    <th class="py-3">Pos</th>
+                                    <th class="text-start py-3 w-25">Equipo</th>
+                                    <th class="py-3" title="Partidos Jugados">PJ</th>
+                                    <th class="py-3" title="Partidos Ganados">PG</th>
+                                    <th class="py-3" title="Partidos Empatados">PE</th>
+                                    <th class="py-3" title="Partidos Perdidos">PP</th>
+                                    <th class="py-3" title="Diferencia de Goles">DIF</th>
+                                    <th class="py-3 fs-6">PTS</th>
+                                </tr>
+                            </thead>
+                            <!-- Cuerpo de la tabla -->
+                            <tbody class="small">
+                                <!-- El primer lugar se destaca en verde -->
+                                <tr class="table-success">
+                                    <td class="fw-bold fs-5 text-success">1</td>
+                                    <td class="text-start fw-bold fs-6">🏆 Cracks FC</td>
+                                    <td>5</td><td>4</td><td>1</td><td>0</td><td>+8</td>
+                                    <td class="fw-black fs-5 text-success">13</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">2</td>
+                                    <td class="text-start fw-bold">Inter Santiago</td>
+                                    <td>5</td><td>3</td><td>2</td><td>0</td><td>+5</td>
+                                    <td class="fw-bold fs-6">11</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">3</td>
+                                    <td class="text-start fw-bold">Zánganos FC</td>
+                                    <td>5</td><td>2</td><td>1</td><td>2</td><td>0</td>
+                                    <td class="fw-bold fs-6">7</td>
+                                </tr>
+                                <tr>
+                                    <td class="fw-bold">4</td>
+                                    <td class="text-start fw-bold">Unión Cordillera</td>
+                                    <td>5</td><td>1</td><td>2</td><td>2</td><td>-2</td>
+                                    <td class="fw-bold fs-6">5</td>
+                                </tr>
+                                <!-- El último lugar se marca sutilmente -->
+                                <tr class="table-danger text-opacity-75">
+                                    <td class="fw-bold">5</td>
+                                    <td class="text-start fw-bold">Mónica FC</td>
+                                    <td>5</td><td>0</td><td>0</td><td>5</td><td>-11</td>
+                                    <td class="fw-bold fs-6">0</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!-- Leyenda explicativa mínima -->
+                <div class="mt-3 text-end extra-small text-muted">
+                    <span>* PJ: Partidos Jugados | PTS: Puntos Totales</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-dark-green text-white py-3 border-top border-success mt-auto">
+        <div class="container text-center extra-small text-white-50">
+            © 2026 LIF - Liga Independiente de Fútbol.
+        </div>
+    </footer>
+
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

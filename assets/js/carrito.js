@@ -4,18 +4,15 @@
 
 const KEY_CARRITO = "LIF_CARRITO_ENTRADAS";
 
-// Obtener elementos del carrito
 function obtenerCarrito() {
     return JSON.parse(localStorage.getItem(KEY_CARRITO)) || [];
 }
 
-// Guardar carrito y actualizar UI
 function guardarCarrito(carrito) {
     localStorage.setItem(KEY_CARRITO, JSON.stringify(carrito));
     actualizarBadgeCarrito();
 }
 
-// Agregar ticket al carrito
 function agregarAlCarrito(idPartido, tipoLocalidad = "Galería General", precio = 3000) {
     let carrito = obtenerCarrito();
     let partido = DATOS_LIF.partidos.find(p => p.id === idPartido) || {
@@ -36,10 +33,9 @@ function agregarAlCarrito(idPartido, tipoLocalidad = "Galería General", precio 
 
     carrito.push(item);
     guardarCarrito(carrito);
-    alert(`🎟️ Entrada agregada: ${item.encuentro} (${item.localidad})`);
+    alert(`🎟️ Entrada agregada al carrito: ${item.encuentro} (${item.localidad})`);
 }
 
-// Eliminar ticket por ID
 function eliminarDelCarrito(idUnico) {
     let carrito = obtenerCarrito();
     carrito = carrito.filter(item => item.idUnico !== idUnico);
@@ -47,14 +43,26 @@ function eliminarDelCarrito(idUnico) {
     if (typeof renderizarCarrito === "function") renderizarCarrito();
 }
 
-// Vaciar carrito
 function vaciarCarrito() {
+    if (confirm("¿Estás seguro de que deseas vaciar el carrito?")) {
+        localStorage.removeItem(KEY_CARRITO);
+        actualizarBadgeCarrito();
+        if (typeof renderizarCarrito === "function") renderizarCarrito();
+    }
+}
+
+function finalizarCompra() {
+    let carrito = obtenerCarrito();
+    if (carrito.length === 0) {
+        alert("Tu carrito está vacío.");
+        return;
+    }
+    alert("🎉 ¡Compra realizada con éxito! Tus e-Tickets han sido generados.");
     localStorage.removeItem(KEY_CARRITO);
     actualizarBadgeCarrito();
     if (typeof renderizarCarrito === "function") renderizarCarrito();
 }
 
-// Actualizar contador del badge en el Navbar
 function actualizarBadgeCarrito() {
     const badges = document.querySelectorAll(".badge-carrito");
     const totalItems = obtenerCarrito().length;
@@ -63,7 +71,6 @@ function actualizarBadgeCarrito() {
     });
 }
 
-// Renderizar tabla del carrito si la página lo requiere (carrito.html)
 function renderizarCarrito() {
     const contenedor = document.getElementById("contenedor-carrito");
     const totalElem = document.getElementById("total-carrito");
@@ -75,7 +82,7 @@ function renderizarCarrito() {
     if (carrito.length === 0) {
         contenedor.innerHTML = `
             <tr>
-                <td colspan="5" class="text-center py-4 text-muted">
+                <td colspan="4" class="text-center py-4 text-muted">
                     No tienes entradas agregadas a tu carrito.
                 </td>
             </tr>`;
@@ -92,7 +99,7 @@ function renderizarCarrito() {
                 <td><span class="badge bg-secondary">${item.localidad}</span></td>
                 <td>$${item.precio.toLocaleString("es-CL")}</td>
                 <td class="text-center">
-                    <button onclick="eliminarDelCarrito(${item.idUnico})" class="btn btn-outline-danger btn-sm">🗑️</button>
+                    <button onclick="eliminarDelCarrito(${item.idUnico})" class="btn btn-outline-danger btn-sm" title="Eliminar">🗑️</button>
                 </td>
             </tr>`;
     });

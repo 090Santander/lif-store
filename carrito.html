@@ -3,162 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras | LIF</title>
+    <meta name="description" content="Carrito de compras de entradas LIF.">
+    <title>Carrito de Compras | LIF - Liga Independiente de Fútbol</title>
+    <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- HEADER / NAVEGACIÓN -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
-            <div class="container">
+    <!-- ==========================================
+         1. NAVEGACIÓN
+         ========================================== -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header">
-                    <span class="fw-bold fs-5">LIF</span>
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
                     </ul>
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <a href="login.html" class="btn btn-outline-dark btn-sm fw-semibold">Iniciar sesión</a>
-                        <a href="registro.html" class="btn btn-dark btn-sm">Registrarme</a>
-                        <a href="carrito.html" class="btn btn-dark btn-sm active">🎟️ Mis Entradas (<span class="badge-carrito text-white">2</span>)</a>
-                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button">🌙 Modo Oscuro</button>
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark shadow-sm">🛒 Mi Carrito (2)</a>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- BANNER -->
-    <section class="bg-dark text-white py-4 text-center">
-        <div class="container py-2">
-            <span class="badge bg-success mb-2 fw-bold">Proceso de Pago Seguro</span>
-            <h1 class="h3 fw-bold mb-1">Tu Carrito de Entradas</h1>
-            <p class="small text-white-50 mb-0">Revisa el detalle de tus tickets antes de finalizar la compra</p>
+    <!-- ==========================================
+         2. BANNER HERO
+         ========================================== -->
+    <section class="bg-success text-white py-4">
+        <div class="container">
+            <h1 class="fw-black display-6 mb-0 text-shadow">Tu Carrito</h1>
+            <p class="mb-0 mt-1 text-white-50 small">Revisa tus e-Tickets antes de pagar</p>
         </div>
     </section>
 
-    <!-- MAIN -->
-    <main class="container my-4">
+    <!-- ==========================================
+         3. CONTENIDO DEL CARRITO (GRILLA DIVIDIDA)
+         ========================================== -->
+    <main class="container py-5 flex-grow-1">
         <div class="row g-4">
             
-            <!-- LISTA DE PRODUCTOS -->
-            <section class="col-lg-8">
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-white fw-bold text-dark py-3 d-flex justify-content-between align-items-center">
-                        <span>🎟️ Entradas Seleccionadas</span>
-                        <button class="btn btn-outline-danger btn-sm" id="btnVaciarCarrito">🗑️ Vaciar Carrito</button>
+            <!-- COLUMNA IZQUIERDA: Lista de Productos -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                    <div class="card-header bg-white py-3 fw-bold border-bottom">
+                        Entradas Seleccionadas (2)
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle m-0 small" id="tablaCarrito">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>Detalle del Partido</th>
-                                    <th>Localidad</th>
-                                    <th>Precio</th>
-                                    <th style="width: 100px;">Cantidad</th>
-                                    <th class="text-end">Subtotal</th>
-                                    <th class="text-center">Acción</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <div class="fw-bold">San Joaquín vs. Maipú FC</div>
-                                        <small class="text-muted">Sáb 19 Sept - 15:00 | Estadio Principal</small>
-                                    </td>
-                                    <td><span class="badge bg-secondary">Galería General</span></td>
-                                    <td>$3.000</td>
-                                    <td><input type="number" class="form-control form-control-sm text-center" value="1" min="1"></td>
-                                    <td class="text-end fw-bold text-success">$3.000</td>
-                                    <td class="text-center"><button class="btn btn-sm btn-outline-danger border-0">✖</button></td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <div class="fw-bold">Stade Francais vs. Athletic Club</div>
-                                        <small class="text-muted">Sáb 19 Sept - 17:30 | Cancha 2 (F11)</small>
-                                    </td>
-                                    <td><span class="badge bg-success">Tribuna Preferencial</span></td>
-                                    <td>$5.000</td>
-                                    <td><input type="number" class="form-control form-control-sm text-center" value="1" min="1"></td>
-                                    <td class="text-end fw-bold text-success">$5.000</td>
-                                    <td class="text-center"><button class="btn btn-sm btn-outline-danger border-0">✖</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+                    <div class="list-group list-group-flush">
+                        
+                        <!-- Ítem 1 -->
+                        <div class="list-group-item p-4">
+                            <div class="row align-items-center g-3">
+                                <div class="col-auto">
+                                    <span class="display-6 text-success opacity-75">🎟️</span>
+                                </div>
+                                <div class="col">
+                                    <h5 class="mb-1 fw-bold text-dark">Ticket General - Sábado</h5>
+                                    <p class="mb-0 text-muted extra-small">Acceso a galería. Válido para 1 persona.</p>
+                                </div>
+                                <div class="col-12 col-sm-auto d-flex align-items-center gap-3">
+                                    <!-- Selector de cantidad -->
+                                    <input type="number" class="form-control text-center rounded-3 border-success" value="2" min="1" max="10" style="width: 70px;">
+                                    <span class="fw-bold text-dark" style="width: 80px; text-align: right;">$7.000</span>
+                                    <button class="btn btn-sm btn-outline-danger border-0" aria-label="Eliminar">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
 
-                <!-- CUPÓN DE DESCUENTO -->
-                <div class="card border-0 shadow-sm p-3">
-                    <div class="row g-2 align-items-center">
-                        <div class="col-md-7">
-                            <h6 class="fw-bold mb-1">🎫 ¿Tienes un código promocional o de socio?</h6>
-                            <p class="small text-muted mb-0">Ingresa tu código para aplicar un descuento exclusivo.</p>
+                        <!-- Ítem 2 -->
+                        <div class="list-group-item p-4">
+                            <div class="row align-items-center g-3">
+                                <div class="col-auto">
+                                    <span class="display-6 text-warning opacity-75">🎫</span>
+                                </div>
+                                <div class="col">
+                                    <h5 class="mb-1 fw-bold text-dark">Pase Tribuna VIP</h5>
+                                    <p class="mb-0 text-muted extra-small">Butaca techada y acceso a cafetería.</p>
+                                </div>
+                                <div class="col-12 col-sm-auto d-flex align-items-center gap-3">
+                                    <!-- Selector de cantidad -->
+                                    <input type="number" class="form-control text-center rounded-3 border-success" value="1" min="1" max="10" style="width: 70px;">
+                                    <span class="fw-bold text-dark" style="width: 80px; text-align: right;">$8.000</span>
+                                    <button class="btn btn-sm btn-outline-danger border-0" aria-label="Eliminar">🗑️</button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-md-5">
-                            <form class="d-flex gap-2" onsubmit="event.preventDefault();">
-                                <input type="text" class="form-control form-control-sm" placeholder="Código de descuento">
-                                <button class="btn btn-dark btn-sm text-nowrap" type="submit">Aplicar</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
-            <!-- RESUMEN -->
-            <aside class="col-lg-4">
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-success text-white fw-bold py-3">
-                        📋 Resumen del Pedido
-                    </div>
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between mb-2 small">
-                            <span class="text-muted">Subtotal:</span>
-                            <span class="fw-semibold" id="resumenSubtotal">$8.000</span>
-                        </div>
-                        <div class="d-flex justify-content-between mb-2 small">
-                            <span class="text-muted">Descuento:</span>
-                            <span class="text-success fw-semibold" id="resumenDescuento">-$1.500</span>
-                        </div>
-                        <hr class="my-3">
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <span class="fw-bold">Total a Pagar:</span>
-                            <span class="fw-bold fs-4 text-success" id="resumenTotal">$6.500</span>
-                        </div>
-                        <a href="contacto.html" class="btn btn-success w-100 fw-bold py-2 mb-2">Pagar e-Tickets 🔒</a>
-                        <a href="entradas.html" class="btn btn-outline-dark btn-sm w-100">← Seguir comprando</a>
                     </div>
                 </div>
-            </aside>
+                
+                <a href="entradas.html" class="text-success fw-bold text-decoration-none">← Seguir comprando</a>
+            </div>
+
+            <!-- COLUMNA DERECHA: Resumen de Compra -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 sticky-lg-top" style="top: 100px;">
+                    <h4 class="fw-bold h5 mb-4">Resumen de Orden</h4>
+                    
+                    <div class="d-flex justify-content-between mb-2 small">
+                        <span class="text-muted">Subtotal (3 items)</span>
+                        <span class="fw-bold">$15.000</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 small">
+                        <span class="text-muted">Cargo por servicio (10%)</span>
+                        <span class="fw-bold">$1.500</span>
+                    </div>
+                    
+                    <hr class="border-secondary">
+                    
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="fw-black fs-5">Total</span>
+                        <span class="fw-black fs-5 text-success">$16.500</span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-warning fw-bold text-dark rounded-pill py-2 shadow-sm">Proceder al Pago</button>
+                    </div>
+                    
+                    <div class="mt-4 text-center">
+                        <p class="extra-small text-muted mb-2">Medios de pago aceptados</p>
+                        <div class="d-flex justify-content-center gap-2 opacity-50">
+                            <span class="fs-4">💳</span> <span class="fs-4">🏦</span> <span class="fs-4">📱</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </main>
 
-    <!-- FOOTER -->
-    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
-        <div class="container text-center small text-white-50">
-            <p class="mb-1">LIF — Liga Independiente de Fútbol</p>
-            <p class="mb-0">© 2026 LIF. Todos los derechos reservados.</p>
+    <!-- ==========================================
+         4. FOOTER ESTRUCTURADO
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h3 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h3>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h3 class="fw-bold mb-3 fs-5">Información</h3>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="reglamento.html" class="text-success text-decoration-none fw-bold">Reglamento Oficial</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+            </div>
         </div>
     </footer>
 
-    <!-- SCRIPTS EN 'assets/js/' -->
+    <!-- ==========================================
+         5. SCRIPTS
+         ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/datos.js"></script>
-    <script src="assets/js/validaciones.js"></script>
-    <script src="assets/js/carrito.js"></script>
     <script src="assets/js/app.js"></script>
 </body>
 </html>

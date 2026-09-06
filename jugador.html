@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Jugador | LIF - Liga Independiente de Fútbol</title>
+    
+    <!-- HOJAS DE ESTILO LOCALES -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body>
+
+    <!-- ENCABEZADO -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header" width="40" height="40">
+                    <span class="fw-bold fs-5">LIF</span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <a href="login.html" class="btn btn-outline-dark btn-sm fw-semibold">Iniciar sesión</a>
+                        <a href="registro.html" class="btn btn-dark btn-sm">Registrarme</a>
+                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button" aria-pressed="false">🌙 Modo Oscuro</button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- BANNER PERFIL JUGADOR -->
+    <section class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row align-items-center g-3">
+                <div class="col-auto">
+                    <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center fw-bold fs-2" style="width: 80px; height: 80px;">
+                        CP
+                    </div>
+                </div>
+                <div class="col">
+                    <span class="badge bg-success mb-1">Delantero Centro #9</span>
+                    <h1 class="h3 fw-bold mb-0">Carlos Pérez</h1>
+                    <p class="small text-white-50 mb-0">Mónica FC — Primera División</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container my-5">
+        <div class="row g-4">
+            
+            <!-- TARJETAS DE ESTADÍSTICAS -->
+            <section class="col-lg-4">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-success text-white fw-bold">
+                        📊 Rendimiento de la Temporada
+                    </div>
+                    <div class="card-body p-3">
+                        <div class="row text-center g-2">
+                            <div class="col-6">
+                                <div class="p-2 bg-light rounded border">
+                                    <div class="fs-4 fw-bold text-success">8</div>
+                                    <div class="extra-small text-muted">Partidos Jugados</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-2 bg-light rounded border">
+                                    <div class="fs-4 fw-bold text-success">9</div>
+                                    <div class="extra-small text-muted">Goles Anotados</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-2 bg-light rounded border">
+                                    <div class="fs-4 fw-bold text-warning">2</div>
+                                    <div class="extra-small text-muted">Tarjetas Amarillas</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="p-2 bg-light rounded border">
+                                    <div class="fs-4 fw-bold text-danger">0</div>
+                                    <div class="extra-small text-muted">Tarjetas Rojas</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FICHA TÉCNICA -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-dark text-white fw-bold">
+                        📋 Datos Personales
+                    </div>
+                    <ul class="list-group list-group-flush small">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Edad:</span>
+                            <strong>26 años</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Nacionalidad:</span>
+                            <strong>Chilena</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Pierna Hábil:</span>
+                            <strong>Derecha</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="text-muted">Estado de Ficha:</span>
+                            <span class="badge bg-success">Habilitado</span>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- HISTORIAL DE PARTIDOS -->
+            <section class="col-lg-8">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white fw-bold text-success py-3 border-bottom">
+                        📜 Historial Reciente de Partidos
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle m-0 small text-center">
+                            <thead class="table-light">
+                                <tr>
+                                    <th scope="col" class="text-start ps-3">Fecha</th>
+                                    <th scope="col" class="text-start">Encuentro</th>
+                                    <th scope="col">Resultado</th>
+                                    <th scope="col">Goles</th>
+                                    <th scope="col">Sanciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-start ps-3">Fecha 8</td>
+                                    <td class="text-start"><strong>Mónica FC</strong> vs. Athletic Club</td>
+                                    <td><span class="badge bg-success">2 - 1</span></td>
+                                    <td>⚽ ⚽ (2)</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start ps-3">Fecha 7</td>
+                                    <td class="text-start">Los Cabros FC vs. <strong>Mónica FC</strong></td>
+                                    <td><span class="badge bg-success">0 - 3</span></td>
+                                    <td>⚽ (1)</td>
+                                    <td>🟨 (1)</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-start ps-3">Fecha 6</td>
+                                    <td class="text-start"><strong>Mónica FC</strong> vs. Stade Francais</td>
+                                    <td><span class="badge bg-secondary">1 - 1</span></td>
+                                    <td>⚽ (1)</td>
+                                    <td>—</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
+        <div class="container text-center small text-white-50">
+            © 2026 LIF (Liga Independiente de Fútbol). Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

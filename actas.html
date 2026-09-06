@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Actas y resoluciones del tribunal de disciplina de la LIF.">
+    <title>Actas y Sanciones | LIF - Liga Independiente de Fútbol</title>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- ==========================================
+         1. NAVEGACIÓN
+         ========================================== -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">🎟️ Tickets</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==========================================
+         2. BANNER HERO
+         ========================================== -->
+    <section class="hero-green text-white py-4 text-center">
+        <div class="container py-2">
+            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-2 shadow-sm">Tribunal de Disciplina</span>
+            <h1 class="fw-black display-6 mb-0 text-shadow">Actas y Sanciones</h1>
+            <p class="mb-0 mt-2 text-white-50 small">Resoluciones oficiales de la última jornada</p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         3. CONTENIDO PRINCIPAL (ACORDEÓN BOOTSTRAP)
+         ========================================== -->
+    <main class="container py-5 flex-grow-1">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                
+                <!-- Buscador rápido -->
+                <div class="mb-4">
+                    <input type="text" class="form-control rounded-pill border-success shadow-sm" placeholder="🔍 Buscar por nombre de jugador o equipo...">
+                </div>
+
+                <!-- Acordeón de Resoluciones -->
+                <div class="accordion shadow-sm rounded-4 overflow-hidden border-0" id="acordeonActas">
+                    
+                    <!-- Item 1: Fecha 5 (Abierto por defecto) -->
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header" id="headingUno">
+                            <button class="accordion-button bg-light text-success fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUno" aria-expanded="true" aria-controls="collapseUno">
+                                ⚖️ Acta N° 05 - Resoluciones Fecha 5 (Última)
+                            </button>
+                        </h2>
+                        <div id="collapseUno" class="accordion-collapse collapse show" aria-labelledby="headingUno" data-bs-parent="#acordeonActas">
+                            <div class="accordion-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle m-0 text-center text-sm">
+                                        <thead class="table-success extra-small text-uppercase">
+                                            <tr>
+                                                <th>Jugador</th>
+                                                <th>Equipo</th>
+                                                <th>Falta</th>
+                                                <th>Sanción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="small">
+                                            <tr>
+                                                <td class="fw-bold">Juan Pérez</td>
+                                                <td>Cracks FC</td>
+                                                <td>🟥 Tarjeta Roja Directa</td>
+                                                <td><span class="badge bg-danger rounded-pill">2 Fechas</span></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="fw-bold">Diego López</td>
+                                                <td>Zánganos FC</td>
+                                                <td>🟨 Acumulación Amarillas</td>
+                                                <td><span class="badge bg-warning text-dark rounded-pill">1 Fecha</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="p-3 text-end bg-white">
+                                    <button class="btn btn-sm btn-outline-success rounded-pill fw-bold">📥 Descargar PDF completo</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Fecha 4 -->
+                    <div class="accordion-item border-0 border-bottom">
+                        <h2 class="accordion-header" id="headingDos">
+                            <button class="accordion-button collapsed bg-white fw-bold text-dark" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDos" aria-expanded="false" aria-controls="collapseDos">
+                                ⚖️ Acta N° 04 - Resoluciones Fecha 4
+                            </button>
+                        </h2>
+                        <div id="collapseDos" class="accordion-collapse collapse" aria-labelledby="headingDos" data-bs-parent="#acordeonActas">
+                            <div class="accordion-body p-4 text-center">
+                                <p class="small text-muted mb-3">Las resoluciones de esta fecha ya han sido cumplidas en su mayoría. Para ver el detalle histórico, descarga el documento oficial.</p>
+                                <button class="btn btn-sm btn-outline-secondary rounded-pill fw-bold">📥 Descargar PDF N° 04</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <p class="extra-small text-muted">Las apelaciones deben presentarse antes del día jueves a las 20:00 hrs mediante correo oficial del delegado de cada club.</p>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================
+         4. FOOTER ESTRUCTURADO
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h3 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h3>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h3 class="fw-bold mb-3 fs-5">Información</h3>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="reglamento.html" class="text-success text-decoration-none fw-bold">Reglamento Oficial</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         5. SCRIPTS
+         ========================================== -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
