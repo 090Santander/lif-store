@@ -33,23 +33,19 @@
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
                     </ul>
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
-                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
-                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">🎟️ Tickets</a>
-                    </div>
 
-                    <!-- Busca esta parte en tu navbar y agrega el botón de Modo Oscuro -->
+                    <!-- Botones de Acción y Modo Oscuro -->
                     <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
                         <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
-                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">🎟️ Tickets</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                        </a>
                         
-                        <!-- NUEVO: Botón de Modo Oscuro -->
+                        <!-- Botón de Modo Oscuro -->
                         <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
                             🌙
                         </button>
                     </div>                   
-
-
 
                 </div>
             </div>
@@ -76,7 +72,7 @@
          ========================================== -->
     <main class="container py-5 flex-grow-1">
         <div class="text-center mb-4">
-            <h2 class="h5 fw-bold text-dark text-uppercase">Accesos Directos</h2>
+            <h2 class="h5 fw-bold text-uppercase">Accesos Directos</h2>
             <div class="bg-success mx-auto mt-2" style="height: 3px; width: 40px; border-radius: 2px;"></div>
         </div>
         
@@ -85,7 +81,7 @@
                 <a href="partidos.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">⚽</span>
-                        <h3 class="h6 fw-bold text-dark mb-0">Partidos</h3>
+                        <h3 class="h6 fw-bold mb-0">Partidos</h3>
                     </div>
                 </a>
             </div>
@@ -93,7 +89,7 @@
                 <a href="posiciones.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">🏆</span>
-                        <h3 class="h6 fw-bold text-dark mb-0">Posiciones</h3>
+                        <h3 class="h6 fw-bold mb-0">Posiciones</h3>
                     </div>
                 </a>
             </div>
@@ -109,7 +105,7 @@
                 <a href="noticias.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">📰</span>
-                        <h3 class="h6 fw-bold text-dark mb-0">Noticias</h3>
+                        <h3 class="h6 fw-bold mb-0">Noticias</h3>
                     </div>
                 </a>
             </div>
@@ -117,7 +113,7 @@
                 <a href="complejos.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">🏟️</span>
-                        <h3 class="h6 fw-bold text-dark mb-0">Complejos</h3>
+                        <h3 class="h6 fw-bold mb-0">Complejos</h3>
                     </div>
                 </a>
             </div>
@@ -125,7 +121,7 @@
                 <a href="actas.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">📋</span>
-                        <h3 class="h6 fw-bold text-dark mb-0">Actas</h3>
+                        <h3 class="h6 fw-bold mb-0">Actas</h3>
                     </div>
                 </a>
             </div>
@@ -147,7 +143,7 @@
                     <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
                         <li>📍 Complejo Deportivo Principal</li>
                         <li>✉️ soporte@lifchile.cl</li>
-                        <li><a href="reglamento.html" class="text-success text-decoration-none fw-bold">Reglamento Oficial</a></li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
                     </ul>
                 </div>
             </div>
@@ -162,5 +158,6 @@
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/validaciones.js"></script>
 </body>
 </html>
