@@ -1,87 +1,202 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contacto | LIF Store</title>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/estilos.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto | LIF - Liga Independiente de Fútbol</title>
+    
+    <!-- HOJAS DE ESTILO LOCALES -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-lif">
-  <div class="container">
-    <a class="navbar-brand" href="index.html">LIF <span>Store</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navMenu">
-      <ul class="navbar-nav mx-auto">
-        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
-        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
-        <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
-        <li class="nav-item"><a class="nav-link active" href="contacto.html">Contacto</a></li>
-      </ul>
-      <a href="carrito.html" class="carrito-link d-flex align-items-center gap-2">
-        🛒 Cart (<span class="badge-carrito">0</span>)
-      </a>
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN PRINCIPAL (HEADER) -->
+    <!-- ========================================== -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
+            <div class="container">
+                
+                <!-- Logo e Identidad de la Liga -->
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header">
+                    <span class="fw-bold fs-5">LIF</span>
+                </a>
+
+                <!-- Botón Toggler para menú colapsable -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Menú de navegación -->
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="contacto.html">Contacto</a></li>
+                    </ul>
+
+                    <!-- Botones de Acción -->
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <a href="login.html" class="btn btn-outline-dark btn-sm fw-semibold">Iniciar sesión</a>
+                        <a href="registro.html" class="btn btn-dark btn-sm">Registrarme</a>
+                        <a href="carrito.html" class="btn btn-dark btn-sm">🎟️ Mis Entradas (<span class="badge-carrito text-white">0</span>)</a>
+                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button">🌙 Modo Oscuro</button>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- BANNER DE SECCIÓN -->
+    <section class="bg-dark text-white py-4 text-center">
+        <div class="container py-2">
+            <span class="badge bg-success mb-2 fw-bold">Atención a Equipos y Hinchas</span>
+            <h1 class="h3 fw-bold mb-1">Contacto y Soporte</h1>
+            <p class="small text-white-50 mb-0">¿Tienes dudas sobre fixture, inscripciones o boletería? Escríbenos directamente</p>
+        </div>
+    </section>
+
+    <!-- BREADCRUMB -->
+    <div class="bg-light py-2 border-bottom mb-4">
+        <div class="container">
+            <small class="text-muted">Inicio » Contacto</small>
+        </div>
     </div>
-  </div>
-</nav>
 
-<main class="container py-5">
-  <div class="text-center mb-4">
-    <img src="https://images.unsplash.com/photo-1614632537190-23e4146777db?w=90&q=80" class="rounded-circle mb-3" width="80" alt="Escudo LIF Store">
-    <h1 class="h4 fw-oswald text-uppercase">LIF Store</h1>
-  </div>
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container mb-5">
+        <div class="row g-4">
+            
+            <!-- FORMULARIO DE CONTACTO -->
+            <section class="col-lg-7">
+                <div class="card border-0 shadow-sm p-4">
+                    <h2 class="h5 fw-bold text-dark mb-3">💬 Envíanos un mensaje</h2>
+                    <p class="small text-muted mb-4">Completa el formulario y un coordinador de la liga responderá a la brevedad.</p>
+                    
+                    <form id="formContacto" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="nombreContacto" class="form-label small fw-semibold">Nombre Completo</label>
+                                <input type="text" class="form-control form-control-sm" id="nombreContacto" placeholder="Ej: Juan Pérez" required>
+                                <div class="invalid-feedback small">Ingresa tu nombre completo.</div>
+                            </div>
 
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <form id="form-contacto" class="form-lif" novalidate>
-        <h2 class="h6 text-uppercase texto-rojo mb-4">Formulario de contacto</h2>
+                            <div class="col-md-6">
+                                <label for="emailContacto" class="form-label small fw-semibold">Correo Electrónico</label>
+                                <input type="email" class="form-control form-control-sm" id="emailContacto" placeholder="ejemplo@correo.com" required>
+                                <div class="invalid-feedback small">Ingresa un correo válido.</div>
+                            </div>
 
-        <div class="mb-3">
-          <label for="contacto-nombre" class="form-label">Nombre completo</label>
-          <input type="text" id="contacto-nombre" class="form-control" maxlength="100">
-          <div id="contacto-nombre-error" class="mensaje-error"></div>
+                            <div class="col-md-6">
+                                <label for="telefonoContacto" class="form-label small fw-semibold">Teléfono / WhatsApp</label>
+                                <input type="tel" class="form-control form-control-sm" id="telefonoContacto" placeholder="+56 9 1234 5678">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="categoriaContacto" class="form-label small fw-semibold">Categoría / Tema</label>
+                                <select class="form-select form-select-sm" id="categoriaContacto">
+                                    <option value="General" selected>Consulta General</option>
+                                    <option value="Boleteria">Soporte e-Tickets</option>
+                                    <option value="Inscripcion">Inscripción de Club / Jugador</option>
+                                    <option value="Arbitraje">Comité Disciplinario</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="asuntoContacto" class="form-label small fw-semibold">Asunto</label>
+                                <input type="text" class="form-control form-control-sm" id="asuntoContacto" placeholder="Resumen de tu consulta" required>
+                                <div class="invalid-feedback small">Indica el asunto de tu mensaje.</div>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="mensajeContacto" class="form-label small fw-semibold">Mensaje</label>
+                                <textarea class="form-control form-control-sm" id="mensajeContacto" rows="5" placeholder="Escribe aquí los detalles..." required></textarea>
+                                <div class="invalid-feedback small">Por favor escribe tu mensaje.</div>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-success fw-bold w-100 py-2">Enviar Mensaje 🚀</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- INFORMACIÓN DE CONTACTO Y UBICACIÓN -->
+            <aside class="col-lg-5">
+                
+                <!-- CANCHAS Y SEDE -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-success text-white fw-bold py-3">
+                        📍 Recinto y Coordenadas
+                    </div>
+                    <div class="card-body small">
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            <span class="fs-4">🏟️</span>
+                            <div>
+                                <strong class="d-block text-dark">Complejo Deportivo LIF</strong>
+                                <span class="text-muted">Av. Las Torres #1230, Peñalolén, Santiago</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            <span class="fs-4">📞</span>
+                            <div>
+                                <strong class="d-block text-dark">Teléfono de Atención</strong>
+                                <span class="text-muted">+56 2 2987 6543 / +56 9 8765 4321</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start gap-3 mb-3">
+                            <span class="fs-4">✉️</span>
+                            <div>
+                                <strong class="d-block text-dark">Correo Oficial</strong>
+                                <span class="text-muted">contacto@ligalif.cl</span>
+                            </div>
+                        </div>
+
+                        <div class="d-flex align-items-start gap-3">
+                            <span class="fs-4">⏰</span>
+                            <div>
+                                <strong class="d-block text-dark">Horarios de Atención</strong>
+                                <span class="text-muted">Lunes a Viernes: 09:00 - 18:00 hrs</span><br>
+                                <span class="text-muted">Sábados y Domingos: Días de Fecha Oficial</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PREGUNTAS FRECUENTES RÁPIDAS -->
+                <div class="card border-0 shadow-sm p-3 bg-light">
+                    <h6 class="fw-bold text-dark mb-2">❓ ¿Dudas sobre e-Tickets?</h6>
+                    <p class="small text-muted mb-2">Las entradas compradas en la plataforma llegan inmediatamente en formato PDF con código QR a tu correo.</p>
+                    <a href="entradas.html" class="btn btn-outline-success btn-sm fw-bold w-100">Ir a Boletería Digital</a>
+                </div>
+
+            </aside>
+
         </div>
+    </main>
 
-        <div class="mb-3">
-          <label for="contacto-correo" class="form-label">Correo (opcional)</label>
-          <input type="text" id="contacto-correo" class="form-control" maxlength="100" placeholder="nombre@duoc.cl">
-          <div id="contacto-correo-error" class="mensaje-error"></div>
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
+        <div class="container text-center small text-white-50">
+            <p class="mb-1">LIF — Liga Independiente de Fútbol</p>
+            <p class="mb-0">© 2026 LIF. Todos los derechos reservados.</p>
         </div>
+    </footer>
 
-        <div class="mb-4">
-          <label for="contacto-comentario" class="form-label">Comentario</label>
-          <textarea id="contacto-comentario" class="form-control" rows="4" maxlength="500"></textarea>
-          <div id="contacto-comentario-error" class="mensaje-error"></div>
-        </div>
-
-        <button type="submit" class="btn btn-lif w-100">Enviar mensaje</button>
-      </form>
-
-      <div id="contacto-exito" class="alert alert-success text-center d-none" role="alert">
-        ¡Gracias! Recibimos tu mensaje y te responderemos a la brevedad.
-      </div>
-    </div>
-  </div>
-</main>
-
-<footer class="footer-lif">
-  <div class="container">
-    <div class="linea-copyright">© 2026 LIF Store — Proyecto académico DSY1104, Duoc UC.</div>
-  </div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="js/datos.js"></script>
-<script src="js/validaciones.js"></script>
-<script src="js/carrito.js"></script>
-<script src="js/app.js"></script>
-<script>
-  inicializarFormularioContacto();
-</script>
+    <!-- SCRIPTS EN 'assets/js/' -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
+    <script src="assets/js/validaciones.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>

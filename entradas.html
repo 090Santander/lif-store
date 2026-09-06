@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entradas y Tickets | LIF - Liga Independiente de Fútbol</title>
+    
+    <!-- HOJAS DE ESTILO LOCALES -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body>
+
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN PRINCIPAL (HEADER) -->
+    <!-- ========================================== -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
+            <div class="container">
+                
+                <!-- Logo e Identidad de la Liga -->
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header">
+                    <span class="fw-bold fs-5">LIF</span>
+                </a>
+
+                <!-- Botón Toggler para menú colapsable -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Menú de navegación -->
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    </ul>
+
+                    <!-- Botones de Acción -->
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <a href="login.html" class="btn btn-outline-dark btn-sm fw-semibold">Iniciar sesión</a>
+                        <a href="registro.html" class="btn btn-dark btn-sm">Registrarme</a>
+                        <a href="carrito.html" class="btn btn-dark btn-sm">🎟️ Mis Entradas (<span class="badge-carrito text-white">0</span>)</a>
+                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button">🌙 Modo Oscuro</button>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- BANNER DE SECCIÓN -->
+    <section class="bg-dark text-white py-4 text-center">
+        <div class="container py-2">
+            <span class="badge bg-success mb-2 fw-bold">Boletería Oficial 2026</span>
+            <h1 class="h3 fw-bold mb-1">Venta de Entradas y Passes Digitales</h1>
+            <p class="small text-white-50 mb-0">Selecciona tu partido o localidad y asegura tu entrada con código QR de acceso rápido</p>
+        </div>
+    </section>
+
+    <!-- BREADCRUMB -->
+    <div class="bg-light py-2 border-bottom mb-4">
+        <div class="container">
+            <small class="text-muted">Inicio » Entradas</small>
+        </div>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="container mb-5">
+        <div class="row g-4">
+            
+            <!-- LATERAL: FILTROS E INFORMACIÓN -->
+            <aside class="col-lg-3">
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-success text-white fw-bold">
+                        🎟️ Tipo de Localidad
+                    </div>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action active fw-semibold d-flex justify-content-between align-items-center">
+                            Todas las Fechas
+                            <span class="badge bg-light text-dark rounded-pill">3</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Galería General
+                            <span class="badge bg-secondary rounded-pill">$3.000</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Tribuna Preferencial
+                            <span class="badge bg-secondary rounded-pill">$5.000</span>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            Convenio Socio / Estudiante
+                            <span class="badge bg-success rounded-pill">$1.500</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- CUADRO DE INSTRUCCIONES -->
+                <div class="bg-light p-3 rounded border text-start">
+                    <h6 class="fw-bold mb-2 text-success">📱 ¿Cómo funciona el Ticket Digital?</h6>
+                    <ul class="small text-muted ps-3 mb-0">
+                        <li class="mb-1">Eliges tu encuentro o localidad.</li>
+                        <li class="mb-1">Realizas la compra o aplicas tu código de descuento.</li>
+                        <li class="mb-1">Recibes tu e-Ticket con código QR en tu perfil y correo.</li>
+                        <li>Muestras el código al ingresar al recinto deportivo.</li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- SECCIÓN CENTRAL DE SELECCIÓN Y CATÁLOGO DE ENTRADAS -->
+            <section class="col-lg-9">
+
+                <!-- TARJETAS DESTACADAS DE LOCALIDADES -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm text-center h-100">
+                            <div class="card-body p-3">
+                                <span class="fs-2">🎟️</span>
+                                <h6 class="fw-bold mt-2 mb-1">Galería General</h6>
+                                <p class="text-muted small mb-2">Acceso general a gradas laterales del complejo deportivo.</p>
+                                <div class="fw-bold text-success fs-5 mb-2">$3.000</div>
+                                <button class="btn btn-outline-success btn-sm w-100 fw-semibold">Seleccionar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm text-center h-100 border-start border-4 border-success">
+                            <div class="card-body p-3">
+                                <span class="fs-2">⭐</span>
+                                <h6 class="fw-bold mt-2 mb-1">Tribuna Preferencial</h6>
+                                <p class="text-muted small mb-2">Ubicación central techada con asientos preferenciales.</p>
+                                <div class="fw-bold text-success fs-5 mb-2">$5.000</div>
+                                <button class="btn btn-success btn-sm w-100 fw-semibold">Seleccionar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card border-0 shadow-sm text-center h-100 bg-light">
+                            <div class="card-body p-3">
+                                <span class="fs-2">🎓</span>
+                                <h6 class="fw-bold mt-2 mb-1">Pase Socio / Estudiante</h6>
+                                <p class="text-muted small mb-2">50% de descuento aplicando tu código o beneficio.</p>
+                                <div class="fw-bold text-success fs-5 mb-2">$1.500</div>
+                                <button class="btn btn-dark btn-sm w-100 fw-semibold">Aplicar Código</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- TABLA SELECCIONADORA DE ENTRADAS POR PARTIDO -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="card-header bg-white fw-bold text-success d-flex justify-content-between align-items-center py-3 border-bottom">
+                        <span>📅 Selección de Entradas por Partido - Fecha Oficial</span>
+                        <span class="badge bg-success">Próxima Jornada</span>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-hover align-middle m-0 small">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Horario</th>
+                                    <th>Encuentro</th>
+                                    <th>Recinto / Cancha</th>
+                                    <th>Precio Base</th>
+                                    <th class="text-center">Comprar Ticket</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge bg-dark">Sáb - 15:00</span></td>
+                                    <td><strong>Mónica FC vs. Athletic Club</strong></td>
+                                    <td>Cancha 1 (F11)</td>
+                                    <td><span class="fw-bold text-success">$3.000</span></td>
+                                    <td class="text-center">
+                                        <a href="carrito.html" class="btn btn-success btn-sm fw-bold px-3">🎟️ Agregar Ticket</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-dark">Sáb - 17:30</span></td>
+                                    <td><strong>Los Cabros FC vs. Stade Francais</strong></td>
+                                    <td>Cancha 2 (F11)</td>
+                                    <td><span class="fw-bold text-success">$3.000</span></td>
+                                    <td class="text-center">
+                                        <a href="carrito.html" class="btn btn-success btn-sm fw-bold px-3">🎟️ Agregar Ticket</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge bg-dark">Dom - 11:00</span></td>
+                                    <td><strong>Mohicanos vs. Inter de Santiago</strong></td>
+                                    <td>Cancha 3 (F11)</td>
+                                    <td><span class="fw-bold text-success">$3.000</span></td>
+                                    <td class="text-center">
+                                        <a href="carrito.html" class="btn btn-success btn-sm fw-bold px-3">🎟️ Agregar Ticket</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- BANNER INFORMATIVO -->
+                <div class="bg-success text-white p-4 rounded shadow-sm d-flex justify-content-between align-items-center flex-wrap gap-3">
+                    <div>
+                        <h5 class="fw-bold mb-1">¿Compras para todo tu grupo o equipo?</h5>
+                        <p class="small mb-0 text-white-50">Aprovecha los packs grupales de más de 5 entradas con un 20% de descuento adicional.</p>
+                    </div>
+                    <a href="contacto.html" class="btn btn-light btn-sm fw-bold text-success">Consultar Pack Grupal</a>
+                </div>
+
+            </section>
+        </div>
+    </main>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
+        <div class="container">
+            <div class="row g-4">
+                
+                <!-- Columna 1: Info Institucional -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold text-success">LIF — Liga Independiente de Fútbol</h6>
+                    <p class="small text-white-50">Sitio oficial de la Liga Independiente de Fútbol.</p>
+                </div>
+
+                <!-- Columna 2: Enlaces Rápidos -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold">Navegación</h6>
+                    <a href="partidos.html" class="d-block text-white-50 text-decoration-none small mb-1">Partidos</a>
+                    <a href="entradas.html" class="d-block text-white-50 text-decoration-none small mb-1">Entradas</a>
+                    <a href="noticias.html" class="d-block text-white-50 text-decoration-none small mb-1">Noticias</a>
+                    <a href="contacto.html" class="d-block text-white-50 text-decoration-none small">Contacto</a>
+                </div>
+
+                <!-- Columna 3: Suscripción Boletín -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold">Boletín Informativo</h6>
+                    <p class="small text-white-50">Recibe las novedades del campeonato en tu correo.</p>
+                    <form class="d-flex gap-2" onsubmit="event.preventDefault(); this.reset();">
+                        <input type="email" class="form-control form-control-sm" placeholder="Tu correo" required>
+                        <button class="btn btn-success btn-sm" type="submit">Suscribir</button>
+                    </form>
+                </div>
+
+            </div>
+
+            <hr class="border-secondary mt-4 mb-3">
+            
+            <!-- Derechos de autor -->
+            <div class="text-center small text-white-50">
+                © 2026 LIF (Liga Independiente de Fútbol). Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- SCRIPTS ENLAZADOS LOCALMENTE -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
+    <script src="assets/js/validaciones.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

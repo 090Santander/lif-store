@@ -3,126 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesión | LIF Store</title>
-    <link rel="stylesheet" href="asset/css/bootstrap.min.css">
-    <link rel="stylesheet" href="asset/css/estilos.css">
+    <title>Iniciar Sesión | LIF - Liga Independiente de Fútbol</title>
+    
+    <!-- HOJAS DE ESTILO LOCALES -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
 
-    <div class="topbar py-1">
-        <div class="container d-flex justify-content-end gap-3">
-            <a href="login.html" class="text-decoration-none small">Iniciar sesión</a>
-            <a href="registro.html" class="text-decoration-none small">Registrarme</a>
-        </div>
-    </div>
+    <!-- ENCABEZADO Y NAVEGACIÓN -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
+            <div class="container">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header">
+                    <span class="fw-bold fs-5">LIF</span>
+                </a>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mi-nav-color py-3">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="asset/images/LiF -LiGA Deportiva.png" alt="Logo LIF" class="logo-header me-2">
-                <span class="fw-bold">LIF <span class="text-primary">Store</span></span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contacto.html">Programacion</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contacto.html">Programacion</a></li>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    </ul>
 
-                </ul>
-                <div class="d-flex align-items-center gap-2">
-                    <a href="carrito.html" class="btn btn-outline-light d-flex align-items-center gap-2">
-                        🛒 Cart (<span class="badge-carrito">0</span>)
-                    </a>
-                    <button id="btnModo" class="btn btn-outline-light ms-2" type="button">🌙 Modo Oscuro</button>
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <a href="login.html" class="btn btn-dark btn-sm fw-semibold">Iniciar sesión</a>
+                        <a href="registro.html" class="btn btn-outline-dark btn-sm">Registrarme</a>
+                        <a href="carrito.html" class="btn btn-dark btn-sm">🎟️ Mis Entradas (<span class="badge-carrito text-white">0</span>)</a>
+                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button">🌙 Modo Oscuro</button>
+                    </div>
                 </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main class="container py-5">
-        <div class="text-center mb-4">
-            <img src="asset/images/LiF -LiGA Deportiva.png" class="rounded-circle mb-3" width="80" alt="Escudo LIF Store">
-            <h1 class="h4 text-uppercase fw-bold">LIF Store</h1>
-        </div>
-
+    <!-- FORMULARIO DE INICIO DE SESIÓN -->
+    <main class="container py-5 my-4">
         <div class="row justify-content-center">
-            <div class="col-md-5">
-                <form id="form-login" class="card p-4 shadow-sm" novalidate>
-                    <h2 class="h6 text-uppercase text-danger mb-4 fw-bold">Inicio de sesión</h2>
+            <div class="col-md-6 col-lg-4">
+                <div class="card border-0 shadow-sm p-3">
+                    <div class="card-body">
+                        <div class="text-center mb-4">
+                            <h1 class="h4 fw-bold mb-1">Iniciar Sesión</h1>
+                            <p class="text-muted small">Ingresa a tu cuenta para gestionar tus entradas y perfil</p>
+                        </div>
 
-                    <div class="mb-3">
-                        <label for="login-correo" class="form-label">Correo</label>
-                        <input type="text" id="login-correo" class="form-control" maxlength="100" placeholder="nombre@duoc.cl">
-                        <div id="login-correo-error" class="text-danger small mt-1"></div>
+                        <form id="formLogin" novalidate>
+                            <div class="mb-3">
+                                <label for="email" class="form-label small fw-bold">Correo Electrónico</label>
+                                <input type="email" class="form-control form-control-sm" id="email" placeholder="correo@ejemplo.com" required>
+                                <div class="invalid-feedback small">Ingresa un correo válido.</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label for="password" class="form-label small fw-bold">Contraseña</label>
+                                <input type="password" class="form-control form-control-sm" id="password" placeholder="••••••••" required>
+                                <div class="invalid-feedback small">Ingresa tu contraseña.</div>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center mb-3 small">
+                                <div class="form-check">
+                                    <input type="checkbox" class="form-check-input" id="recordar">
+                                    <label class="form-check-label text-muted" for="recordar">Recordarme</label>
+                                </div>
+                                <a href="#" class="text-decoration-none text-success">¿Olvidaste tu clave?</a>
+                            </div>
+
+                            <button type="submit" class="btn btn-success w-100 fw-bold mb-3">Ingresar</button>
+                        </form>
+
+                        <div class="text-center border-top pt-3">
+                            <p class="small text-muted mb-0">¿Aún no tienes cuenta? <a href="registro.html" class="fw-bold text-success text-decoration-none">Crear cuenta</a></p>
+                        </div>
                     </div>
-
-                    <div class="mb-4">
-                        <label for="login-clave" class="form-label">Contraseña</label>
-                        <input type="password" id="login-clave" class="form-control" maxlength="10" placeholder="Entre 4 y 10 caracteres">
-                        <div id="login-clave-error" class="text-danger small mt-1"></div>
-                    </div>
-
-                    <button type="submit" class="btn btn-primary w-100">Iniciar sesión</button>
-                    <p class="text-center small mt-3 mb-0">¿No tienes cuenta? <a href="registro.html">Regístrate aquí</a></p>
-                </form>
-
-                <div id="login-exito" class="alert alert-success text-center mt-3 d-none" role="alert">
-                    ¡Bienvenido de vuelta! Sesión iniciada correctamente.
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="bg-dark text-white pt-5 pb-3">
+    <!-- PIE DE PÁGINA -->
+    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
         <div class="container">
             <div class="row g-4">
-                <div class="col-md-3">
-                    <h6 class="fw-bold">LIF Store</h6>
-                    <p class="small text-white-50">Tienda oficial de la Liga Independiente de Fútbol, Duoc UC.</p>
+                <div class="col-md-4">
+                    <h6 class="fw-bold text-success">LIF — Liga Independiente de Fútbol</h6>
+                    <p class="small text-white-50">Sitio oficial de la Liga Independiente de Fútbol.</p>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="fw-bold">Tienda</h6>
-                    <a href="productos.html" class="d-block mb-2 text-white-50 text-decoration-none">Productos</a>
-                    <a href="carrito.html" class="d-block mb-2 text-white-50 text-decoration-none">Carrito</a>
-                    <a href="registro.html" class="d-block mb-2 text-white-50 text-decoration-none">Crear cuenta</a>
+                <div class="col-md-4">
+                    <h6 class="fw-bold">Navegación</h6>
+                    <a href="partidos.html" class="d-block text-white-50 text-decoration-none small mb-1">Partidos</a>
+                    <a href="entradas.html" class="d-block text-white-50 text-decoration-none small mb-1">Entradas</a>
+                    <a href="noticias.html" class="d-block text-white-50 text-decoration-none small mb-1">Noticias</a>
+                    <a href="contacto.html" class="d-block text-white-50 text-decoration-none small">Contacto</a>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="fw-bold">Institucional</h6>
-                    <a href="nosotros.html" class="d-block mb-2 text-white-50 text-decoration-none">Nosotros</a>
-                    <a href="blogs.html" class="d-block mb-2 text-white-50 text-decoration-none">Blogs</a>
-                    <a href="contacto.html" class="d-block mb-2 text-white-50 text-decoration-none">Contacto</a>
-                </div>
-                <div class="col-md-3">
-                    <h6 class="fw-bold">Boletín</h6>
-                    <p class="small text-white-50">Recibe novedades de la tienda.</p>
+                <div class="col-md-4">
+                    <h6 class="fw-bold">Boletín Informativo</h6>
                     <form class="d-flex gap-2" onsubmit="event.preventDefault(); this.reset();">
-                        <input type="email" class="form-control form-control-sm" placeholder="Tu correo">
-                        <button class="btn btn-primary btn-sm">Enviar</button>
+                        <input type="email" class="form-control form-control-sm" placeholder="Tu correo" required>
+                        <button class="btn btn-success btn-sm" type="submit">Suscribir</button>
                     </form>
                 </div>
             </div>
             <hr class="border-secondary mt-4 mb-3">
-            <div class="text-center small text-white-50">© 2026 LIF Store — Proyecto académico DSY1104, Duoc UC.</div>
+            <div class="text-center small text-white-50">
+                © 2026 LIF (Liga Independiente de Fútbol). Todos los derechos reservados.
+            </div>
         </div>
     </footer>
 
-    <script src="asset/js/bootstrap.bundle.min.js"></script>
-    <script src="asset/js/datos.js"></script>
-    <script src="asset/js/validaciones.js"></script>
-    <script src="asset/js/carrito.js"></script>
-    <script src="asset/js/app.js"></script>
-    <script>
-        if (typeof inicializarFormularioLogin === 'function') {
-            inicializarFormularioLogin();
-        }
-    </script>
+    <!-- SCRIPTS ENLAZADOS LOCALMENTE -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
+    <script src="assets/js/validaciones.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>

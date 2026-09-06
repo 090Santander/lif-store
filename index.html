@@ -3,175 +3,179 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LIF Store | Tienda Oficial de la Liga Independiente de Fútbol</title>
+    <title>Inicio | LIF - Liga Independiente de Fútbol</title>
     
-    <!-- Bootstrap CSS y Estilos Locales -->
-    <link rel="stylesheet" href="asset/css/bootstrap.min.css">
-    <link rel="stylesheet" href="asset/css/estilos.css">
+    <!-- HOJAS DE ESTILO LOCALES -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body>
 
-    <!-- Barra superior institucional -->
-    <div class="topbar py-1">
-        <div class="container d-flex justify-content-end gap-3">
-            <a href="login.html" class="text-decoration-none small">Iniciar sesión</a>
-            <a href="registro.html" class="text-decoration-none small">Registrarme</a>
-        </div>
-    </div>
+    <!-- ========================================== -->
+    <!-- ENCABEZADO Y NAVEGACIÓN PRINCIPAL (HEADER) -->
+    <!-- ========================================== -->
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
+            <div class="container">
+                
+                <!-- Logo e Identidad de la Liga -->
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header">
+                    <span class="fw-bold fs-5">LIF</span>
+                </a>
 
-    <!-- Navbar principal -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mi-nav-color py-3">
-        <div class="container">
-            <!-- Logo Institucional -->
-            <a class="navbar-brand d-flex align-items-center" href="index.html">
-                <img src="asset/images/LiF -LiGA Deportiva.png" alt="Logo LIF" class="logo-header me-2">
-                <span class="fw-bold">LIF <span class="text-primary">Store</span></span>
-            </a>
+                <!-- Botón Toggler para menú colapsable -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Navegación">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Navegación">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+                <!-- Menú de navegación -->
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    </ul>
 
-            <div class="collapse navbar-collapse" id="navMenu">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
-                    <li class="nav-item"><a class="nav-link" href="productos.html">Productos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="blogs.html">Blogs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-                </ul>
-
-                <div class="d-flex align-items-center gap-2">
-                    <!-- Enlace Carrito -->
-                    <a href="carrito.html" class="btn btn-outline-light d-flex align-items-center gap-2">
-                        🛒 Cart (<span class="badge-carrito">0</span>)
-                    </a>
-                    <!-- Botón Modo Oscuro -->
-                    <button id="btnModo" class="btn btn-outline-light ms-2" type="button">🌙 Modo Oscuro</button>
+                    <!-- Botones de Acción de Usuario -->
+                    <div class="d-flex align-items-center gap-2 flex-wrap">
+                        <a href="login.html" class="btn btn-outline-dark btn-sm fw-semibold">Iniciar sesión</a>
+                        <a href="registro.html" class="btn btn-dark btn-sm">Registrarme</a>
+                        <a href="carrito.html" class="btn btn-dark btn-sm">🎟️ Mis Entradas (<span class="badge-carrito text-white">0</span>)</a>
+                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button">🌙 Modo Oscuro</button>
+                    </div>
                 </div>
+
             </div>
-        </div>
-    </nav>
-
-    <!-- Header / Hero -->
-    <header class="hero-lif py-5 bg-light">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7">
-                    <p class="text-uppercase text-primary fw-bold mb-2">Temporada 2026</p>
-                    <h1 class="display-4 fw-bold">Viste los colores de tu liga</h1>
-                    <p class="lead mb-4">Equipación oficial, balones de competencia y accesorios de la Liga Independiente de Fútbol. Calidad de club, precio de estudiante.</p>
-                    <a href="productos.html" class="btn btn-primary btn-lg">Ver productos</a>
-                    <a href="nosotros.html" class="btn btn-outline-secondary btn-lg ms-2">Conócenos</a>
-                </div>
-                <div class="col-lg-5 d-none d-lg-block text-center">
-                    <img src="asset/images/cancha11.jpg" class="img-fluid rounded shadow" alt="Jugadores de fútbol">
-                </div>
-            </div>
-        </div>
+        </nav>
     </header>
 
-    <!-- Main -->
-    <main>
-        <!-- Productos destacados -->
-        <section class="container py-5">
-            <h2 class="text-center mb-4">Destacados de la tienda</h2>
-            <div class="row g-4" id="productos-destacados"></div>
-            <div class="text-center mt-4">
-                <a href="productos.html" class="btn btn-outline-primary">Ver catálogo completo</a>
+    <!-- ========================================== -->
+    <!-- SECCIÓN HERO / BANNER PRINCIPAL            -->
+    <!-- ========================================== -->
+    <section class="bg-dark text-white py-5 text-center position-relative overflow-hidden">
+        <div class="container py-4">
+            <span class="badge bg-success mb-2 px-3 py-2 text-uppercase">Torneo Oficial 2026</span>
+            <h1 class="display-5 fw-bold mb-3">Liga Independiente de Fútbol</h1>
+            <p class="lead text-white-50 mx-auto col-md-8 mb-4">
+                Sigue la pasión del fútbol independiente. Revisa la programación de partidos y asegura tus entradas oficiales para toda la temporada.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="entradas.html" class="btn btn-success btn-lg fw-bold px-4">🎟️ Comprar Entradas</a>
+                <a href="partidos.html" class="btn btn-outline-light btn-lg px-4">Ver Calendario</a>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Franja informativa -->
-        <section class="bg-dark text-white py-5">
-            <div class="container">
-                <div class="row text-center g-4">
-                    <div class="col-md-4">
-                        <h3 class="h5 fw-bold">Envíos a todo Chile</h3>
-                        <p class="small text-white-50 mb-0">Despacho a domicilio en 3 a 5 días hábiles.</p>
+    <!-- ========================================== -->
+    <!-- CONTENIDO PRINCIPAL (MAIN)                 -->
+    <!-- ========================================== -->
+    <main class="container py-5">
+
+        <!-- TARJETAS DE ACCESO RÁPIDO -->
+        <section class="row g-4 mb-5">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-3 text-center">
+                    <div class="card-body">
+                        <div class="fs-1 mb-2">⚽</div>
+                        <h2 class="h5 fw-bold">Próximos Encuentros</h2>
+                        <p class="small text-muted">Consulta las fechas, horarios y estadios de la próxima jornada del campeonato.</p>
+                        <a href="partidos.html" class="btn btn-sm btn-outline-success">Ver Fixture</a>
                     </div>
-                    <div class="col-md-4">
-                        <h3 class="h5 fw-bold">Equipación oficial</h3>
-                        <p class="small text-white-50 mb-0">Productos con la licencia y el escudo de la liga.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-3 text-center">
+                    <div class="card-body">
+                        <div class="fs-1 mb-2">🎟️</div>
+                        <h2 class="h5 fw-bold">Venta de Entradas</h2>
+                        <p class="small text-muted">Adquiere tus boletos digitales de Galería, Tribuna o General Preferencial.</p>
+                        <a href="entradas.html" class="btn btn-sm btn-success">Ir a Boletería</a>
                     </div>
-                    <div class="col-md-4">
-                        <h3 class="h5 fw-bold">Cambios sin costo</h3>
-                        <p class="small text-white-50 mb-0">30 días para cambiar talla o modelo.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-3 text-center">
+                    <div class="card-body">
+                        <div class="fs-1 mb-2">📰</div>
+                        <h2 class="h5 fw-bold">Noticias y Tabla</h2>
+                        <p class="small text-muted">Mantente al día con las crónicas de los partidos y la tabla de posiciones.</p>
+                        <a href="noticias.html" class="btn btn-sm btn-outline-success">Leer Noticias</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Últimas noticias -->
-        <section class="container py-5">
-            <h2 class="text-center mb-4">Últimas noticias</h2>
-            <div class="row g-4">Escuela de Informática y Telecomunicaciones, Duoc UC
-
-
-                <div class="col-md-6">
-                    <div class="card h-100 p-3 shadow-sm">
-                        <span class="badge bg-danger w-25 mb-2">Fichajes</span>
-                        <h3 class="h5">Cómo se entrena un equipo de eSports antes de un torneo</h3>
-                        <p class="text-muted small">La preparación física y mental detrás de cada campeonato de la liga.</p>
-                        <a href="blog-detalle-1.html" class="text-primary text-decoration-none fw-bold">Leer más →</a>
-                    </div>
+        <!-- DESTACADO: ENTRADAS EN PROMOCIÓN -->
+        <section class="bg-light p-4 rounded shadow-sm border mb-5">
+            <div class="row align-items-center g-4">
+                <div class="col-md-8">
+                    <span class="badge bg-success mb-2">Beneficio de Socio</span>
+                    <h2 class="h4 fw-bold mb-2">¿Tienes un código promocional o de socio?</h2>
+                    <p class="text-muted small mb-0">
+                        Accede a precios preferenciales en todas las localidades aplicando tu código al momento de la compra.
+                    </p>
                 </div>
-                <div class="col-md-6">
-                    <div class="card h-100 p-3 shadow-sm">
-                        <span class="badge bg-primary w-25 mb-2">Historia</span>
-                        <h3 class="h5">El origen del clásico entre los equipos fundadores</h3>
-                        <p class="text-muted small">La rivalidad que marcó los primeros años de la liga.</p>
-                        <a href="blog-detalle-2.html" class="text-primary text-decoration-none fw-bold">Leer más →</a>
-                    </div>
+                <div class="col-md-4 text-md-end">
+                    <a href="entradas.html" class="btn btn-dark fw-bold">Comprar Entradas</a>
                 </div>
             </div>
         </section>
+
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white pt-5 pb-3">
+    <!-- ========================================== -->
+    <!-- PIE DE PÁGINA (FOOTER)                     -->
+    <!-- ========================================== -->
+    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
         <div class="container">
             <div class="row g-4">
-                <div class="col-md-3">
-                    <h6 class="fw-bold">LIF Store</h6>
-                    <p class="small text-white-50">Tienda oficial de la Liga Independiente de Fútbol, Duoc UC.</p>
+                
+                <!-- Columna 1: Info Institucional -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold text-success">LIF — Liga Independiente de Fútbol</h6>
+                    <p class="small text-white-50">Sitio oficial de la Liga Independiente de Fútbol.</p>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="fw-bold">Tienda</h6>
-                    <a href="productos.html" class="d-block mb-2 text-white-50 text-decoration-none">Productos</a>
-                    <a href="carrito.html" class="d-block mb-2 text-white-50 text-decoration-none">Carrito</a>
-                    <a href="registro.html" class="d-block mb-2 text-white-50 text-decoration-none">Crear cuenta</a>
+
+                <!-- Columna 2: Enlaces Rápidos -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold">Navegación</h6>
+                    <a href="partidos.html" class="d-block text-white-50 text-decoration-none small mb-1">Partidos</a>
+                    <a href="entradas.html" class="d-block text-white-50 text-decoration-none small mb-1">Entradas</a>
+                    <a href="noticias.html" class="d-block text-white-50 text-decoration-none small mb-1">Noticias</a>
+                    <a href="contacto.html" class="d-block text-white-50 text-decoration-none small">Contacto</a>
                 </div>
-                <div class="col-md-3">
-                    <h6 class="fw-bold">Institucional</h6>
-                    <a href="nosotros.html" class="d-block mb-2 text-white-50 text-decoration-none">Nosotros</a>
-                    <a href="blogs.html" class="d-block mb-2 text-white-50 text-decoration-none">Blogs</a>
-                    <a href="contacto.html" class="d-block mb-2 text-white-50 text-decoration-none">Contacto</a>
-                </div>
-                <div class="col-md-3">
-                    <h6 class="fw-bold">Boletín</h6>
-                    <p class="small text-white-50">Recibe novedades de la tienda.</p>
+
+                <!-- Columna 3: Suscripción Boletín -->
+                <div class="col-md-4">
+                    <h6 class="fw-bold">Boletín Informativo</h6>
+                    <p class="small text-white-50">Recibe las novedades del campeonato en tu correo.</p>
                     <form class="d-flex gap-2" onsubmit="event.preventDefault(); this.reset();">
-                        <input type="email" class="form-control form-control-sm" placeholder="Tu correo">
-                        <button class="btn btn-primary btn-sm">Enviar</button>
+                        <input type="email" class="form-control form-control-sm" placeholder="Tu correo" required>
+                        <button class="btn btn-success btn-sm" type="submit">Suscribir</button>
                     </form>
                 </div>
+
             </div>
+
             <hr class="border-secondary mt-4 mb-3">
-            <div class="text-center small text-white-50">© 2026 LIF Store — Proyecto académico DSY1104, Duoc UC.</div>
+            
+            <!-- Derechos de autor -->
+            <div class="text-center small text-white-50">
+                © 2026 LIF (Liga Independiente de Fútbol). Todos los derechos reservados.
+            </div>
         </div>
     </footer>
 
-    <!-- Scripts locales -->
-    <script src="asset/js/bootstrap.bundle.min.js"></script>
-    <script src="asset/js/datos.js"></script>
-    <script src="asset/js/validaciones.js"></script>
-    <script src="asset/js/carrito.js"></script>
-    <script src="asset/js/app.js"></script>
-    <script>
-        if (typeof renderizarDestacadosHome === 'function') {
-            renderizarDestacadosHome();
-        }
-    </script>
+    <!-- ========================================== -->
+    <!-- SCRIPTS ENLAZADOS LOCALMENTE               -->
+    <!-- ========================================== -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/app.js"></script>
 </body>
 </html>

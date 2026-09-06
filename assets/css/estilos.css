@@ -1,0 +1,118 @@
+/* ==========================================
+   VARIABLES DE TEMA Y COLORES
+   ========================================== */
+:root {
+    --verde-primario: #2ecc71;
+    --verde-hover: #27ae60;
+    --verde-oscuro: #1e8449;
+    --verde-suave: #e8f8f0;
+}
+
+/* ==========================================
+   SOBRESCRITURA DE CLASES BOOTSTRAP
+   ========================================== */
+.bg-primary {
+    background-color: var(--verde-primario) !important;
+}
+
+.text-primary {
+    color: var(--verde-primario) !important;
+}
+
+/* Botón Principal (Verde) */
+.btn-primary {
+    background-color: var(--verde-primario) !important;
+    border-color: var(--verde-primario) !important;
+    color: #000000 !important;
+    font-weight: 600;
+    transition: all 0.2s ease-in-out;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--verde-hover) !important;
+    border-color: var(--verde-hover) !important;
+    color: #ffffff !important;
+}
+
+/* Botón Outline Verde */
+.btn-outline-primary {
+    color: var(--verde-oscuro) !important;
+    border-color: var(--verde-primario) !important;
+    font-weight: 600;
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--verde-primario) !important;
+    border-color: var(--verde-primario) !important;
+    color: #000000 !important;
+}
+
+/* ==========================================
+   HEADER Y NAVBAR
+   ========================================== */
+.navbar-verde {
+    background-color: var(--verde-primario) !important;
+}
+
+.navbar-verde .navbar-brand {
+    color: #000000 !important;
+}
+
+.navbar-verde .nav-link {
+    color: #111111 !important;
+    font-weight: 600;
+    padding-left: 0.8rem !important;
+    padding-right: 0.8rem !important;
+    transition: color 0.2s ease;
+}
+
+.navbar-verde .nav-link:hover,
+.navbar-verde .nav-link.active {
+    color: #ffffff !important;
+}
+
+/* Ajustes de tamaño reducidos */
+.logo-header {
+    max-height: 150px;
+    width: auto;
+}
+
+.header-compact {
+    padding-top: 0.35rem !important;
+    padding-bottom: 0.35rem !important;
+}
+
+/* ==========================================
+   CARRUSEL Y SECCIONES
+   ========================================== */
+.hero-carousel .carousel-item {
+    min-height: 360px;
+}
+
+.hero-carousel h1, 
+.hero-carousel h2 {
+    letter-spacing: -0.5px;
+}
+
+/* ==========================================
+   SOPORTE DE MODO OSCURO (JS)
+   ========================================== */
+body.modo-oscuro {
+    background-color: #121212 !important;
+    color: #e0e0e0 !important;
+}
+
+body.modo-oscuro .card {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+}
+
+body.modo-oscuro .bg-light {
+    background-color: #1a1a1a !important;
+    color: #ffffff !important;
+}
+
+body.modo-oscuro .text-muted {
+    color: #a0a0a0 !important;
+}
