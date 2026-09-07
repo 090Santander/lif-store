@@ -83,6 +83,7 @@
                         <span class="display-5 mb-2">⚽</span>
                         <h3 class="h6 fw-bold mb-0">Partidos</h3>
                     </div>
+                    
                 </a>
             </div>
             <div class="col">
@@ -159,5 +160,15 @@
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/validaciones.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const carrito = JSON.parse(localStorage.getItem('carritoLIF')) || [];
+            const badge = document.querySelector('.badge-carrito');
+            if (badge) {
+                const totalItems = carrito.reduce((acc, item) => acc + (item.cantidad || 1), 0);
+                badge.textContent = totalItems;
+            }
+        });
+    </script>
 </body>
 </html>
