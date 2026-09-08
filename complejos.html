@@ -12,7 +12,7 @@
 <body class="d-flex flex-column min-vh-100 bg-light">
 
     <!-- ==========================================
-         1. NAVEGACIÓN
+         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
          ========================================== -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
@@ -32,11 +32,26 @@
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link active" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
                     </ul>
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+
+                    <!-- Botones de Acción y Modo Oscuro -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
                         <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
-                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">🎟️ Tickets</a>
-                    </div>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                        </a>
+                        
+                        <!-- Botón de Modo Oscuro -->
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
+                            🌙
+                        </button>
+                    </div>                   
+
                 </div>
             </div>
         </nav>
@@ -118,7 +133,7 @@
                             <span class="badge bg-secondary mb-3 align-self-start px-3 py-2 rounded-pill">Sede Alternativa</span>
                             <h2 class="h3 fw-black text-dark mb-2">Canchas Norte FC</h2>
                             <p class="text-muted fw-bold mb-4">📍 Av. Independencia, Sector Norte.</p>
-                            <p class="text-secondary mb-4">Sede tradicional utilizada principalmente para las series Junior, Femenina y partidos amistosos. Destaca por mantener 2 canchas de pasto natural en excelente estado y un ambiente altamente familiar.</p>
+                            <p class="text-secondary mb-4">Sede tradicional utilizada principalmente para las series Junior, Femenina y partidos amistosos. Destaca por mantener 2 canchas de pasto natural en excelente estado y un ambiente highly familiar.</p>
                             
                             <h3 class="h6 fw-bold text-dark mb-3">Servicios disponibles:</h3>
                             <div class="d-flex flex-wrap gap-2 mb-4">
@@ -160,7 +175,7 @@
                     <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
                         <li>📍 Complejo Deportivo Principal</li>
                         <li>✉️ soporte@lifchile.cl</li>
-                        <li><a href="reglamento.html" class="text-success text-decoration-none fw-bold">Reglamento Oficial</a></li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
                     </ul>
                 </div>
             </div>
@@ -175,8 +190,10 @@
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
-    
-    <!-- Script opcional para que los botones de tabs inactivos mantengan el estilo gris -->
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/validaciones.js"></script>
+
+    <!-- Script para cambiar estilo visual de las pestañas -->
     <script>
         document.querySelectorAll('button[data-bs-toggle="pill"]').forEach(button => {
             button.addEventListener('shown.bs.tab', event => {

@@ -12,7 +12,7 @@
 <body class="d-flex flex-column min-vh-100">
 
     <!-- ==========================================
-         1. NAVEGACIÓN
+         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
          ========================================== -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
@@ -32,10 +32,15 @@
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
                     </ul>
 
                     <!-- Botones de Acción y Modo Oscuro -->
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
                         <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
                         <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
                             🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
@@ -159,6 +164,7 @@
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
     <script src="assets/js/validaciones.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

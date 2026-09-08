@@ -1,5 +1,5 @@
 /**
- * datos.js - Base de datos simulada para LIF
+ * datos.js - Base de datos simulada y helpers para LIF
  */
 
 const DATOS_LIF = {
@@ -68,3 +68,8 @@ const DATOS_LIF = {
         }
     ]
 };
+
+// --- HELPER UTILITIES DE BÚSQUEDA RÁPIDA ---
+const obtenerPartidoPorId = (id) => DATOS_LIF.partidos.find(p => p.id === Number(id));
+const obtenerLocalidadPorId = (id) => DATOS_LIF.localidades.find(l => l.id === id);
+const obtenerEquipoPorId = (id) => DATOS_LIF.equipos.find(e => e.id === Number(id));

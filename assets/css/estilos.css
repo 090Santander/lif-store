@@ -1,5 +1,5 @@
 /* ==========================================================================
-   LIF - HOJA DE ESTILOS MINIMALISTA (TEMA VERDE)
+   LIF - HOJA DE ESTILOS MINIMALISTA (TEMA VERDE Y MODO OSCURO)
    ========================================================================== */
 
 /* --- VARIABLES GLOBALES --- */
@@ -17,6 +17,7 @@ body {
     background-color: var(--lif-bg-soft);
     color: var(--lif-text);
     font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .fw-black { font-weight: 900; }
@@ -62,26 +63,62 @@ body {
    MODO OSCURO (DARK MODE) COMPATIBLE CON BOOTSTRAP
    ========================================================================== */
 
-/* 1. Fondo principal (Mantenemos tu tono verde súper oscuro: #121815) */
+/* 1. Fondo principal y contenedores globales */
 body.dark-mode, 
-body.dark-mode.bg-light {
+body.dark-mode.bg-light,
+[data-bs-theme="dark"] body {
     background-color: #121815 !important;
     color: #e9ecef !important;
 }
 
-/* 2. Tarjetas y fondos blancos pasan a tu verde secundario oscuro (#1a231e) */
+/* 2. Tarjetas, contenedores blancos y listas */
 body.dark-mode .bg-light,
 body.dark-mode .bg-white,
 body.dark-mode .card,
-body.dark-mode .list-group-item,
-body.dark-mode .table {
+body.dark-mode .list-group-item {
     background-color: #1a231e !important;
     color: #f8f9fa !important;
     border-color: #2c3e35 !important;
 }
 
-/* 3. Textos que eran oscuros ahora son blancos para que se lean bien */
+/* 3. Formularios, Entradas de texto y Desplegables */
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: #243029 !important;
+    color: #ffffff !important;
+    border-color: #384e42 !important;
+}
+
+body.dark-mode .form-control::placeholder {
+    color: #8e9b94 !important;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+    background-color: #2b3a32 !important;
+    color: #ffffff !important;
+    border-color: var(--lif-green) !important;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+}
+
+/* 4. Tablas en Modo Oscuro */
+body.dark-mode .table {
+    --bs-table-bg: #1a231e;
+    --bs-table-color: #f8f9fa;
+    --bs-table-border-color: #2c3e35;
+    color: #f8f9fa !important;
+}
+
+body.dark-mode .table td,
+body.dark-mode .table th {
+    background-color: #1a231e !important;
+    color: #f8f9fa !important;
+    border-color: #2c3e35 !important;
+}
+
+/* 5. Jerarquía de Títulos y Textos */
 body.dark-mode .text-dark,
+body.dark-mode .form-label,
 body.dark-mode h1, 
 body.dark-mode h2, 
 body.dark-mode h3, 
@@ -91,13 +128,12 @@ body.dark-mode h6 {
     color: #ffffff !important;
 }
 
-/* 4. Textos secundarios a gris clarito */
 body.dark-mode .text-muted,
 body.dark-mode .text-secondary {
-    color: #adb5bd !important;
+    color: #a0ac9e !important;
 }
 
-/* 5. Bordes en general (un gris-verde sutil) */
+/* 6. Bordes y Separadores generales */
 body.dark-mode .border,
 body.dark-mode .border-bottom,
 body.dark-mode .border-top,

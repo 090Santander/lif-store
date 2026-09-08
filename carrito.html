@@ -12,7 +12,7 @@
 <body class="d-flex flex-column min-vh-100 bg-light">
 
     <!-- ==========================================
-         1. NAVEGACIÓN
+         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
          ========================================== -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
@@ -32,11 +32,26 @@
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
                     </ul>
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+
+                    <!-- Botones de Acción y Modo Oscuro -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
                         <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
-                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark shadow-sm">🛒 Mi Carrito (2)</a>
-                    </div>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark active shadow-sm">
+                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">2</span>
+                        </a>
+                        
+                        <!-- Botón de Modo Oscuro -->
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
+                            🌙
+                        </button>
+                    </div>                   
+
                 </div>
             </div>
         </nav>
@@ -45,10 +60,11 @@
     <!-- ==========================================
          2. BANNER HERO
          ========================================== -->
-    <section class="bg-success text-white py-4">
-        <div class="container">
+    <section class="hero-green text-white py-4 text-center">
+        <div class="container py-2">
+            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-2 shadow-sm">Boletería</span>
             <h1 class="fw-black display-6 mb-0 text-shadow">Tu Carrito</h1>
-            <p class="mb-0 mt-1 text-white-50 small">Revisa tus e-Tickets antes de pagar</p>
+            <p class="mb-0 mt-2 text-white-50 small">Revisa tus e-Tickets antes de pagar</p>
         </div>
     </section>
 
@@ -61,7 +77,7 @@
             <!-- COLUMNA IZQUIERDA: Lista de Productos -->
             <div class="col-lg-8">
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
-                    <div class="card-header bg-white py-3 fw-bold border-bottom">
+                    <div class="card-header bg-white py-3 fw-bold border-bottom text-dark">
                         Entradas Seleccionadas (2)
                     </div>
                     <div class="list-group list-group-flush">
@@ -113,21 +129,21 @@
             <!-- COLUMNA DERECHA: Resumen de Compra -->
             <div class="col-lg-4">
                 <div class="card border-0 shadow-sm rounded-4 p-4 sticky-lg-top" style="top: 100px;">
-                    <h4 class="fw-bold h5 mb-4">Resumen de Orden</h4>
+                    <h4 class="fw-bold h5 mb-4 text-dark">Resumen de Orden</h4>
                     
                     <div class="d-flex justify-content-between mb-2 small">
                         <span class="text-muted">Subtotal (3 items)</span>
-                        <span class="fw-bold">$15.000</span>
+                        <span class="fw-bold text-dark">$15.000</span>
                     </div>
                     <div class="d-flex justify-content-between mb-3 small">
                         <span class="text-muted">Cargo por servicio (10%)</span>
-                        <span class="fw-bold">$1.500</span>
+                        <span class="fw-bold text-dark">$1.500</span>
                     </div>
                     
                     <hr class="border-secondary">
                     
                     <div class="d-flex justify-content-between mb-4">
-                        <span class="fw-black fs-5">Total</span>
+                        <span class="fw-black fs-5 text-dark">Total</span>
                         <span class="fw-black fs-5 text-success">$16.500</span>
                     </div>
 
@@ -154,15 +170,15 @@
         <div class="container">
             <div class="row g-4 mb-4">
                 <div class="col-md-6 text-center text-md-start">
-                    <h3 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h3>
+                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
                     <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <h3 class="fw-bold mb-3 fs-5">Información</h3>
+                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
                     <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
                         <li>📍 Complejo Deportivo Principal</li>
                         <li>✉️ soporte@lifchile.cl</li>
-                        <li><a href="reglamento.html" class="text-success text-decoration-none fw-bold">Reglamento Oficial</a></li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
                     </ul>
                 </div>
             </div>
@@ -177,5 +193,7 @@
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/validaciones.js"></script>
 </body>
 </html>

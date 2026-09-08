@@ -4,30 +4,29 @@
 
 const KEY_CARRITO = "LIF_CARRITO_ENTRADAS";
 
-function obtenerCarrito() {
-    return JSON.parse(localStorage.getItem(KEY_CARRITO)) || [];
-}
+const obtenerCarrito = () => JSON.parse(localStorage.getItem(KEY_CARRITO)) || [];
 
-function guardarCarrito(carrito) {
+const guardarCarrito = (carrito) => {
     localStorage.setItem(KEY_CARRITO, JSON.stringify(carrito));
     actualizarBadgeCarrito();
-}
+};
 
 function agregarAlCarrito(idPartido, tipoLocalidad = "Galería General", precio = 3000) {
-    let carrito = obtenerCarrito();
-    let partido = DATOS_LIF.partidos.find(p => p.id === idPartido) || {
+    const carrito = obtenerCarrito();
+    const partidos = (typeof DATOS_LIF !== "undefined" && DATOS_LIF.partidos) ? DATOS_LIF.partidos : [];
+    const partido = partidos.find(p => p.id === Number(idPartido)) || {
         id: idPartido,
         local: "Partido LIF",
         visita: "Fecha Oficial",
         fecha: "Próxima Fecha"
     };
 
-    let item = {
-        idUnico: Date.now(),
+    const item = {
+        idUnico: Date.now() + Math.floor(Math.random() * 1000),
         partidoId: partido.id,
         encuentro: `${partido.local} vs. ${partido.visita}`,
         localidad: tipoLocalidad,
-        precio: precio,
+        precio: Number(precio),
         fecha: partido.fecha
     };
 
@@ -37,8 +36,7 @@ function agregarAlCarrito(idPartido, tipoLocalidad = "Galería General", precio 
 }
 
 function eliminarDelCarrito(idUnico) {
-    let carrito = obtenerCarrito();
-    carrito = carrito.filter(item => item.idUnico !== idUnico);
+    const carrito = obtenerCarrito().filter(item => item.idUnico !== idUnico);
     guardarCarrito(carrito);
     if (typeof renderizarCarrito === "function") renderizarCarrito();
 }
@@ -52,7 +50,7 @@ function vaciarCarrito() {
 }
 
 function finalizarCompra() {
-    let carrito = obtenerCarrito();
+    const carrito = obtenerCarrito();
     if (carrito.length === 0) {
         alert("Tu carrito está vacío.");
         return;
@@ -64,9 +62,8 @@ function finalizarCompra() {
 }
 
 function actualizarBadgeCarrito() {
-    const badges = document.querySelectorAll(".badge-carrito");
     const totalItems = obtenerCarrito().length;
-    badges.forEach(badge => {
+    document.querySelectorAll(".badge-carrito").forEach(badge => {
         badge.textContent = totalItems;
     });
 }
@@ -76,7 +73,7 @@ function renderizarCarrito() {
     const totalElem = document.getElementById("total-carrito");
     if (!contenedor) return;
 
-    let carrito = obtenerCarrito();
+    const carrito = obtenerCarrito();
     contenedor.innerHTML = "";
 
     if (carrito.length === 0) {
@@ -91,9 +88,9 @@ function renderizarCarrito() {
     }
 
     let total = 0;
-    carrito.forEach(item => {
+    contenedor.innerHTML = carrito.map(item => {
         total += item.precio;
-        contenedor.innerHTML += `
+        return `
             <tr>
                 <td><strong>${item.encuentro}</strong><br><small class="text-muted">${item.fecha}</small></td>
                 <td><span class="badge bg-secondary">${item.localidad}</span></td>
@@ -102,7 +99,13 @@ function renderizarCarrito() {
                     <button onclick="eliminarDelCarrito(${item.idUnico})" class="btn btn-outline-danger btn-sm" title="Eliminar">🗑️</button>
                 </td>
             </tr>`;
-    });
+    }).join("");
 
     if (totalElem) totalElem.textContent = `$${total.toLocaleString("es-CL")}`;
 }
+
+// Inicialización automática al cargar el DOM
+document.addEventListener("DOMContentLoaded", () => {
+    actualizarBadgeCarrito();
+    renderizarCarrito();
+});

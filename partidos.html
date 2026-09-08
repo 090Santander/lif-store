@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Fixture, programación y resultados de la Liga Independiente de Fútbol (LIF).">
     <title>Partidos | LIF - Liga Independiente de Fútbol</title>
+    <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- NAV BAR (Idéntico al Index para consistencia) -->
+    <!-- ==========================================
+         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
+         ========================================== -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
             <div class="container-fluid px-lg-4">
@@ -28,17 +32,34 @@
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
                     </ul>
-                    <div class="d-flex align-items-center gap-2">
+
+                    <!-- Botones de Acción y Modo Oscuro -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
                         <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
-                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">🎟️ Tickets</a>
-                    </div>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                        </a>
+                        
+                        <!-- Botón de Modo Oscuro -->
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
+                            🌙
+                        </button>
+                    </div>                   
+
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- BANNER HERO DIRECTO -->
+    <!-- ==========================================
+         2. BANNER HERO DIRECTO
+         ========================================== -->
     <section class="hero-green text-white py-4 text-center">
         <div class="container py-2">
             <span class="badge bg-light text-success fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Fecha 5</span>
@@ -46,8 +67,10 @@
         </div>
     </section>
 
-    <!-- CONTENIDO MINIMALISTA (TABLA DE PARTIDOS) -->
-    <main class="container py-5">
+    <!-- ==========================================
+         3. CONTENIDO PRINCIPAL (TABLA DE PARTIDOS)
+         ========================================== -->
+    <main class="container py-5 flex-grow-1">
         
         <!-- BOTONES DE FILTRO -->
         <div class="d-flex justify-content-center gap-2 mb-4">
@@ -111,14 +134,37 @@
 
     </main>
 
-    <!-- FOOTER (Idéntico al Index) -->
-    <footer class="bg-dark-green text-white py-3 border-top border-success mt-auto">
-        <div class="container text-center extra-small text-white-50">
-            © 2026 LIF - Liga Independiente de Fútbol.
+    <!-- ==========================================
+         4. FOOTER ESTRUCTURADO
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- ==========================================
+         5. SCRIPTS
+         ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/validaciones.js"></script>
 </body>
 </html>

@@ -3,140 +3,173 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Crea tu cuenta en la Liga Independiente de Fútbol (LIF).">
     <title>Crear Cuenta | LIF - Liga Independiente de Fútbol</title>
-    
-    <!-- HOJAS DE ESTILO LOCALES -->
+    <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- ENCABEZADO -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
-            <div class="container">
+    <!-- ==========================================
+         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
+         ========================================== -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header">
-                    <span class="fw-bold fs-5">LIF</span>
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Navegación">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="nosotros.html">Nosotros</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
                         <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
                     </ul>
 
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <a href="login.html" class="btn btn-outline-dark btn-sm fw-semibold">Iniciar sesión</a>
-                        <a href="registro.html" class="btn btn-dark btn-sm">Registrarme</a>
-                        <a href="carrito.html" class="btn btn-dark btn-sm">🎟️ Mis Entradas (<span class="badge-carrito text-white">0</span>)</a>
-                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button">🌙 Modo Oscuro</button>
-                    </div>
+                    <!-- Botones de Acción y Modo Oscuro -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                        <a href="registro.html" class="btn btn-sm btn-light text-success fw-bold rounded-pill px-3 shadow-sm">Registrarse</a>
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                        </a>
+                        
+                        <!-- Botón de Modo Oscuro -->
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
+                            🌙
+                        </button>
+                    </div>                   
+
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- FORMULARIO DE REGISTRO -->
-    <main class="container py-5 my-3">
-        <div class="row justify-content-center">
-            <div class="col-lg-6 col-md-8">
-                <div class="card border-0 shadow-sm p-4">
-                    <div class="text-center mb-4">
-                        <h1 class="h4 fw-bold mb-1">Crear Cuenta</h1>
-                        <p class="text-muted small">Regístrate para comprar tus entradas y gestionar tus e-Tickets</p>
-                    </div>
+    <!-- ==========================================
+         2. CONTENEDOR CENTRAL (REGISTRO CARD)
+         ========================================== -->
+    <main class="container py-5 flex-grow-1 d-flex align-items-center justify-content-center">
+        
+        <div class="col-12 col-md-10 col-lg-7 col-xl-6">
+            <!-- Tarjeta de Registro -->
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                
+                <!-- Encabezado de la Tarjeta -->
+                <div class="bg-dark-green text-white text-center py-4 px-4 border-bottom border-success border-4">
+                    <h1 class="h3 fw-black mb-1">Crear Cuenta</h1>
+                    <p class="small text-white-50 mb-0">Regístrate para comprar tus entradas y gestionar tus e-Tickets</p>
+                </div>
 
+                <!-- Cuerpo de la Tarjeta (Formulario) -->
+                <div class="card-body p-4 p-md-5">
                     <form id="form-registro" novalidate>
                         <div class="row g-3">
+                            
+                            <!-- RUN -->
                             <div class="col-md-6">
-                                <label for="reg-run" class="form-label small fw-bold">RUN (sin puntos ni guión)</label>
-                                <input type="text" id="reg-run" data-campo="run" class="form-control form-control-sm" maxlength="9" placeholder="19011022K" required>
-                                <div id="reg-run-error" class="text-danger small mt-1"></div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="reg-correo" class="form-label small fw-bold">Correo Electrónico</label>
-                                <input type="email" id="reg-correo" data-campo="correo" class="form-control form-control-sm" placeholder="correo@ejemplo.com" required>
-                                <div id="reg-correo-error" class="text-danger small mt-1"></div>
+                                <label for="reg-run" class="form-label small fw-bold text-dark">RUN (sin puntos ni guión)</label>
+                                <input type="text" id="reg-run" data-campo="run" class="form-control rounded-3 focus-success" maxlength="9" placeholder="19011022K" required>
+                                <div id="reg-run-error" class="text-danger extra-small mt-1"></div>
                             </div>
 
+                            <!-- Correo -->
                             <div class="col-md-6">
-                                <label for="reg-nombre" class="form-label small fw-bold">Nombre</label>
-                                <input type="text" id="reg-nombre" data-campo="nombre" class="form-control form-control-sm" required>
-                                <div id="reg-nombre-error" class="text-danger small mt-1"></div>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="reg-apellidos" class="form-label small fw-bold">Apellidos</label>
-                                <input type="text" id="reg-apellidos" data-campo="apellidos" class="form-control form-control-sm" required>
-                                <div id="reg-apellidos-error" class="text-danger small mt-1"></div>
+                                <label for="reg-correo" class="form-label small fw-bold text-dark">Correo Electrónico</label>
+                                <input type="email" id="reg-correo" data-campo="correo" class="form-control rounded-3 focus-success" placeholder="correo@ejemplo.com" required>
+                                <div id="reg-correo-error" class="text-danger extra-small mt-1"></div>
                             </div>
 
+                            <!-- Nombre -->
                             <div class="col-md-6">
-                                <label for="reg-clave" class="form-label small fw-bold">Contraseña</label>
-                                <input type="password" id="reg-clave" data-campo="clave" class="form-control form-control-sm" required>
-                                <div id="reg-clave-error" class="text-danger small mt-1"></div>
+                                <label for="reg-nombre" class="form-label small fw-bold text-dark">Nombre</label>
+                                <input type="text" id="reg-nombre" data-campo="nombre" class="form-control rounded-3 focus-success" placeholder="Juan" required>
+                                <div id="reg-nombre-error" class="text-danger extra-small mt-1"></div>
                             </div>
+
+                            <!-- Apellidos -->
                             <div class="col-md-6">
-                                <label for="reg-clave-confirma" class="form-label small fw-bold">Confirmar Contraseña</label>
-                                <input type="password" id="reg-clave-confirma" data-campo="clave-confirma" class="form-control form-control-sm" required>
-                                <div id="reg-clave-confirma-error" class="text-danger small mt-1"></div>
+                                <label for="reg-apellidos" class="form-label small fw-bold text-dark">Apellidos</label>
+                                <input type="text" id="reg-apellidos" data-campo="apellidos" class="form-control rounded-3 focus-success" placeholder="Pérez Gómez" required>
+                                <div id="reg-apellidos-error" class="text-danger extra-small mt-1"></div>
                             </div>
+
+                            <!-- Contraseña -->
+                            <div class="col-md-6">
+                                <label for="reg-clave" class="form-label small fw-bold text-dark">Contraseña</label>
+                                <input type="password" id="reg-clave" data-campo="clave" class="form-control rounded-3 focus-success" placeholder="••••••••" required>
+                                <div id="reg-clave-error" class="text-danger extra-small mt-1"></div>
+                            </div>
+
+                            <!-- Confirmar Contraseña -->
+                            <div class="col-md-6">
+                                <label for="reg-clave-confirma" class="form-label small fw-bold text-dark">Confirmar Contraseña</label>
+                                <input type="password" id="reg-clave-confirma" data-campo="clave-confirma" class="form-control rounded-3 focus-success" placeholder="••••••••" required>
+                                <div id="reg-clave-confirma-error" class="text-danger extra-small mt-1"></div>
+                            </div>
+
                         </div>
 
-                        <button type="submit" class="btn btn-success w-100 fw-bold mt-4">Registrarme</button>
+                        <!-- Botón Principal -->
+                        <div class="d-grid mt-4">
+                            <button type="submit" class="btn btn-success btn-lg rounded-pill fw-bold shadow-sm">Registrarme</button>
+                        </div>
                     </form>
 
-                    <div id="form-registro-exito" class="alert alert-success text-center mt-3 d-none" role="alert">
-                        ¡Cuenta creada exitosamente! <a href="login.html" class="alert-link">Iniciar sesión ahora</a>.
+                    <!-- Mensaje de Éxito -->
+                    <div id="form-registro-exito" class="alert alert-success text-center mt-3 mb-0 rounded-3 d-none" role="alert">
+                        ¡Cuenta creada exitosamente! <a href="login.html" class="alert-link fw-bold">Iniciar sesión ahora</a>.
                     </div>
+                </div>
 
-                    <div class="text-center border-top pt-3 mt-4">
-                        <p class="small text-muted mb-0">¿Ya tienes una cuenta? <a href="login.html" class="fw-bold text-success text-decoration-none">Iniciar sesión</a></p>
-                    </div>
+                <!-- Pie de la Tarjeta -->
+                <div class="card-footer bg-light text-center py-3 border-0">
+                    <p class="small text-muted mb-0">¿Ya tienes una cuenta? <a href="login.html" class="text-success fw-bold text-decoration-none">Iniciar sesión</a></p>
                 </div>
             </div>
         </div>
+
     </main>
 
-    <!-- PIE DE PÁGINA -->
-    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
+    <!-- ==========================================
+         3. FOOTER ESTRUCTURADO
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
         <div class="container">
-            <div class="row g-4">
-                <div class="col-md-4">
-                    <h6 class="fw-bold text-success">LIF — Liga Independiente de Fútbol</h6>
-                    <p class="small text-white-50">Sitio oficial de la Liga Independiente de Fútbol.</p>
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
                 </div>
-                <div class="col-md-4">
-                    <h6 class="fw-bold">Navegación</h6>
-                    <a href="partidos.html" class="d-block text-white-50 text-decoration-none small mb-1">Partidos</a>
-                    <a href="entradas.html" class="d-block text-white-50 text-decoration-none small mb-1">Entradas</a>
-                    <a href="noticias.html" class="d-block text-white-50 text-decoration-none small mb-1">Noticias</a>
-                    <a href="contacto.html" class="d-block text-white-50 text-decoration-none small">Contacto</a>
-                </div>
-                <div class="col-md-4">
-                    <h6 class="fw-bold">Boletín Informativo</h6>
-                    <form class="d-flex gap-2" onsubmit="event.preventDefault(); this.reset();">
-                        <input type="email" class="form-control form-control-sm" placeholder="Tu correo" required>
-                        <button class="btn btn-success btn-sm" type="submit">Suscribir</button>
-                    </form>
+                <div class="col-md-6 text-center text-md-end">
+                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
+                    </ul>
                 </div>
             </div>
-            <hr class="border-secondary mt-4 mb-3">
-            <div class="text-center small text-white-50">
-                © 2026 LIF (Liga Independiente de Fútbol). Todos los derechos reservados.
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- SCRIPTS ENLAZADOS LOCALMENTE -->
+    <!-- ==========================================
+         4. SCRIPTS
+         ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/datos.js"></script>
     <script src="assets/js/validaciones.js"></script>
@@ -147,10 +180,5 @@
             inicializarFormularioUsuario("form-registro");
         }
     </script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/datos.js"></script>
-    <script src="assets/js/validaciones.js"></script>
-    <script src="assets/js/carrito.js"></script>
-    <script src="assets/js/app.js"></script>
 </body>
 </html>

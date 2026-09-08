@@ -3,180 +3,160 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solicitud de Partido y Cita | LIF - Liga Independiente de Fútbol</title>
-    
-    <!-- HOJAS DE ESTILO LOCALES -->
+    <title>Solicitud | LIF</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- ENCABEZADO Y NAVEGACIÓN -->
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-verde header-compact shadow-sm">
-            <div class="container">
+    <!-- NAVEGACIÓN -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green py-2 shadow-sm">
+            <div class="container-fluid px-lg-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="Logo LIF" class="logo-header" width="40" height="40">
-                    <span class="fw-bold fs-5">LIF</span>
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Navegación">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="solicitud.html">Solicitudes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
                         <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="solicitud.html">Solicitud</a></li>
                     </ul>
-                    <div class="d-flex align-items-center gap-2 flex-wrap">
-                        <a href="login.html" class="btn btn-outline-dark btn-sm fw-semibold">Iniciar sesión</a>
-                        <a href="registro.html" class="btn btn-dark btn-sm">Registrarme</a>
-                        <button id="btnModo" class="btn btn-outline-dark btn-sm" type="button" aria-pressed="false">🌙 Modo Oscuro</button>
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                        </a>
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;">🌙</button>
                     </div>
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- BANNER DE SECCIÓN -->
-    <section class="bg-dark text-white py-4 text-center">
+    <!-- BANNER HERO -->
+    <section class="hero-green text-white py-4 text-center">
         <div class="container py-2">
-            <span class="badge bg-success mb-2 fw-bold">Módulo de Gestión (RF-03)</span>
-            <h1 class="h3 fw-bold mb-1">Solicitud de Partidos y Citas Directas</h1>
-            <p class="small text-white-50 mb-0">Agenda partidos amistosos, reprogramaciones de fechas o reuniones administrativas</p>
+            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill mb-2">RF-03</span>
+            <h1 class="fw-black display-6 mb-0">Solicitud de Partidos y Citas</h1>
         </div>
     </section>
 
     <!-- CONTENIDO PRINCIPAL -->
-    <main class="container my-5">
-        <div class="row g-4 justify-content-center">
-            
-            <!-- FORMULARIO DE SOLICITUD -->
-            <section class="col-lg-8">
-                <div class="card border-0 shadow-sm">
-                    <div class="card-header bg-success text-white fw-bold py-3">
-                        📝 Formulario Oficial de Solicitud
-                    </div>
+    <main class="container py-5 flex-grow-1">
+        <div class="row g-4">
+            <!-- Formulario -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="bg-dark-green text-white fw-bold py-3 px-4">📝 Formulario de Solicitud</div>
                     <div class="card-body p-4">
-                        <form id="formSolicitud" onsubmit="event.preventDefault(); alert('Solicitud enviada correctamente a revisión administrativa.'); this.reset();">
-                            
-                            <!-- DATOS DEL SOLICITANTE -->
+                        <form id="formSolicitud" onsubmit="event.preventDefault(); alert('Solicitud enviada.'); this.reset();">
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
-                                    <label for="nombreSolicitante" class="form-label fw-semibold small">Nombre del Representante</label>
-                                    <input type="text" class="form-control" id="nombreSolicitante" placeholder="Ej. Juan Pérez" required>
+                                    <label class="form-label fw-bold small">Representante</label>
+                                    <input type="text" class="form-control" placeholder="Nombre completo" required>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="clubSolicitante" class="form-label fw-semibold small">Equipo / Club Deportivo</label>
-                                    <select class="form-select" id="clubSolicitante" required>
+                                    <label class="form-label fw-bold small">Equipo</label>
+                                    <select class="form-select" required>
                                         <option value="" selected disabled>Selecciona tu equipo...</option>
                                         <option value="1">Mónica FC</option>
                                         <option value="2">Athletic Club</option>
                                         <option value="3">Los Cabros FC</option>
-                                        <option value="4">Stade Francais</option>
-                                        <option value="5">Mohicanos</option>
-                                        <option value="6">Inter de Santiago</option>
                                     </select>
                                 </div>
                             </div>
-
-                            <!-- TIPO DE SOLICITUD -->
                             <div class="row g-3 mb-3">
                                 <div class="col-md-6">
-                                    <label for="tipoSolicitud" class="form-label fw-semibold small">Tipo de Tramitación</label>
-                                    <select class="form-select" id="tipoSolicitud" required>
-                                        <option value="" selected disabled>Selecciona motivo...</option>
-                                        <option value="amistoso">Agendar Partido Amistoso</option>
-                                        <option value="reprogramacion">Reprogramación de Fecha Oficial</option>
-                                        <option value="cita_admin">Cita Administrativa con Directiva LIF</option>
+                                    <label class="form-label fw-bold small">Tipo Tramitación</label>
+                                    <select class="form-select" required>
+                                        <option value="" selected disabled>Motivo...</option>
+                                        <option value="amistoso">Amistoso</option>
+                                        <option value="reprogramacion">Reprogramación</option>
+                                        <option value="cita">Cita Administrativa</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="equipoRival" class="form-label fw-semibold small">Equipo Rival (Opcional)</label>
-                                    <input type="text" class="form-control" id="equipoRival" placeholder="Ej. Los Cabros FC">
+                                    <label class="form-label fw-bold small">Equipo Rival (Opcional)</label>
+                                    <input type="text" class="form-control" placeholder="Ej. Los Cabros FC">
                                 </div>
                             </div>
-
-                            <!-- FECHA, HORARIO Y RECINTO -->
                             <div class="row g-3 mb-3">
                                 <div class="col-md-4">
-                                    <label for="fechaPropuesta" class="form-label fw-semibold small">Fecha Propuesta</label>
-                                    <input type="date" class="form-control" id="fechaPropuesta" required>
+                                    <label class="form-label fw-bold small">Fecha</label>
+                                    <input type="date" class="form-control" required>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="horaPropuesta" class="form-label fw-semibold small">Bloque Horario</label>
-                                    <select class="form-select" id="horaPropuesta" required>
-                                        <option value="" selected disabled>Horario...</option>
+                                    <label class="form-label fw-bold small">Horario</label>
+                                    <select class="form-select" required>
+                                        <option value="" selected disabled>Bloque...</option>
                                         <option value="09:00">09:00 hrs</option>
-                                        <option value="11:00">11:00 hrs</option>
                                         <option value="15:00">15:00 hrs</option>
-                                        <option value="17:30">17:30 hrs</option>
-                                        <option value="19:30">19:30 hrs</option>
                                     </select>
                                 </div>
                                 <div class="col-md-4">
-                                    <label for="complejoPref" class="form-label fw-semibold small">Complejo Preferido</label>
-                                    <select class="form-select" id="complejoPref" required>
+                                    <label class="form-label fw-bold small">Complejo</label>
+                                    <select class="form-select" required>
                                         <option value="" selected disabled>Recinto...</option>
-                                        <option value="cancha1">Complejo Central - Cancha 1</option>
-                                        <option value="cancha2">Complejo Central - Cancha 2</option>
-                                        <option value="cancha3">Complejo Cordillera - Cancha F11</option>
+                                        <option value="cancha1">Cancha 1</option>
+                                        <option value="cancha2">Cancha 2</option>
                                     </select>
                                 </div>
                             </div>
-
-                            <!-- OBSERVACIONES -->
-                            <div class="mb-4">
-                                <label for="observaciones" class="form-label fw-semibold small">Detalles o Justificación</label>
-                                <textarea class="form-control" id="observaciones" rows="3" placeholder="Indica observaciones adicionales, motivo de prórroga o requerimientos especiales del partido..." required></textarea>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Detalles</label>
+                                <textarea class="form-control" rows="3" placeholder="Observaciones..." required></textarea>
                             </div>
-
-                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <button type="reset" class="btn btn-outline-secondary px-4">Limpiar</button>
-                                <button type="submit" class="btn btn-success fw-bold px-4">📩 Enviar Solicitud</button>
+                            <div class="d-flex justify-content-end gap-2">
+                                <button type="reset" class="btn btn-outline-secondary rounded-pill px-4">Limpiar</button>
+                                <button type="submit" class="btn btn-success rounded-pill px-4 fw-bold">Enviar</button>
                             </div>
-
                         </form>
                     </div>
                 </div>
-            </section>
+            </div>
 
-            <!-- LATERAL CON INFORMACIÓN Y REGLAS -->
-            <aside class="col-lg-4">
-                <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header bg-dark text-white fw-bold">
-                        ℹ️ Reglamento de Solicitudes
-                    </div>
-                    <div class="card-body p-3 small text-muted">
-                        <ul class="ps-3 mb-0">
-                            <li class="mb-2"><strong>Plazo mínimo:</strong> Las reprogramaciones deben solicitarse con al menos 72 horas de anticipación a la jornada.</li>
-                            <li class="mb-2"><strong>Aprobación rival:</strong> Amistosos y cambios de hora requieren confirmación escrita del delegado opositor.</li>
-                            <li><strong>Respuesta:</strong> El comité de la liga resolverá la solicitud en un máximo de 24 horas hábiles.</li>
-                        </ul>
-                    </div>
+            <!-- Lateral -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm rounded-4 p-3 mb-3">
+                    <h6 class="fw-bold">ℹ️ Reglamento</h6>
+                    <ul class="small text-muted ps-3 mb-0">
+                        <li>Plazo mínimo: 72h antes.</li>
+                        <li>Requiere aprobación del rival.</li>
+                        <li>Respuesta en max. 24h.</li>
+                    </ul>
                 </div>
-
-                <div class="bg-light p-3 rounded border text-center">
-                    <h6 class="fw-bold text-dark mb-1">¿Necesitas soporte directo?</h6>
-                    <p class="extra-small text-muted mb-2">Comunícate directamente con la mesa directiva de la LIF.</p>
-                    <a href="contacto.html" class="btn btn-outline-dark btn-sm w-100">Contactar a la Liga</a>
+                <div class="bg-white p-3 rounded-4 shadow-sm border text-center">
+                    <h6 class="fw-bold mb-1">¿Dudas?</h6>
+                    <a href="contacto.html" class="btn btn-outline-success rounded-pill btn-sm w-100 mt-2">Contacto</a>
                 </div>
-            </aside>
-
+            </div>
         </div>
     </main>
 
-    <!-- PIE DE PÁGINA -->
-    <footer class="bg-dark text-white pt-4 pb-3 border-top border-secondary">
-        <div class="container text-center small text-white-50">
-            © 2026 LIF (Liga Independiente de Fútbol). Todos los derechos reservados.
+    <!-- FOOTER -->
+    <footer class="bg-dark-green text-white py-4 mt-auto text-center border-top border-success border-4">
+        <div class="container small">
+            <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
         </div>
     </footer>
 
+    <!-- SCRIPTS -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/validaciones.js"></script>
 </body>
 </html>

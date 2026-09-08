@@ -12,7 +12,7 @@
 <body class="d-flex flex-column min-vh-100 bg-light">
 
     <!-- ==========================================
-         1. NAVEGACIÓN
+         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
          ========================================== -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
@@ -32,11 +32,26 @@
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link active" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
                     </ul>
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0">
+
+                    <!-- Botones de Acción y Modo Oscuro -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
                         <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
-                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark shadow-sm">🎟️ Tickets</a>
-                    </div>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                        </a>
+                        
+                        <!-- Botón de Modo Oscuro -->
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
+                            🌙
+                        </button>
+                    </div>                   
+
                 </div>
             </div>
         </nav>
@@ -96,7 +111,7 @@
                         <div class="col-md-3 col-lg-3 p-4 border-start text-md-center d-flex flex-column justify-content-center bg-white">
                             <span class="text-muted small fw-bold mb-1">Entradas desde</span>
                             <span class="fs-3 fw-black text-dark mb-3">$7.000</span>
-                            <a href="carrito.html" class="btn btn-warning fw-bold text-dark rounded-pill shadow-sm w-100">Comprar e-Ticket</a>
+                            <button onclick="agregarAlCarrito(1, 'Gran Final', 7000)" class="btn btn-warning fw-bold text-dark rounded-pill shadow-sm w-100">Comprar e-Ticket</button>
                         </div>
                     </div>
                 </div>
@@ -128,7 +143,7 @@
                         <div class="col-md-3 col-lg-3 p-4 border-start text-md-center d-flex flex-column justify-content-center bg-white">
                             <span class="text-muted small fw-bold mb-1">Entrada General</span>
                             <span class="fs-3 fw-black text-dark mb-3">$4.000</span>
-                            <a href="carrito.html" class="btn btn-warning fw-bold text-dark rounded-pill shadow-sm w-100">Comprar e-Ticket</a>
+                            <button onclick="agregarAlCarrito(2, 'General', 4000)" class="btn btn-warning fw-bold text-dark rounded-pill shadow-sm w-100">Comprar e-Ticket</button>
                         </div>
                     </div>
                 </div>
@@ -152,7 +167,7 @@
                     <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
                         <li>📍 Complejo Deportivo Principal</li>
                         <li>✉️ soporte@lifchile.cl</li>
-                        <li><a href="reglamento.html" class="text-success text-decoration-none fw-bold">Reglamento Oficial</a></li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
                     </ul>
                 </div>
             </div>
@@ -167,5 +182,7 @@
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/validaciones.js"></script>
 </body>
 </html>
