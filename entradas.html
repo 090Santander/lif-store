@@ -9,6 +9,7 @@
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
+    <!-- HEADER & NAVBAR UNIFICADO DE LIF -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
             <div class="container-fluid px-lg-4">
@@ -16,21 +17,24 @@
                     <img src="assets/images/LOGO.png" alt="Logotipo LIF" class="logo-header">
                     <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLIF">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
-                <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav mx-auto gap-xl-1">
+                <div class="collapse navbar-collapse" id="navbarLIF">
+                    <ul class="navbar-nav mx-auto mb-2 mb-xl-0 small fw-bold">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link active" href="entradas.html" aria-current="page">Entradas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
-                        <li class="nav-item"><a class="nav-link" href="admin.html">Admin</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugadores.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning" href="admin.html">Admin</a></li>
                     </ul>
-                    <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-2 ms-xl-2">
                         <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
                             🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
                         </a>
@@ -54,9 +58,9 @@
         <div id="contenedor-entradas" class="row g-4"></div>
     </main>
 
-    <footer class="bg-dark-green text-white pt-4 pb-3 mt-auto">
+    <footer class="bg-dark-green text-white py-3 mt-auto">
         <div class="container text-center extra-small text-white-50">
-            <p>© 2026 LIF - Liga Independiente de Fútbol.</p>
+            <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -67,10 +71,12 @@
     <script>
         function renderizarEntradas() {
             const contenedor = document.getElementById('contenedor-entradas');
+            if (typeof obtenerPartidos !== 'function') return;
+
             const partidos = obtenerPartidos();
 
-            if (partidos.length === 0) {
-                contenedor.innerHTML = `<div class="alert alert-info text-center">No hay entradas disponibles en este momento.</div>`;
+            if (!partidos || partidos.length === 0) {
+                contenedor.innerHTML = `<div class="col-12"><div class="alert alert-info text-center rounded-4">No hay entradas disponibles en este momento.</div></div>`;
                 return;
             }
 
@@ -80,7 +86,7 @@
                         <div class="card-body p-4 d-flex flex-column justify-content-between">
                             <div>
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-danger text-uppercase">${p.fase}</span>
+                                    <span class="badge bg-danger text-uppercase">${p.fase || 'OFICIAL'}</span>
                                     <small class="text-muted">📍 ${p.sede}</small>
                                 </div>
                                 <h3 class="fw-black fs-4 text-dark mb-1">${p.equipoLocal} vs ${p.equipoVisitante}</h3>

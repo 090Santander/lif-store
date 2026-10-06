@@ -1,4 +1,4 @@
-<!DOCTYPE ht<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -27,7 +27,10 @@
         <!-- NAV TABS -->
         <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
             <li class="nav-item" role="presentation">
-                <button class="nav-link active fw-bold text-success" id="partidos-tab" data-bs-toggle="tab" data-bs-target="#tab-partidos" type="button">⚽ Partidos y Entradas</button>
+                <button class="nav-link active fw-bold text-success" id="noticias-tab" data-bs-toggle="tab" data-bs-target="#tab-noticias" type="button">📰 Gestor de Noticias</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold text-success" id="partidos-tab" data-bs-toggle="tab" data-bs-target="#tab-partidos" type="button">⚽ Partidos, Entradas y Noticias</button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link fw-bold text-success" id="jugadores-tab" data-bs-toggle="tab" data-bs-target="#tab-jugadores" type="button">🏃 Gestor de Jugadores</button>
@@ -35,12 +38,56 @@
         </ul>
 
         <div class="tab-content" id="adminTabsContent">
-            
-            <!-- TAB 1: CREAR PARTIDOS (SE VEN EN ENTRADAS) -->
-            <div class="tab-pane fade show active" id="tab-partidos" role="tabpanel">
+
+            <!-- TAB 1: GESTOR DE NOTICIAS GENERAL -->
+            <div class="tab-pane fade show active" id="tab-noticias" role="tabpanel">
                 <div class="row g-4">
                     <div class="col-md-5">
                         <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h3 class="fs-5 fw-bold mb-3">Publicar Nueva Noticia</h3>
+                            <form id="form-nueva-noticia">
+                                <div class="mb-2">
+                                    <label class="form-label small fw-bold">Título de la Noticia</label>
+                                    <input type="text" id="n-titulo" class="form-control" required placeholder="Ej: Gran Final de la Liguilla 2026">
+                                </div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label class="form-label small fw-bold">Categoría</label>
+                                        <select id="n-categoria" class="form-select" required>
+                                            <option value="Oficial">Oficial</option>
+                                            <option value="Deportes">Deportes</option>
+                                            <option value="Tribunal">Tribunal</option>
+                                            <option value="Infraestructura">Infraestructura</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small fw-bold">Fecha / Tiempo</label>
+                                        <input type="text" id="n-fecha" class="form-control" required placeholder="Ej: Hoy / Hace 2 hrs">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Resumen / Contenido</label>
+                                    <textarea id="n-resumen" class="form-control" rows="3" required placeholder="Escribe el resumen o cuerpo de la publicación..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100 rounded-pill fw-bold">Publicar Noticia</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h3 class="fs-5 fw-bold mb-3">Noticias Publicadas</h3>
+                            <ul id="lista-noticias-admin" class="list-group list-group-flush"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TAB 2: PARTIDOS, ENTRADAS Y NOTICIAS RELACIONADAS -->
+            <div class="tab-pane fade" id="tab-partidos" role="tabpanel">
+                <div class="row g-4">
+                    <div class="col-md-5">
+                        <!-- FORMULARIO DE PARTIDOS -->
+                        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
                             <h3 class="fs-5 fw-bold mb-3">Agregar Nuevo Partido / Entrada</h3>
                             <form id="form-nuevo-partido">
                                 <div class="mb-2">
@@ -82,17 +129,51 @@
                                 <button type="submit" class="btn btn-success w-100 rounded-pill fw-bold">Publicar Partido y Tickets</button>
                             </form>
                         </div>
-                    </div>
-                    <div class="col-md-7">
+
+                        <!-- FORMULARIO DE NOTICIA DESDE LA SECCIÓN DE PARTIDOS -->
                         <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h3 class="fs-5 fw-bold mb-3">📰 Agregar Noticia de Partido</h3>
+                            <form id="form-noticia-partido">
+                                <div class="mb-2">
+                                    <label class="form-label small fw-bold">Título de la Noticia</label>
+                                    <input type="text" id="np-titulo" class="form-control" required placeholder="Ej: Venta de Entradas Habilitada">
+                                </div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label class="form-label small fw-bold">Categoría</label>
+                                        <select id="np-categoria" class="form-select" required>
+                                            <option value="Deportes">Deportes</option>
+                                            <option value="Oficial">Oficial</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label class="form-label small fw-bold">Fecha / Tiempo</label>
+                                        <input type="text" id="np-fecha" class="form-control" required placeholder="Ej: Hace 10 min">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold">Resumen / Contenido</label>
+                                    <textarea id="np-resumen" class="form-control" rows="2" required placeholder="Breve actualización del encuentro..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-outline-success w-100 rounded-pill fw-bold">Publicar Noticia</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
                             <h3 class="fs-5 fw-bold mb-3">Partidos Registrados</h3>
                             <ul id="lista-partidos-admin" class="list-group list-group-flush"></ul>
+                        </div>
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h3 class="fs-5 fw-bold mb-3">Últimas Noticias</h3>
+                            <ul id="lista-noticias-partidos-admin" class="list-group list-group-flush"></ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 2: AGREGAR Y VER JUGADORES -->
+            <!-- TAB 3: AGREGAR Y VER JUGADORES -->
             <div class="tab-pane fade" id="tab-jugadores" role="tabpanel">
                 <div class="row g-4">
                     <div class="col-md-5">
@@ -154,59 +235,132 @@
     <script src="assets/js/datos.js"></script>
     <script>
         function cargarAdmin() {
-            // Cargar partidos
-            const partidos = obtenerPartidos();
-            const listPartidos = document.getElementById('lista-partidos-admin');
-            listPartidos.innerHTML = partidos.map(p => `
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
-                        <strong>${p.equipoLocal} vs ${p.equipoVisitante}</strong>
-                        <div class="extra-small text-muted">${p.fecha} | ${p.sede}</div>
-                    </div>
-                    <span class="badge bg-success">$${p.precio.toLocaleString('es-CL')}</span>
-                </li>
-            `).join('');
+            // Renderizar noticias
+            if (typeof obtenerNoticias === 'function') {
+                const noticias = obtenerNoticias();
+                const renderHTML = noticias.map(n => `
+                    <li class="list-group-item py-3">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="badge bg-primary extra-small text-uppercase">${n.categoria}</span>
+                            <small class="text-muted extra-small">🕒 ${n.fecha}</small>
+                        </div>
+                        <h6 class="fw-bold mb-1">${n.titulo}</h6>
+                        <p class="small text-muted mb-0">${n.resumen}</p>
+                    </li>
+                `).join('');
 
-            // Cargar jugadores
-            const jugadores = obtenerJugadores();
-            const listJugadores = document.getElementById('lista-jugadores-admin');
-            listJugadores.innerHTML = jugadores.map(j => `
-                <tr>
-                    <td class="fw-bold">${j.dorsal}</td>
-                    <td>${j.nombre}</td>
-                    <td><span class="badge bg-secondary">${j.equipo}</span></td>
-                    <td>${j.posicion}</td>
-                </tr>
-            `).join('');
+                const listNoticias = document.getElementById('lista-noticias-admin');
+                const listNoticiasPartidos = document.getElementById('lista-noticias-partidos-admin');
+                
+                if (listNoticias) listNoticias.innerHTML = renderHTML;
+                if (listNoticiasPartidos) listNoticiasPartidos.innerHTML = renderHTML;
+            }
+
+            // Renderizar partidos
+            if (typeof obtenerPartidos === 'function') {
+                const partidos = obtenerPartidos();
+                const listPartidos = document.getElementById('lista-partidos-admin');
+                if (listPartidos) {
+                    listPartidos.innerHTML = partidos.map(p => `
+                        <li class="list-group-item d-flex justify-content-between align-items-center py-3">
+                            <div>
+                                <strong>${p.equipoLocal} vs ${p.equipoVisitante}</strong>
+                                <div class="extra-small text-muted">${p.fecha} | ${p.sede}</div>
+                            </div>
+                            <span class="badge bg-success">$${p.precio.toLocaleString('es-CL')}</span>
+                        </li>
+                    `).join('');
+                }
+            }
+
+            // Renderizar jugadores
+            if (typeof obtenerJugadores === 'function') {
+                const jugadores = obtenerJugadores();
+                const listJugadores = document.getElementById('lista-jugadores-admin');
+                if (listJugadores) {
+                    listJugadores.innerHTML = jugadores.map(j => `
+                        <tr>
+                            <td class="fw-bold text-success">${j.dorsal}</td>
+                            <td>${j.nombre}</td>
+                            <td><span class="badge bg-secondary">${j.equipo}</span></td>
+                            <td>${j.posicion}</td>
+                        </tr>
+                    `).join('');
+                }
+            }
         }
 
-        document.getElementById('form-nuevo-partido').addEventListener('submit', (e) => {
+        // Publicar Noticia (Pestaña Noticias)
+        document.getElementById('form-nueva-noticia')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nuevaNoticia = {
+                titulo: document.getElementById('n-titulo').value.trim(),
+                categoria: document.getElementById('n-categoria').value,
+                fecha: document.getElementById('n-fecha').value.trim(),
+                resumen: document.getElementById('n-resumen').value.trim()
+            };
+
+            if (typeof guardarNoticia === 'function') {
+                guardarNoticia(nuevaNoticia);
+            }
+            e.target.reset();
+            cargarAdmin();
+            alert("¡Noticia publicada con éxito!");
+        });
+
+        // Publicar Noticia (Pestaña Partidos)
+        document.getElementById('form-noticia-partido')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const nuevaNoticia = {
+                titulo: document.getElementById('np-titulo').value.trim(),
+                categoria: document.getElementById('np-categoria').value,
+                fecha: document.getElementById('np-fecha').value.trim(),
+                resumen: document.getElementById('np-resumen').value.trim()
+            };
+
+            if (typeof guardarNoticia === 'function') {
+                guardarNoticia(nuevaNoticia);
+            }
+            e.target.reset();
+            cargarAdmin();
+            alert("¡Noticia asociada al evento publicada con éxito!");
+        });
+
+        // Guardar Partido
+        document.getElementById('form-nuevo-partido')?.addEventListener('submit', (e) => {
             e.preventDefault();
             const nuevo = {
-                equipoLocal: document.getElementById('p-local').value,
-                equipoVisitante: document.getElementById('p-visitante').value,
-                fecha: document.getElementById('p-fecha').value,
-                hora: document.getElementById('p-hora').value,
-                sede: document.getElementById('p-sede').value,
-                fase: document.getElementById('p-fase').value,
+                equipoLocal: document.getElementById('p-local').value.trim(),
+                equipoVisitante: document.getElementById('p-visitante').value.trim(),
+                fecha: document.getElementById('p-fecha').value.trim(),
+                hora: document.getElementById('p-hora').value.trim(),
+                sede: document.getElementById('p-sede').value.trim(),
+                fase: document.getElementById('p-fase').value.trim(),
                 precio: Number(document.getElementById('p-precio').value),
-                descripcion: document.getElementById('p-desc').value
+                descripcion: document.getElementById('p-desc').value.trim()
             };
-            guardarPartido(nuevo);
+
+            if (typeof guardarPartido === 'function') {
+                guardarPartido(nuevo);
+            }
             e.target.reset();
             cargarAdmin();
             alert("¡Partido y entradas publicadas con éxito!");
         });
 
-        document.getElementById('form-nuevo-jugador').addEventListener('submit', (e) => {
+        // Guardar Jugador
+        document.getElementById('form-nuevo-jugador')?.addEventListener('submit', (e) => {
             e.preventDefault();
             const nuevo = {
-                nombre: document.getElementById('j-nombre').value,
-                equipo: document.getElementById('j-equipo').value,
+                nombre: document.getElementById('j-nombre').value.trim(),
+                equipo: document.getElementById('j-equipo').value.trim(),
                 posicion: document.getElementById('j-posicion').value,
                 dorsal: Number(document.getElementById('j-dorsal').value)
             };
-            guardarJugador(nuevo);
+
+            if (typeof guardarJugador === 'function') {
+                guardarJugador(nuevo);
+            }
             e.target.reset();
             cargarAdmin();
             alert("¡Jugador guardado con éxito!");
