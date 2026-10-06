@@ -1,8 +1,10 @@
 /**
- * datos.js - Base de datos simulada y helpers para LIF
+ * ============================================================================
+ * datos.js - Base de Datos Simulada y Helpers de Consulta (LIF)
+ * ============================================================================
  */
 
-const DATOS_LIF = {
+const DATOS_LIF = Object.freeze({
     equipos: [
         { id: 1, nombre: "Mónica FC", categoria: "Senior / Legendarios" },
         { id: 2, nombre: "Athletic Club", categoria: "Junior" },
@@ -67,9 +69,26 @@ const DATOS_LIF = {
             resumen: "Demostración contundente de eficacia defensiva y ofensiva ante Athletic Club."
         }
     ]
-};
+});
 
-// --- HELPER UTILITIES DE BÚSQUEDA RÁPIDA ---
-const obtenerPartidoPorId = (id) => DATOS_LIF.partidos.find(p => p.id === Number(id));
-const obtenerLocalidadPorId = (id) => DATOS_LIF.localidades.find(l => l.id === id);
-const obtenerEquipoPorId = (id) => DATOS_LIF.equipos.find(e => e.id === Number(id));
+// ==========================================
+// HELPER UTILITIES (FUNCIONES PURAS DE BÚSQUEDA)
+// ==========================================
+
+/**
+ * Busca un partido por su ID numérico.
+ */
+const obtenerPartidoPorId = (id) => 
+    DATOS_LIF.partidos.find(p => p.id === Number(id));
+
+/**
+ * Busca una localidad de entrada por su ID de texto.
+ */
+const obtenerLocalidadPorId = (id) => 
+    DATOS_LIF.localidades.find(l => l.id === id);
+
+/**
+ * Busca un equipo por su ID numérico.
+ */
+const obtenerEquipoPorId = (id) => 
+    DATOS_LIF.equipos.find(e => e.id === Number(id));

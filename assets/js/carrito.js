@@ -1,67 +1,81 @@
 /**
- * carrito.js - Gestión del carrito de e-Tickets para LIF
+ * assets/js/carrito.js
+ * Gestión funcional del carrito de e-Tickets para LIF
  */
 
 const KEY_CARRITO = "LIF_CARRITO_ENTRADAS";
 
+// ==========================================
+// 1. FUNCIONES PURAS Y ESTADO (LECTURA / ESCRITURA)
+// ==========================================
+
+// Lee el estado actual sin modificar nada
 const obtenerCarrito = () => JSON.parse(localStorage.getItem(KEY_CARRITO)) || [];
 
-const guardarCarrito = (carrito) => {
-    localStorage.setItem(KEY_CARRITO, JSON.stringify(carrito));
-    actualizarBadgeCarrito();
+// Guarda el nuevo estado y actualiza la vista
+const guardarCarrito = (nuevoCarrito) => {
+    localStorage.setItem(KEY_CARRITO, JSON.stringify(nuevoCarrito));
+    actualizarBadge();
+    renderizarCarrito();
 };
 
+// Calcula el total sumando el precio de cada entrada (Función pura)
+const calcularTotal = (carrito) => carrito.reduce((acumulado, item) => acumulado + item.precio, 0);
+
+// ==========================================
+// 2. ACCIONES DEL CARRITO
+// ==========================================
+
 function agregarAlCarrito(idPartido, tipoLocalidad = "Galería General", precio = 3000) {
-    const carrito = obtenerCarrito();
     const partidos = (typeof DATOS_LIF !== "undefined" && DATOS_LIF.partidos) ? DATOS_LIF.partidos : [];
     const partido = partidos.find(p => p.id === Number(idPartido)) || {
-        id: idPartido,
         local: "Partido LIF",
         visita: "Fecha Oficial",
         fecha: "Próxima Fecha"
     };
 
-    const item = {
+    const nuevoTicket = {
         idUnico: Date.now() + Math.floor(Math.random() * 1000),
-        partidoId: partido.id,
         encuentro: `${partido.local} vs. ${partido.visita}`,
         localidad: tipoLocalidad,
         precio: Number(precio),
         fecha: partido.fecha
     };
 
-    carrito.push(item);
-    guardarCarrito(carrito);
-    alert(`🎟️ Entrada agregada al carrito: ${item.encuentro} (${item.localidad})`);
+    // Crear un nuevo arreglo sin mutar el original (Inmutabilidad)
+    guardarCarrito([...obtenerCarrito(), nuevoTicket]);
+    alert(`🎟️ Entrada agregada: ${nuevoTicket.encuentro} (${nuevoTicket.localidad})`);
 }
 
 function eliminarDelCarrito(idUnico) {
-    const carrito = obtenerCarrito().filter(item => item.idUnico !== idUnico);
-    guardarCarrito(carrito);
-    if (typeof renderizarCarrito === "function") renderizarCarrito();
+    // Filtrar excluyendo el elemento seleccionado
+    const carritoFiltrado = obtenerCarrito().filter(item => item.idUnico !== idUnico);
+    guardarCarrito(carritoFiltrado);
 }
 
 function vaciarCarrito() {
-    if (confirm("¿Estás seguro de que deseas vaciar el carrito?")) {
+    if (confirm("¿Deseas vaciar todas las entradas del carrito?")) {
         localStorage.removeItem(KEY_CARRITO);
-        actualizarBadgeCarrito();
-        if (typeof renderizarCarrito === "function") renderizarCarrito();
+        actualizarBadge();
+        renderizarCarrito();
     }
 }
 
 function finalizarCompra() {
     const carrito = obtenerCarrito();
-    if (carrito.length === 0) {
-        alert("Tu carrito está vacío.");
-        return;
-    }
+    if (carrito.length === 0) return alert("Tu carrito está vacío.");
+
     alert("🎉 ¡Compra realizada con éxito! Tus e-Tickets han sido generados.");
     localStorage.removeItem(KEY_CARRITO);
-    actualizarBadgeCarrito();
-    if (typeof renderizarCarrito === "function") renderizarCarrito();
+    actualizarBadge();
+    renderizarCarrito();
 }
 
-function actualizarBadgeCarrito() {
+// ==========================================
+// 3. RENDERIZADO Y DOM
+// ==========================================
+
+function actualizarBadge() {
     const totalItems = obtenerCarrito().length;
     document.querySelectorAll(".badge-carrito").forEach(badge => {
         badge.textContent = totalItems;
@@ -71,10 +85,10 @@ function actualizarBadgeCarrito() {
 function renderizarCarrito() {
     const contenedor = document.getElementById("contenedor-carrito");
     const totalElem = document.getElementById("total-carrito");
-    if (!contenedor) return;
+    
+    if (!contenedor) return; // Si no estamos en la página del carrito, no hace nada
 
     const carrito = obtenerCarrito();
-    contenedor.innerHTML = "";
 
     if (carrito.length === 0) {
         contenedor.innerHTML = `
@@ -87,25 +101,28 @@ function renderizarCarrito() {
         return;
     }
 
-    let total = 0;
-    contenedor.innerHTML = carrito.map(item => {
-        total += item.precio;
-        return `
-            <tr>
-                <td><strong>${item.encuentro}</strong><br><small class="text-muted">${item.fecha}</small></td>
-                <td><span class="badge bg-secondary">${item.localidad}</span></td>
-                <td>$${item.precio.toLocaleString("es-CL")}</td>
-                <td class="text-center">
-                    <button onclick="eliminarDelCarrito(${item.idUnico})" class="btn btn-outline-danger btn-sm" title="Eliminar">🗑️</button>
-                </td>
-            </tr>`;
-    }).join("");
+    // Generar las filas del HTML de forma declarativa con .map()
+    contenedor.innerHTML = carrito.map(item => `
+        <tr>
+            <td>
+                <strong>${item.encuentro}</strong><br>
+                <small class="text-muted">${item.fecha}</small>
+            </td>
+            <td><span class="badge bg-secondary">${item.localidad}</span></td>
+            <td>$${item.precio.toLocaleString("es-CL")}</td>
+            <td class="text-center">
+                <button onclick="eliminarDelCarrito(${item.idUnico})" class="btn btn-outline-danger btn-sm" title="Eliminar">🗑️</button>
+            </td>
+        </tr>
+    `).join("");
 
-    if (totalElem) totalElem.textContent = `$${total.toLocaleString("es-CL")}`;
+    if (totalElem) {
+        totalElem.textContent = `$${calcularTotal(carrito).toLocaleString("es-CL")}`;
+    }
 }
 
-// Inicialización automática al cargar el DOM
+// Inicialización automática
 document.addEventListener("DOMContentLoaded", () => {
-    actualizarBadgeCarrito();
+    actualizarBadge();
     renderizarCarrito();
 });
