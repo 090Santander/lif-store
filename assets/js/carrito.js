@@ -1,6 +1,7 @@
 /**
- * assets/js/carrito.js
- * Gestión funcional del carrito de e-Tickets para LIF
+ * ============================================================================
+ * carrito.js - Gestión Funcional del Carrito de e-Tickets (LIF)
+ * ============================================================================
  */
 
 const KEY_CARRITO = "LIF_CARRITO_ENTRADAS";
@@ -9,17 +10,14 @@ const KEY_CARRITO = "LIF_CARRITO_ENTRADAS";
 // 1. FUNCIONES PURAS Y ESTADO (LECTURA / ESCRITURA)
 // ==========================================
 
-// Lee el estado actual sin modificar nada
 const obtenerCarrito = () => JSON.parse(localStorage.getItem(KEY_CARRITO)) || [];
 
-// Guarda el nuevo estado y actualiza la vista
 const guardarCarrito = (nuevoCarrito) => {
     localStorage.setItem(KEY_CARRITO, JSON.stringify(nuevoCarrito));
     actualizarBadge();
     renderizarCarrito();
 };
 
-// Calcula el total sumando el precio de cada entrada (Función pura)
 const calcularTotal = (carrito) => carrito.reduce((acumulado, item) => acumulado + item.precio, 0);
 
 // ==========================================
@@ -42,13 +40,11 @@ function agregarAlCarrito(idPartido, tipoLocalidad = "Galería General", precio 
         fecha: partido.fecha
     };
 
-    // Crear un nuevo arreglo sin mutar el original (Inmutabilidad)
     guardarCarrito([...obtenerCarrito(), nuevoTicket]);
     alert(`🎟️ Entrada agregada: ${nuevoTicket.encuentro} (${nuevoTicket.localidad})`);
 }
 
 function eliminarDelCarrito(idUnico) {
-    // Filtrar excluyendo el elemento seleccionado
     const carritoFiltrado = obtenerCarrito().filter(item => item.idUnico !== idUnico);
     guardarCarrito(carritoFiltrado);
 }
@@ -86,7 +82,7 @@ function renderizarCarrito() {
     const contenedor = document.getElementById("contenedor-carrito");
     const totalElem = document.getElementById("total-carrito");
     
-    if (!contenedor) return; // Si no estamos en la página del carrito, no hace nada
+    if (!contenedor) return;
 
     const carrito = obtenerCarrito();
 
@@ -101,7 +97,6 @@ function renderizarCarrito() {
         return;
     }
 
-    // Generar las filas del HTML de forma declarativa con .map()
     contenedor.innerHTML = carrito.map(item => `
         <tr>
             <td>
@@ -121,7 +116,10 @@ function renderizarCarrito() {
     }
 }
 
-// Inicialización automática
+// ==========================================
+// 4. INICIALIZACIÓN AUTOMÁTICA
+// ==========================================
+
 document.addEventListener("DOMContentLoaded", () => {
     actualizarBadge();
     renderizarCarrito();
