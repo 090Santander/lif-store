@@ -3,32 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fixture, programación y resultados oficiales de la Liga Independiente de Fútbol (LIF).">
-    <title>Partidos y Fixture | LIF - Liga Independiente de Fútbol</title>
-    <!-- Estilos de Bootstrap y Personalizados -->
+    <meta name="description" content="Fixture, programación y resultados de la Liga Independiente de Fútbol (LIF).">
+    <title>Partidos | LIF - Liga Independiente de Fútbol</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- ==========================================
-         1. NAVEGACIÓN PRINCIPAL (RBAC COMPATIBLE)
-         ========================================== -->
+    <!-- Navegación -->
     <header class="sticky-top">
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2" aria-label="Navegación principal">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
             <div class="container-fluid px-lg-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="Logotipo LIF" class="logo-header">
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
                     <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Alternar menú de navegación">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                
                 <div class="collapse navbar-collapse" id="navMenu">
                     <ul class="navbar-nav mx-auto gap-xl-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="partidos.html" aria-current="page">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="partidos.html">Partidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
@@ -39,60 +35,40 @@
                         <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
                         <li class="nav-item"><a class="nav-link" href="admin.html">Admin</a></li>
                     </ul>
-
-                    <!-- Controles de Usuario, Carrito y Tema -->
                     <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
                         <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
                         <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
                         <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
                             🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
                         </a>
-                        
-                        <!-- Toggle Modo Oscuro -->
-                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro" aria-label="Alternar modo oscuro">
-                            🌙
-                        </button>
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;">🌙</button>
                     </div>                   
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- ==========================================
-         2. BANNER HERO ENCABEZADO
-         ========================================== -->
+    <!-- Banner -->
     <section class="hero-green text-white py-4 text-center">
         <div class="container py-2">
-            <span class="badge bg-light text-success fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Fecha 5</span>
+            <span class="badge bg-light text-success fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Programación Oficial</span>
             <h1 class="fw-black display-6 mb-0">Fixture y Resultados</h1>
         </div>
     </section>
 
-    <!-- ==========================================
-         3. CONTENIDO PRINCIPAL (FIXTURE / TABLA)
-         ========================================== -->
+    <!-- Main Body -->
     <main class="container py-5 flex-grow-1">
-        
-        <!-- Filtros de Navegación del Fixture -->
-        <div class="d-flex justify-content-center gap-2 mb-4">
-            <button type="button" class="btn btn-success rounded-pill px-4 btn-sm fw-bold">Próximos Partidos</button>
-            <button type="button" class="btn btn-outline-success rounded-pill px-4 btn-sm fw-bold">Resultados Anteriores</button>
-        </div>
-
-        <!-- Tabla de Programación -->
         <div class="row justify-content-center">
             <div class="col-lg-10">
                 <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                    
                     <div class="card-header bg-dark-green text-white fw-bold py-3 text-center border-0">
-                        📅 Sábado 12 de Septiembre - Complejo LIF
+                        📅 Próximas Fechas Programadas
                     </div>
-                    
                     <div class="table-responsive">
                         <table class="table table-hover align-middle text-center m-0">
                             <thead class="table-light extra-small text-muted text-uppercase">
                                 <tr>
-                                    <th scope="col">Hora</th>
+                                    <th scope="col">Fecha / Hora</th>
                                     <th scope="col">Cancha</th>
                                     <th scope="col" class="text-end w-25">Local</th>
                                     <th scope="col"></th>
@@ -100,73 +76,52 @@
                                     <th scope="col">Estado</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="fw-bold text-dark">14:00</td>
-                                    <td class="small">Cancha 1</td>
-                                    <td class="text-end fw-bold">Zánganos FC</td>
-                                    <td class="fw-black text-success fs-5">VS</td>
-                                    <td class="text-start fw-bold">Mónica FC</td>
-                                    <td><span class="badge bg-warning text-dark rounded-pill">Por jugar</span></td>
-                                </tr>
-                                <tr class="table-success">
-                                    <td class="fw-bold text-dark">16:00</td>
-                                    <td class="small">Cancha 1</td>
-                                    <td class="text-end fw-bold">Cracks FC</td>
-                                    <td class="fw-black text-success fs-5">VS</td>
-                                    <td class="text-start fw-bold">Inter Santiago</td>
-                                    <td><span class="badge bg-danger rounded-pill">Destacado</span></td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold text-dark">18:00</td>
-                                    <td class="small">Cancha 2</td>
-                                    <td class="text-end fw-bold">Unión Cordillera</td>
-                                    <td class="fw-black text-success fs-5">VS</td>
-                                    <td class="text-start fw-bold">Mohicanos</td>
-                                    <td><span class="badge bg-warning text-dark rounded-pill">Por jugar</span></td>
-                                </tr>
+                            <tbody id="contenedor-partidos">
+                                <!-- Se renderiza dinámicamente desde datos.js -->
                             </tbody>
                         </table>
                     </div>
-                    
                 </div>
             </div>
         </div>
-
     </main>
 
-    <!-- ==========================================
-         4. FOOTER ESTRUCTURADO
-         ========================================== -->
+    <!-- Footer -->
     <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
         <div class="container">
-            <div class="row g-4 mb-4">
-                <div class="col-md-6 text-center text-md-start">
-                    <h2 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h2>
-                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <h3 class="fw-bold mb-3 fs-5">Información</h3>
-                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
-                        <li>📍 Complejo Deportivo Principal</li>
-                        <li>✉️ soporte@lifchile.cl</li>
-                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+            <div class="text-center extra-small text-white-50">
                 <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- ==========================================
-         5. SCRIPTS
-         ========================================== -->
+    <!-- Scripts -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/datos.js"></script>
     <script src="assets/js/carrito.js"></script>
-    <script src="assets/js/validaciones.js"></script>
     <script src="assets/js/app.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const contenedor = document.getElementById('contenedor-partidos');
+            if (!contenedor) return;
+
+            const partidos = obtenerPartidos();
+            if (partidos.length === 0) {
+                contenedor.innerHTML = `<tr><td colspan="6" class="py-4 text-muted">No hay partidos programados.</td></tr>`;
+                return;
+            }
+
+            contenedor.innerHTML = partidos.map(p => `
+                <tr class="${p.estado === 'Destacado' ? 'table-success' : ''}">
+                    <td class="fw-bold text-dark">${p.fecha}<br><small class="text-muted">${p.hora}</small></td>
+                    <td class="small">${p.cancha}</td>
+                    <td class="text-end fw-bold">${p.local}</td>
+                    <td class="fw-black text-success fs-5">VS</td>
+                    <td class="text-start fw-bold">${p.visita}</td>
+                    <td><span class="badge ${p.estado === 'Destacado' ? 'bg-danger' : 'bg-warning text-dark'} rounded-pill">${p.estado}</span></td>
+                </tr>
+            `).join('');
+        });
+    </script>
 </body>
 </html>

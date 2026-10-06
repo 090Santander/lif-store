@@ -3,25 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Compra de entradas y e-Tickets oficiales para los partidos de la Liga Independiente de Fútbol (LIF).">
-    <title>Entradas y e-Tickets | LIF - Liga Independiente de Fútbol</title>
-    <!-- Estilos de Bootstrap y Personalizados -->
+    <title>Entradas y e-Tickets | LIF</title>
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- ==========================================
-         1. NAVEGACIÓN PRINCIPAL (RBAC COMPATIBLE)
-         ========================================== -->
     <header class="sticky-top">
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2" aria-label="Navegación principal">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
             <div class="container-fluid px-lg-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
                     <img src="assets/images/LOGO.png" alt="Logotipo LIF" class="logo-header">
                     <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Alternar menú de navegación">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
@@ -31,164 +26,84 @@
                         <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link active" href="entradas.html" aria-current="page">Entradas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
                         <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
                         <li class="nav-item"><a class="nav-link" href="admin.html">Admin</a></li>
                     </ul>
-
-                    <!-- Controles de Usuario, Carrito y Tema -->
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
-                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
-                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                    <div class="d-flex align-items-center gap-2">
                         <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
                             🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
                         </a>
-                        
-                        <!-- Toggle Modo Oscuro -->
-                        <button id="btn-dark-mode" type="button" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro" aria-label="Alternar modo oscuro">
-                            🌙
-                        </button>
                     </div>                   
                 </div>
             </div>
         </nav>
     </header>
 
-    <!-- ==========================================
-         2. BANNER HERO
-         ========================================== -->
-    <section class="bg-dark-green text-white py-5 text-center" style="background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('assets/images/estadio-bg.jpg'); background-size: cover; background-position: center;">
-        <div class="container py-3">
-            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-3 shadow-sm">Boletería Oficial</span>
-            <h1 class="fw-black display-5 mb-2 text-shadow">Compra tus e-Tickets</h1>
-            <p class="lead text-white-75 fs-6 mx-auto col-lg-6 mb-0">Asegura tu lugar en las gradas y apoya a tu equipo favorito en la Liguilla Final 2026.</p>
+    <section class="hero-green text-white py-4 text-center">
+        <div class="container py-2">
+            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Boletería Oficial</span>
+            <h1 class="fw-black display-6 mb-0">Compra tus e-Tickets</h1>
         </div>
     </section>
 
-    <!-- ==========================================
-         3. LISTADO DE EVENTOS Y ENTRADAS
-         ========================================== -->
     <main class="container py-5 flex-grow-1">
+        <h2 class="fw-bold mb-4">Próximos Partidos Disponibles</h2>
         
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h2 class="h4 fw-bold text-dark mb-0">Próximos Partidos</h2>
-            <!-- Filtro por Sede -->
-            <select class="form-select w-auto rounded-pill border-success shadow-sm text-success fw-bold" aria-label="Filtrar eventos por sede">
-                <option selected>Todas las Sedes</option>
-                <option value="1">Sede Principal</option>
-                <option value="2">Sede Norte</option>
-            </select>
-        </div>
-
-        <div class="row g-4">
-
-            <!-- EVENTO 1: PARTIDO ESTELAR -->
-            <div class="col-12">
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden card-hover">
-                    <div class="row g-0 align-items-center">
-                        <!-- Tarjeta Fecha / Calendario -->
-                        <div class="col-md-3 col-lg-2 bg-success text-white p-4 text-center d-flex flex-column justify-content-center h-100">
-                            <span class="text-uppercase fw-bold small mb-1">Sábado</span>
-                            <span class="display-4 fw-black lh-1 mb-1">12</span>
-                            <span class="text-uppercase fw-bold small mb-3">Septiembre</span>
-                            <span class="badge bg-white text-success rounded-pill">16:00 hrs</span>
-                        </div>
-                        
-                        <!-- Información del Encuentro -->
-                        <div class="col-md-6 col-lg-7 p-4">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="badge bg-danger rounded-pill">🔥 Gran Final</span>
-                                <span class="small text-muted fw-bold">📍 Sede Principal</span>
-                            </div>
-                            <h3 class="h4 fw-black text-dark mb-1">Cracks FC vs Zánganos FC</h3>
-                            <p class="text-secondary mb-0 small">Se define el campeonato. Aforo máximo 500 personas. Puertas abren a las 15:00 hrs.</p>
-                        </div>
-                        
-                        <!-- Precio y Acción del Carrito -->
-                        <div class="col-md-3 col-lg-3 p-4 border-start text-md-center d-flex flex-column justify-content-center bg-white">
-                            <span class="text-muted small fw-bold mb-1">Entradas desde</span>
-                            <span class="fs-3 fw-black text-dark mb-3">$7.000</span>
-                            <button type="button" onclick="agregarAlCarrito(101, 'Gran Final', 7000)" class="btn btn-warning fw-bold text-dark rounded-pill shadow-sm w-100">
-                                Comprar e-Ticket
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- EVENTO 2: SEMIFINAL -->
-            <div class="col-12">
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden card-hover">
-                    <div class="row g-0 align-items-center">
-                        <!-- Tarjeta Fecha / Calendario -->
-                        <div class="col-md-3 col-lg-2 bg-dark-green text-white p-4 text-center d-flex flex-column justify-content-center h-100">
-                            <span class="text-uppercase fw-bold small mb-1">Domingo</span>
-                            <span class="display-4 fw-black lh-1 mb-1">13</span>
-                            <span class="text-uppercase fw-bold small mb-3">Septiembre</span>
-                            <span class="badge bg-white text-dark-green rounded-pill">10:00 hrs</span>
-                        </div>
-                        
-                        <!-- Información del Encuentro -->
-                        <div class="col-md-6 col-lg-7 p-4">
-                            <div class="d-flex align-items-center gap-2 mb-2">
-                                <span class="badge bg-primary rounded-pill">⚽ Semifinal Junior</span>
-                                <span class="small text-muted fw-bold">📍 Sede Norte</span>
-                            </div>
-                            <h3 class="h4 fw-black text-dark mb-1">Los Leones vs Norte FC</h3>
-                            <p class="text-secondary mb-0 small">Clásico de barrio. Ambiente familiar. No se permite el ingreso de bebidas alcohólicas.</p>
-                        </div>
-                        
-                        <!-- Precio y Acción del Carrito -->
-                        <div class="col-md-3 col-lg-3 p-4 border-start text-md-center d-flex flex-column justify-content-center bg-white">
-                            <span class="text-muted small fw-bold mb-1">Entrada General</span>
-                            <span class="fs-3 fw-black text-dark mb-3">$4.000</span>
-                            <button type="button" onclick="agregarAlCarrito(102, 'General', 4000)" class="btn btn-warning fw-bold text-dark rounded-pill shadow-sm w-100">
-                                Comprar e-Ticket
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+        <!-- CONTENEDOR DINÁMICO DE ENTRADAS -->
+        <div id="contenedor-entradas" class="row g-4"></div>
     </main>
 
-    <!-- ==========================================
-         4. FOOTER ESTRUCTURADO
-         ========================================== -->
-    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
-        <div class="container">
-            <div class="row g-4 mb-4">
-                <div class="col-md-6 text-center text-md-start">
-                    <h2 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h2>
-                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
-                </div>
-                <div class="col-md-6 text-center text-md-end">
-                    <h3 class="fw-bold mb-3 fs-5">Información</h3>
-                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
-                        <li>📍 Complejo Deportivo Principal</li>
-                        <li>✉️ soporte@lifchile.cl</li>
-                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
-                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
-            </div>
+    <footer class="bg-dark-green text-white pt-4 pb-3 mt-auto">
+        <div class="container text-center extra-small text-white-50">
+            <p>© 2026 LIF - Liga Independiente de Fútbol.</p>
         </div>
     </footer>
 
-    <!-- ==========================================
-         5. SCRIPTS (ORDEN DE CARGA RIGUROSO)
-         ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/datos.js"></script>
     <script src="assets/js/carrito.js"></script>
-    <script src="assets/js/validaciones.js"></script>
-    <script src="assets/js/app.js"></script>
+
+    <script>
+        function renderizarEntradas() {
+            const contenedor = document.getElementById('contenedor-entradas');
+            const partidos = obtenerPartidos();
+
+            if (partidos.length === 0) {
+                contenedor.innerHTML = `<div class="alert alert-info text-center">No hay entradas disponibles en este momento.</div>`;
+                return;
+            }
+
+            contenedor.innerHTML = partidos.map(p => `
+                <div class="col-md-6 col-lg-6">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+                        <div class="card-body p-4 d-flex flex-column justify-content-between">
+                            <div>
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge bg-danger text-uppercase">${p.fase}</span>
+                                    <small class="text-muted">📍 ${p.sede}</small>
+                                </div>
+                                <h3 class="fw-black fs-4 text-dark mb-1">${p.equipoLocal} vs ${p.equipoVisitante}</h3>
+                                <p class="text-muted small mb-3">${p.descripcion || 'Entradas habilitadas para público general.'}</p>
+                                <div class="bg-light p-2 rounded-3 text-center mb-3">
+                                    <span class="fw-bold text-success d-block">${p.fecha}</span>
+                                    <small class="text-muted">${p.hora}</small>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
+                                <div>
+                                    <small class="text-muted d-block">Entrada General</small>
+                                    <span class="fs-4 fw-black text-dark">$${Number(p.precio).toLocaleString('es-CL')}</span>
+                                </div>
+                                <button onclick="agregarAlCarrito('${p.equipoLocal} vs ${p.equipoVisitante}', ${p.precio})" class="btn btn-warning rounded-pill px-4 fw-bold">Comprar e-Ticket</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', renderizarEntradas);
+    </script>
 </body>
 </html>

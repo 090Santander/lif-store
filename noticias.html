@@ -3,42 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Noticias, crónicas y actualidad de la Liga Independiente de Fútbol (LIF).">
+    <meta name="description" content="Noticias, crónicas y actualidad oficial de la Liga Independiente de Fútbol (LIF).">
     <title>Noticias | LIF - Liga Independiente de Fútbol</title>
-    <!-- Estilos -->
+    <!-- Estilos de Bootstrap y Personalizados -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
     <!-- ==========================================
-         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
+         1. NAVEGACIÓN PRINCIPAL (RBAC COMPATIBLE)
          ========================================== -->
     <header class="sticky-top">
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2" aria-label="Navegación principal">
             <div class="container-fluid px-lg-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <img src="assets/images/LOGO.png" alt="Logotipo LIF" class="logo-header">
                     <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Alternar menú de navegación">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+                
                 <div class="collapse navbar-collapse" id="navMenu">
                     <ul class="navbar-nav mx-auto gap-xl-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="noticias.html" aria-current="page">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
                         <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
                         <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
                         <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
+                        <li class="nav-item"><a class="nav-link" href="admin.html">Admin</a></li>
                     </ul>
 
-                    <!-- Botones de Acción y Modo Oscuro -->
+                    <!-- Controles de Usuario, Carrito y Tema -->
                     <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
                         <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
                         <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
@@ -46,12 +48,11 @@
                             🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
                         </a>
                         
-                        <!-- Botón de Modo Oscuro -->
-                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
+                        <!-- Toggle Modo Oscuro -->
+                        <button id="btn-dark-mode" type="button" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro" aria-label="Alternar modo oscuro">
                             🌙
                         </button>
                     </div>                   
-
                 </div>
             </div>
         </nav>
@@ -63,81 +64,28 @@
     <section class="hero-green text-white py-4 text-center">
         <div class="container py-2">
             <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-2 shadow-sm">Actualidad</span>
-            <h1 class="fw-black display-6 mb-0 text-shadow">Noticias LIF</h1>
-            <p class="mb-0 mt-2 text-white-50 small">Mantente al día con lo último de la liga</p>
+            <h1 class="fw-black display-6 mb-0 text-shadow">Noticias y Prensa LIF</h1>
+            <p class="mb-0 mt-2 text-white-50 small">Mantente al día con los resultados, crónicas y comunicados de la liga</p>
         </div>
     </section>
 
     <!-- ==========================================
-         3. CONTENIDO DE NOTICIAS
+         3. CONTENIDO DINÁMICO DE NOTICIAS
          ========================================== -->
     <main class="container py-5 flex-grow-1">
         
-        <!-- Noticia Principal (Destacada) -->
-        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-5">
-            <div class="row g-0">
-                <div class="col-md-6 bg-dark-green d-flex align-items-center justify-content-center p-5 text-center min-vh-25">
-                    <span class="display-1 text-white opacity-75">🏆</span>
-                </div>
-                <div class="col-md-6 d-flex flex-column justify-content-center p-4 p-md-5">
-                    <div class="mb-2">
-                        <span class="badge bg-success rounded-pill px-3">Oficial</span>
-                        <span class="text-muted small ms-2">Hace 2 horas</span>
-                    </div>
-                    <h2 class="fw-black h3 mb-3 text-dark">Lanzamiento Oficial: Temporada Liguilla 2026</h2>
-                    <p class="text-secondary mb-4">Todo está listo para el arranque de la fase final del torneo. Los 8 mejores equipos se enfrentarán en el complejo principal este fin de semana con aforo completo.</p>
-                    <div>
-                        <a href="#" class="btn btn-success fw-bold rounded-pill px-4 shadow-sm">Leer artículo completo</a>
-                    </div>
-                </div>
-            </div>
+        <!-- Noticia Principal (Renderizado Dinámico) -->
+        <div id="contenedor-noticia-destacada" class="mb-5">
+            <!-- Se completa dinámicamente con la primera noticia -->
         </div>
 
-        <!-- Grilla de Noticias Secundarias (3 columnas en PC) -->
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
-            
-            <!-- Noticia 1 -->
-            <div class="col">
-                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover">
-                    <div class="bg-light text-center py-4 border-bottom"><span class="display-4 opacity-75">⚽</span></div>
-                    <div class="card-body p-4">
-                        <span class="badge bg-secondary mb-2">Deportes</span>
-                        <h3 class="h5 fw-bold text-dark">Resumen de la Fecha 10</h3>
-                        <p class="small text-muted mb-3">Goleadas, sorpresas y un nuevo líder absoluto en la tabla de posiciones tras el súper clásico.</p>
-                        <a href="#" class="text-success fw-bold text-decoration-none">Leer más →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Noticia 2 -->
-            <div class="col">
-                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover">
-                    <div class="bg-light text-center py-4 border-bottom"><span class="display-4 opacity-75">⚖️</span></div>
-                    <div class="card-body p-4">
-                        <span class="badge bg-danger mb-2">Tribunal</span>
-                        <h3 class="h5 fw-bold text-dark">Nuevas Sanciones Disciplinarias</h3>
-                        <p class="small text-muted mb-3">El tribunal ha publicado el acta N° 05 con duras sanciones para los equipos involucrados en incidentes.</p>
-                        <a href="actas.html" class="text-success fw-bold text-decoration-none">Ver Acta →</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Noticia 3 -->
-            <div class="col">
-                <div class="card h-100 border-0 shadow-sm rounded-4 card-hover">
-                    <div class="bg-light text-center py-4 border-bottom"><span class="display-4 opacity-75">🏟️</span></div>
-                    <div class="card-body p-4">
-                        <span class="badge bg-primary mb-2">Infraestructura</span>
-                        <h3 class="h5 fw-bold text-dark">Mejoras en el Complejo Norte</h3>
-                        <p class="small text-muted mb-3">Se han inaugurado nuevas graderías techadas para mejorar la experiencia de nuestros hinchas.</p>
-                        <a href="complejos.html" class="text-success fw-bold text-decoration-none">Ver Complejo →</a>
-                    </div>
-                </div>
-            </div>
-
+        <!-- Grilla de Noticias Restantes -->
+        <h2 class="h4 fw-bold text-dark mb-4">Últimas Publicaciones</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5" id="contenedor-noticias-grid">
+            <!-- Se completa dinámicamente con el resto de las noticias -->
         </div>
 
-        <!-- Paginación de Bootstrap -->
+        <!-- Paginación -->
         <nav aria-label="Navegación de páginas de noticias">
             <ul class="pagination justify-content-center">
                 <li class="page-item disabled">
@@ -147,7 +95,6 @@
                     <a class="page-link border-0 shadow-sm bg-success text-white" href="#">1</a>
                 </li>
                 <li class="page-item"><a class="page-link border-0 shadow-sm text-success" href="#">2</a></li>
-                <li class="page-item"><a class="page-link border-0 shadow-sm text-success" href="#">3</a></li>
                 <li class="page-item">
                     <a class="page-link border-0 shadow-sm rounded-end-pill text-success fw-bold" href="#">Siguiente</a>
                 </li>
@@ -163,11 +110,11 @@
         <div class="container">
             <div class="row g-4 mb-4">
                 <div class="col-md-6 text-center text-md-start">
-                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <h2 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h2>
                     <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <h3 class="fw-bold mb-3 fs-5">Información</h3>
                     <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
                         <li>📍 Complejo Deportivo Principal</li>
                         <li>✉️ soporte@lifchile.cl</li>
@@ -182,11 +129,80 @@
     </footer>
 
     <!-- ==========================================
-         5. SCRIPTS
+         5. SCRIPTS (ORDEN RIGUROSO Y LÓGICA DINÁMICA)
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/app.js"></script>
+    <script src="assets/js/datos.js"></script>
     <script src="assets/js/carrito.js"></script>
     <script src="assets/js/validaciones.js"></script>
+    <script src="assets/js/app.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const noticias = obtenerNoticias();
+            const contenedorDestacada = document.getElementById('contenedor-noticia-destacada');
+            const contenedorGrid = document.getElementById('contenedor-noticias-grid');
+
+            if (!noticias || noticias.length === 0) {
+                contenedorDestacada.innerHTML = `
+                    <div class="alert alert-info text-center rounded-4 shadow-sm" role="alert">
+                        No hay noticias publicadas en este momento.
+                    </div>
+                `;
+                return;
+            }
+
+            // 1. Noticia Destacada (Primera Noticia)
+            const destacada = noticias[0];
+            contenedorDestacada.innerHTML = `
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="row g-0">
+                        <div class="col-md-6 bg-dark-green d-flex align-items-center justify-content-center p-5 text-center min-vh-25">
+                            <span class="display-1 text-white opacity-75">🏆</span>
+                        </div>
+                        <div class="col-md-6 d-flex flex-column justify-content-center p-4 p-md-5 bg-white">
+                            <div class="mb-2">
+                                <span class="badge bg-success rounded-pill px-3">${destacada.categoria || 'Oficial'}</span>
+                                <span class="text-muted small ms-2">${destacada.fecha || 'Reciente'}</span>
+                            </div>
+                            <h2 class="fw-black h3 mb-3 text-dark">${destacada.titulo}</h2>
+                            <p class="text-secondary mb-4">${destacada.resumen}</p>
+                            <div>
+                                <button type="button" class="btn btn-success fw-bold rounded-pill px-4 shadow-sm">Leer artículo completo</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // 2. Grilla de Noticias Restantes
+            const restantes = noticias.slice(1);
+            if (restantes.length === 0) {
+                contenedorGrid.innerHTML = `
+                    <div class="col-12 text-muted small">No hay más noticias secundarias por mostrar.</div>
+                `;
+                return;
+            }
+
+            contenedorGrid.innerHTML = restantes.map(n => `
+                <div class="col">
+                    <div class="card h-100 border-0 shadow-sm rounded-4 card-hover">
+                        <div class="bg-light text-center py-4 border-bottom">
+                            <span class="display-4 opacity-75">⚽</span>
+                        </div>
+                        <div class="card-body p-4 d-flex flex-column">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-secondary">${n.categoria}</span>
+                                <small class="text-muted">${n.fecha}</small>
+                            </div>
+                            <h3 class="h5 fw-bold text-dark">${n.titulo}</h3>
+                            <p class="small text-muted mb-3 flex-grow-1">${n.resumen}</p>
+                            <a href="#" class="text-success fw-bold text-decoration-none mt-auto">Leer más →</a>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        });
+    </script>
 </body>
 </html>

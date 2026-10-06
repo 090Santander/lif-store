@@ -49,7 +49,7 @@
                         </a>
                         
                         <!-- Toggle Modo Oscuro -->
-                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro" aria-label="Alternar modo oscuro">
+                        <button id="btn-dark-mode" type="button" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro" aria-label="Alternar modo oscuro">
                             🌙
                         </button>
                     </div>                   
@@ -63,8 +63,8 @@
          ========================================== -->
     <section class="hero-green text-white py-4 text-center">
         <div class="container py-2">
-            <span class="badge bg-light text-success fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Estadísticas</span>
-            <h1 class="fw-black display-6 mb-0">Tabla de Posiciones</h1>
+            <span class="badge bg-light text-success fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Estadísticas Oficiales</span>
+            <h1 class="fw-black display-6 mb-0 text-shadow">Tabla de Posiciones</h1>
         </div>
     </section>
 
@@ -73,18 +73,14 @@
          ========================================== -->
     <main class="container py-5 flex-grow-1">
         
-        <!-- SELECTOR DE CATEGORÍA (Diseño de "Píldoras") -->
-        <ul class="nav nav-pills justify-content-center mb-4 gap-2" role="tablist">
-            <li class="nav-item" role="presentation">
-                <a class="nav-link active bg-success rounded-pill fw-bold" href="#">Serie Senior</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link text-dark rounded-pill fw-bold border" href="#">Serie Honor</a>
-            </li>
-            <li class="nav-item" role="presentation">
-                <a class="nav-link text-dark rounded-pill fw-bold border" href="#">Serie Junior</a>
-            </li>
-        </ul>
+        <!-- SELECTOR DE CATEGORÍA -->
+        <div class="d-flex justify-content-center mb-4">
+            <div class="btn-group rounded-pill shadow-sm p-1 bg-white border" role="group" aria-label="Selección de Categoría">
+                <button type="button" class="btn btn-success rounded-pill fw-bold btn-categoria active" data-categoria="Senior">Serie Senior</button>
+                <button type="button" class="btn btn-light rounded-pill fw-bold btn-categoria" data-categoria="Honor">Serie Honor</button>
+                <button type="button" class="btn btn-light rounded-pill fw-bold btn-categoria" data-categoria="Junior">Serie Junior</button>
+            </div>
+        </div>
 
         <!-- TABLA PRINCIPAL DE CLASIFICACIÓN -->
         <div class="row justify-content-center">
@@ -105,47 +101,21 @@
                                     <th scope="col" class="py-3 fs-6">PTS</th>
                                 </tr>
                             </thead>
-                            <!-- Cuerpo de la tabla -->
-                            <tbody class="small">
-                                <!-- El primer lugar se destaca en verde -->
-                                <tr class="table-success">
-                                    <td class="fw-bold fs-5 text-success">1</td>
-                                    <td class="text-start fw-bold fs-6">🏆 Cracks FC</td>
-                                    <td>5</td><td>4</td><td>1</td><td>0</td><td>+8</td>
-                                    <td class="fw-black fs-5 text-success">13</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">2</td>
-                                    <td class="text-start fw-bold">Inter Santiago</td>
-                                    <td>5</td><td>3</td><td>2</td><td>0</td><td>+5</td>
-                                    <td class="fw-bold fs-6">11</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">3</td>
-                                    <td class="text-start fw-bold">Zánganos FC</td>
-                                    <td>5</td><td>2</td><td>1</td><td>2</td><td>0</td>
-                                    <td class="fw-bold fs-6">7</td>
-                                </tr>
-                                <tr>
-                                    <td class="fw-bold">4</td>
-                                    <td class="text-start fw-bold">Unión Cordillera</td>
-                                    <td>5</td><td>1</td><td>2</td><td>2</td><td>-2</td>
-                                    <td class="fw-bold fs-6">5</td>
-                                </tr>
-                                <!-- El último lugar se marca sutilmente -->
-                                <tr class="table-danger text-opacity-75">
-                                    <td class="fw-bold">5</td>
-                                    <td class="text-start fw-bold">Mónica FC</td>
-                                    <td>5</td><td>0</td><td>0</td><td>5</td><td>-11</td>
-                                    <td class="fw-bold fs-6">0</td>
-                                </tr>
+                            <!-- Cuerpo renderizado dinámicamente -->
+                            <tbody id="tabla-posiciones-body" class="small">
+                                <!-- Contenido inyectado por JS -->
                             </tbody>
                         </table>
                     </div>
                 </div>
-                <!-- Leyenda explicativa mínima -->
-                <div class="mt-3 text-end extra-small text-muted">
-                    <span>* PJ: Partidos Jugados | PTS: Puntos Totales</span>
+
+                <!-- Leyenda Explicativa -->
+                <div class="mt-3 d-flex justify-content-between align-items-center extra-small text-muted flex-wrap gap-2">
+                    <div class="d-flex align-items-center gap-3">
+                        <span><span class="badge bg-success rounded-circle p-1"> </span> Primer Lugar (Campeón / Clasificado)</span>
+                        <span><span class="badge bg-danger rounded-circle p-1"> </span> Zona de Riesgo</span>
+                    </div>
+                    <span>* PJ: Jugados | PG: Ganados | PE: Empatados | PP: Perdidos | PTS: Puntos</span>
                 </div>
             </div>
         </div>
@@ -185,5 +155,78 @@
     <script src="assets/js/carrito.js"></script>
     <script src="assets/js/validaciones.js"></script>
     <script src="assets/js/app.js"></script>
+
+    <!-- LÓGICA DE INTERACCIÓN DE TABLAS -->
+    <script>
+        // Datos Mock por Categoría (Sincronizables con datos.js)
+        const TABLAS_POSICIONES = {
+            Senior: [
+                { pos: 1, equipo: "🏆 Cracks FC", pj: 5, pg: 4, pe: 1, pp: 0, dif: "+8", pts: 13 },
+                { pos: 2, equipo: "Inter Santiago", pj: 5, pg: 3, pe: 2, pp: 0, dif: "+5", pts: 11 },
+                { pos: 3, equipo: "Zánganos FC", pj: 5, pg: 2, pe: 1, pp: 2, dif: "0", pts: 7 },
+                { pos: 4, equipo: "Unión Cordillera", pj: 5, pg: 1, pe: 2, pp: 2, dif: "-2", pts: 5 },
+                { pos: 5, equipo: "Mónica FC", pj: 5, pg: 0, pe: 0, pp: 5, dif: "-11", pts: 0 }
+            ],
+            Honor: [
+                { pos: 1, equipo: "🏆 Stade Francais", pj: 5, pg: 5, pe: 0, pp: 0, dif: "+12", pts: 15 },
+                { pos: 2, equipo: "Athletic Club", pj: 5, pg: 3, pe: 1, pp: 1, dif: "+4", pts: 10 },
+                { pos: 3, equipo: "Deportivo Central", pj: 5, pg: 2, pe: 1, pp: 2, dif: "+1", pts: 7 },
+                { pos: 4, equipo: "Real Oriente", pj: 5, pg: 1, pe: 1, pp: 3, dif: "-3", pts: 4 },
+                { pos: 5, equipo: "Sporting B", pj: 5, pg: 0, pe: 1, pp: 4, dif: "-14", pts: 1 }
+            ],
+            Junior: [
+                { pos: 1, equipo: "🏆 Los Leones", pj: 5, pg: 4, pe: 0, pp: 1, dif: "+9", pts: 12 },
+                { pos: 2, equipo: "Norte FC", pj: 5, pg: 3, pe: 2, pp: 0, dif: "+6", pts: 11 },
+                { pos: 3, equipo: "Academia Sur", pj: 5, pg: 2, pe: 0, pp: 3, dif: "-1", pts: 6 },
+                { pos: 4, equipo: "Juventud FC", pj: 5, pg: 1, pe: 1, pp: 3, dif: "-4", pts: 4 },
+                { pos: 5, equipo: "Valle Verde", pj: 5, pg: 0, pe: 1, pp: 4, dif: "-10", pts: 1 }
+            ]
+        };
+
+        function renderizarTabla(categoria) {
+            const tbody = document.getElementById('tabla-posiciones-body');
+            const lista = TABLAS_POSICIONES[categoria] || [];
+
+            if (!tbody) return;
+
+            tbody.innerHTML = lista.map((item, index) => {
+                let claseFila = "";
+                if (index === 0) claseFila = "table-success";
+                else if (index === lista.length - 1) claseFila = "table-danger text-opacity-75";
+
+                return `
+                    <tr class="${claseFila}">
+                        <td class="fw-bold ${index === 0 ? 'fs-5 text-success' : ''}">${item.pos}</td>
+                        <td class="text-start fw-bold ${index === 0 ? 'fs-6' : ''}">${item.equipo}</td>
+                        <td>${item.pj}</td>
+                        <td>${item.pg}</td>
+                        <td>${item.pe}</td>
+                        <td>${item.pp}</td>
+                        <td>${item.dif}</td>
+                        <td class="fw-black fs-6 ${index === 0 ? 'text-success' : ''}">${item.pts}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderizarTabla('Senior');
+
+            document.querySelectorAll('.btn-categoria').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.btn-categoria').forEach(b => {
+                        b.classList.remove('btn-success', 'active');
+                        b.classList.add('btn-light');
+                    });
+
+                    e.target.classList.remove('btn-light');
+                    e.target.classList.add('btn-success', 'active');
+
+                    const cat = e.target.getAttribute('data-categoria');
+                    renderizarTabla(cat);
+                });
+            });
+        });
+    </script>
 </body>
 </html>
