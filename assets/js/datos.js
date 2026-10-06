@@ -1,94 +1,121 @@
 /**
  * ============================================================================
- * datos.js - Base de Datos Simulada y Helpers de Consulta (LIF)
+ * datos.js - Gestor de Datos y Persistencia Local (LIF)
  * ============================================================================
  */
 
-const DATOS_LIF = Object.freeze({
-    equipos: [
-        { id: 1, nombre: "Mónica FC", categoria: "Senior / Legendarios" },
-        { id: 2, nombre: "Athletic Club", categoria: "Junior" },
-        { id: 3, nombre: "Los Cabros FC", categoria: "Junior" },
-        { id: 4, nombre: "Stade Francais", categoria: "Junior" },
-        { id: 5, nombre: "Mohicanos", categoria: "Senior" },
-        { id: 6, nombre: "Inter de Santiago", categoria: "Senior" },
-        { id: 7, nombre: "Cracks FC", categoria: "Senior" },
-        { id: 8, nombre: "Coyotes FC", categoria: "Diamante" },
-        { id: 9, nombre: "Caleuche FC", categoria: "Dorada" }
-    ],
+const KEY_PARTIDOS = "LIF_PARTIDOS_DATA";
+const KEY_NOTICIAS = "LIF_NOTICIAS_DATA";
 
-    localidades: [
-        { id: "galeria", nombre: "Galería General", precio: 3000, desc: "Acceso general a gradas laterales" },
-        { id: "tribuna", nombre: "Tribuna Preferencial", precio: 5000, desc: "Ubicación central techada" },
-        { id: "socio", nombre: "Pase Socio / Estudiante", precio: 1500, desc: "50% de descuento abonados" }
-    ],
-
+// Datos por defecto para inicializar el sistema
+const DATOS_INICIALES = Object.freeze({
     partidos: [
         {
             id: 101,
-            local: "Mónica FC",
-            visita: "Athletic Club",
-            fecha: "Sábado 12 Sep 2026",
-            hora: "15:00",
+            local: "Zánganos FC",
+            visita: "Mónica FC",
+            fecha: "2026-09-12",
+            hora: "14:00",
             cancha: "Cancha 1 (F11)",
+            estado: "Por jugar",
             precioBase: 3000
         },
         {
             id: 102,
-            local: "Los Cabros FC",
-            visita: "Stade Francais",
-            fecha: "Sábado 12 Sep 2026",
-            hora: "17:30",
-            cancha: "Cancha 2 (F11)",
-            precioBase: 3000
+            local: "Cracks FC",
+            visita: "Inter Santiago",
+            fecha: "2026-09-12",
+            hora: "16:00",
+            cancha: "Cancha 1 (F11)",
+            estado: "Destacado",
+            precioBase: 7000
         },
         {
             id: 103,
-            local: "Mohicanos",
-            visita: "Inter de Santiago",
-            fecha: "Domingo 13 Sep 2026",
-            hora: "11:00",
-            cancha: "Cancha 3 (F11)",
+            local: "Unión Cordillera",
+            visita: "Mohicanos",
+            fecha: "2026-09-12",
+            hora: "18:00",
+            cancha: "Cancha 2 (F11)",
+            estado: "Por jugar",
             precioBase: 3000
         }
     ],
-
     noticias: [
         {
             id: 1,
             titulo: "Cracks FC toma el liderazgo de la Serie Senior",
             categoria: "Serie Senior",
             fecha: "06 Sep 2026",
-            resumen: "El conjunto de Cracks FC se posicionó en la cima tras una jornada electrizante."
+            resumen: "El conjunto de Cracks FC se posicionó en la cima tras una jornada electrizante.",
+            imagen: "assets/images/estadio-bg.jpg"
         },
         {
             id: 2,
             titulo: "Stade Francais da un golpe de autoridad con goleada 5-1",
             categoria: "Serie Junior",
             fecha: "05 Sep 2026",
-            resumen: "Demostración contundente de eficacia defensiva y ofensiva ante Athletic Club."
+            resumen: "Demostración contundente de eficacia defensiva y ofensiva ante Athletic Club.",
+            imagen: "assets/images/estadio-bg.jpg"
         }
     ]
 });
 
 // ==========================================
-// HELPER UTILITIES (FUNCIONES PURAS DE BÚSQUEDA)
+// 1. GESTIÓN DE PARTIDOS
 // ==========================================
 
-/**
- * Busca un partido por su ID numérico.
- */
-const obtenerPartidoPorId = (id) => 
-    DATOS_LIF.partidos.find(p => p.id === Number(id));
+const obtenerPartidos = () => {
+    const data = localStorage.getItem(KEY_PARTIDOS);
+    if (!data) {
+        localStorage.setItem(KEY_PARTIDOS, JSON.stringify(DATOS_INICIALES.partidos));
+        return DATOS_INICIALES.partidos;
+    }
+    return JSON.parse(data);
+};
 
-/**
- * Busca una localidad de entrada por su ID de texto.
- */
-const obtenerLocalidadPorId = (id) => 
-    DATOS_LIF.localidades.find(l => l.id === id);
+const guardarPartido = (nuevoPartido) => {
+    const partidos = obtenerPartidos();
+    const partidoCompleto = {
+        id: Date.now(),
+        ...nuevoPartido
+    };
+    partidos.push(partidoCompleto);
+    localStorage.setItem(KEY_PARTIDOS, JSON.stringify(partidos));
+    return partidoCompleto;
+};
 
-/**
- * Busca un equipo por su ID numérico.
- */
-const obtenerEquipoPorId = (id) => 
-    DATOS_LIF.equipos.find(e => e.id === Number(id));
+const eliminarPartido = (id) => {
+    const partidos = obtenerPartidos().filter(p => p.id !== Number(id));
+    localStorage.setItem(KEY_PARTIDOS, JSON.stringify(partidos));
+};
+
+// ==========================================
+// 2. GESTIÓN DE NOTICIAS
+// ==========================================
+
+const obtenerNoticias = () => {
+    const data = localStorage.getItem(KEY_NOTICIAS);
+    if (!data) {
+        localStorage.setItem(KEY_NOTICIAS, JSON.stringify(DATOS_INICIALES.noticias));
+        return DATOS_INICIALES.noticias;
+    }
+    return JSON.parse(data);
+};
+
+const guardarNoticia = (nuevaNoticia) => {
+    const noticias = obtenerNoticias();
+    const noticiaCompleta = {
+        id: Date.now(),
+        fecha: new Date().toLocaleDateString("es-CL", { day: '2-digit', month: 'short', year: 'numeric' }),
+        ...nuevaNoticia
+    };
+    noticias.unshift(noticiaCompleta);
+    localStorage.setItem(KEY_NOTICIAS, JSON.stringify(noticias));
+    return noticiaCompleta;
+};
+
+const eliminarNoticia = (id) => {
+    const noticias = obtenerNoticias().filter(n => n.id !== Number(id));
+    localStorage.setItem(KEY_NOTICIAS, JSON.stringify(noticias));
+};
