@@ -10,52 +10,56 @@
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
+   
 
-    <!-- ==========================================
-         1. NAVEGACIÓN COMPLETA UNIFICADA
-         ========================================== -->
     <header class="sticky-top">
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
-            <div class="container-fluid px-lg-4">
-                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
-                    <span class="fw-black fs-4 text-white">LIF</span>
-                </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav mx-auto gap-xl-1">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
-                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="actas.html">Actas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
-                        <li class="nav-item"><a class="nav-link text-warning" href="admin.html">Admin</a></li>
-                    </ul>
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+        <div class="container-fluid px-lg-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                <span class="fw-black fs-4 text-white">LIF</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto gap-xl-1">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                    <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
+                    <!-- Solo visible para Administradores -->
+                    <li class="nav-item link-admin d-none"><a class="nav-link text-warning fw-bold" href="admin.html">Admin</a></li>
+                </ul>
 
-                    <!-- Botones de Acción y Modo Oscuro -->
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
-                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
-                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
-                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
-                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
-                        </a>
-                        
-                        <!-- Botón Modo Oscuro -->
-                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
-                            🌙
-                        </button>
-                    </div>                   
-                </div>
+                <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                    <!-- Solo visibles para visitantes (Sin sesión) -->
+                    <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3 link-invitado">Registrarse</a>
+                    <a href="login.html" class="btn btn-sm btn-light text-success fw-bold rounded-pill px-3 shadow-sm link-invitado">Ingresar</a>
+
+                    <!-- Solo visibles para usuarios con sesión -->
+                    <a href="perfil.html" class="btn btn-sm btn-success rounded-pill px-3 link-usuario d-none">👤 Mi Perfil</a>
+                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 link-usuario btn-cerrar-sesion d-none">Salir</button>
+
+                    <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                        🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                    </a>
+                    
+                    <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;">
+                        🌙
+                    </button>
+                </div>                   
+
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
     <!-- ==========================================
          2. BANNER HERO
@@ -77,6 +81,7 @@
                 
                 <!-- Buscador rápido -->
                 <div class="mb-4">
+                    <label for="inputBuscarActa" class="visually-hidden">Buscar jugador o equipo</label>
                     <input type="text" id="inputBuscarActa" class="form-control rounded-pill border-success shadow-sm" placeholder="🔍 Buscar por nombre de jugador o equipo...">
                 </div>
 
@@ -96,10 +101,10 @@
                                     <table class="table table-hover align-middle m-0 text-center text-sm" id="tablaSanciones">
                                         <thead class="table-success extra-small text-uppercase">
                                             <tr>
-                                                <th>Jugador</th>
-                                                <th>Equipo</th>
-                                                <th>Falta</th>
-                                                <th>Sanción</th>
+                                                <th scope="col">Jugador</th>
+                                                <th scope="col">Equipo</th>
+                                                <th scope="col">Falta</th>
+                                                <th scope="col">Sanción</th>
                                             </tr>
                                         </thead>
                                         <tbody class="small">
@@ -119,7 +124,7 @@
                                     </table>
                                 </div>
                                 <div class="p-3 text-end bg-white">
-                                    <button class="btn btn-sm btn-outline-success rounded-pill fw-bold">📥 Descargar PDF completo</button>
+                                    <button type="button" class="btn btn-sm btn-outline-success rounded-pill fw-bold">📥 Descargar PDF completo</button>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +140,7 @@
                         <div id="collapseDos" class="accordion-collapse collapse" aria-labelledby="headingDos" data-bs-parent="#acordeonActas">
                             <div class="accordion-body p-4 text-center">
                                 <p class="small text-muted mb-3">Las resoluciones de esta fecha ya han sido cumplidas en su mayoría. Para ver el detalle histórico, descarga el documento oficial.</p>
-                                <button class="btn btn-sm btn-outline-secondary rounded-pill fw-bold">📥 Descargar PDF N° 04</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary rounded-pill fw-bold">📥 Descargar PDF N° 04</button>
                             </div>
                         </div>
                     </div>
@@ -157,11 +162,11 @@
         <div class="container">
             <div class="row g-4 mb-4">
                 <div class="col-md-6 text-center text-md-start">
-                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <h2 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h2>
                     <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <h2 class="fw-bold mb-3 fs-5">Información</h2>
                     <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
                         <li>📍 Complejo Deportivo Principal</li>
                         <li>✉️ soporte@lifchile.cl</li>
@@ -182,32 +187,7 @@
     <script src="assets/js/datos.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/actas.js"></script>
 
-    <!-- Scripts locales (Filtro y Modo Oscuro) -->
-    <script>
-        // Alternar Modo Oscuro
-        const btnDarkMode = document.getElementById('btn-dark-mode');
-        if (btnDarkMode) {
-            btnDarkMode.addEventListener('click', () => {
-                const currentTheme = document.documentElement.getAttribute('data-bs-theme');
-                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-                document.documentElement.setAttribute('data-bs-theme', newTheme);
-                btnDarkMode.textContent = newTheme === 'dark' ? '☀️' : '🌙';
-            });
-        }
-
-        // Buscador básico en la tabla
-        const inputBuscar = document.getElementById('inputBuscarActa');
-        if (inputBuscar) {
-            inputBuscar.addEventListener('keyup', function() {
-                const query = this.value.toLowerCase();
-                const filas = document.querySelectorAll('#tablaSanciones tbody tr');
-                filas.forEach(fila => {
-                    const texto = fila.textContent.toLowerCase();
-                    fila.style.display = texto.includes(query) ? '' : 'none';
-                });
-            });
-        }
-    </script>
 </body>
 </html>

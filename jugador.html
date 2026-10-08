@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,17 +11,17 @@
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- ==========================================
-         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
+    <!-- =============================================
+         1. NAVEGACIÓN PRINCIPAL
          ========================================== -->
     <header class="sticky-top">
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2" aria-label="Navegación principal">
             <div class="container-fluid px-lg-4">
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <img src="assets/images/LOGO.png" alt="Logotipo LIF" class="logo-header">
                     <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Abrir menú de navegación">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navMenu">
@@ -33,30 +33,34 @@
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
                         <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="jugador.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="jugador.html" aria-current="page">Jugadores</a></li>
                         <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning" href="admin.html">Admin</a></li>
                     </ul>
 
-                    <!-- Botones de Acción y Modo Oscuro -->
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
-                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
-                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                    <!-- Controles de Usuario, Carrito y Tema -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap" id="nav-user-actions">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3 link-invitado">Registrarse</a>
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3 link-invitado">Ingresar</a>
+                        <a href="perfil.html" class="btn btn-sm btn-success rounded-pill px-3 link-usuario d-none">
+                            <span aria-hidden="true">👤</span> Mi Perfil
+                        </a>
+
                         <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
-                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                            <span aria-hidden="true">🎟️</span> Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
                         </a>
                         
-                        <!-- Botón de Modo Oscuro -->
-                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
+                        <!-- Botón Modo Oscuro -->
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro" aria-label="Alternar Modo Oscuro">
                             🌙
                         </button>
                     </div>                   
-
                 </div>
             </div>
         </nav>
     </header>
-
+    
     <!-- ==========================================
          2. BANNER HERO
          ========================================== -->
@@ -68,7 +72,7 @@
         </div>
     </section>
 
-    <!-- ==========================================
+<!-- ==========================================
          3. CONTENIDO PRINCIPAL (BUSCADOR + CARDS)
          ========================================== -->
     <main class="container py-5 flex-grow-1">
@@ -77,91 +81,25 @@
         <div class="row justify-content-center mb-4">
             <div class="col-md-8 col-lg-6">
                 <div class="input-group shadow-sm rounded-pill overflow-hidden bg-white border border-success">
-                    <span class="input-group-text bg-white border-0 ps-3">🔍</span>
-                    <input type="text" id="inputBuscador" class="form-control border-0 py-2 shadow-none" placeholder="Buscar por jugador o equipo (ej: Carlos Pérez, Mónica FC)...">
+                    <span class="input-group-text bg-white border-0 ps-3" id="icon-search" aria-hidden="true">🔍</span>
+                    <input type="text" id="inputBuscador" class="form-control border-0 py-2 shadow-none" placeholder="Buscar por jugador o equipo (ej: Carlos Pérez, Mónica FC)..." aria-label="Buscar por jugador o equipo" aria-describedby="icon-search">
                 </div>
             </div>
         </div>
 
-        <!-- LISTADO DE JUGADORES -->
-        <div class="row g-3" id="listaJugadores">
-
-            <!-- Jugador 1 -->
-            <div class="col-md-6 col-lg-4 tarjeta-jugador" data-buscar="carlos perez monica fc delantero">
-                <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="bg-warning text-dark rounded-circle fw-black fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 55px; height: 55px; flex-shrink: 0;">
-                            CP
-                        </div>
-                        <div>
-                            <span class="badge bg-success rounded-pill extra-small">#9 Delantero</span>
-                            <h2 class="h6 fw-black text-dark mb-0">Carlos Pérez</h2>
-                            <small class="text-muted fw-semibold">Mónica FC — 1ª División</small>
-                        </div>
-                    </div>
-                    <div class="row text-center g-1 bg-light rounded-3 p-2 extra-small">
-                        <div class="col-3"><strong class="d-block text-dark fs-6">8</strong>PJ</div>
-                        <div class="col-3"><strong class="d-block text-success fs-6">9</strong>Goles</div>
-                        <div class="col-3"><strong class="d-block text-warning fs-6">2</strong>TA</div>
-                        <div class="col-3"><strong class="d-block text-danger fs-6">0</strong>TR</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 2 -->
-            <div class="col-md-6 col-lg-4 tarjeta-jugador" data-buscar="matias soto cracks fc mediocampista">
-                <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="bg-success text-white rounded-circle fw-black fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 55px; height: 55px; flex-shrink: 0;">
-                            MS
-                        </div>
-                        <div>
-                            <span class="badge bg-secondary rounded-pill extra-small">#8 Mediocampista</span>
-                            <h2 class="h6 fw-black text-dark mb-0">Matías Soto</h2>
-                            <small class="text-muted fw-semibold">Cracks FC — 1ª División</small>
-                        </div>
-                    </div>
-                    <div class="row text-center g-1 bg-light rounded-3 p-2 extra-small">
-                        <div class="col-3"><strong class="d-block text-dark fs-6">7</strong>PJ</div>
-                        <div class="col-3"><strong class="d-block text-success fs-6">4</strong>Goles</div>
-                        <div class="col-3"><strong class="d-block text-warning fs-6">1</strong>TA</div>
-                        <div class="col-3"><strong class="d-block text-danger fs-6">0</strong>TR</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Jugador 3 -->
-            <div class="col-md-6 col-lg-4 tarjeta-jugador" data-buscar="diego lopez zanganos fc defensa">
-                <div class="card border-0 shadow-sm rounded-4 p-3 h-100">
-                    <div class="d-flex align-items-center gap-3 mb-3">
-                        <div class="bg-dark text-white rounded-circle fw-black fs-4 d-flex align-items-center justify-content-center shadow-sm" style="width: 55px; height: 55px; flex-shrink: 0;">
-                            DL
-                        </div>
-                        <div>
-                            <span class="badge bg-dark rounded-pill extra-small">#4 Defensa</span>
-                            <h2 class="h6 fw-black text-dark mb-0">Diego López</h2>
-                            <small class="text-muted fw-semibold">Zánganos FC — 1ª División</small>
-                        </div>
-                    </div>
-                    <div class="row text-center g-1 bg-light rounded-3 p-2 extra-small">
-                        <div class="col-3"><strong class="d-block text-dark fs-6">6</strong>PJ</div>
-                        <div class="col-3"><strong class="d-block text-success fs-6">1</strong>Gol</div>
-                        <div class="col-3"><strong class="d-block text-warning fs-6">3</strong>TA</div>
-                        <div class="col-3"><strong class="d-block text-danger fs-6">1</strong>TR</div>
-                    </div>
-                </div>
-            </div>
-
+        <!-- LISTADO DE JUGADORES DINÁMICO -->
+        <!-- Este contenedor debe quedar vacío y con este ID exacto -->
+        <div class="row g-3" id="contenedor-jugadores">
+            
         </div>
 
         <!-- MENSAJE SIN RESULTADOS -->
         <div id="sinResultados" class="text-center py-5 d-none">
-            <span class="fs-1">⚽</span>
+            <span class="fs-1" aria-hidden="true">⚽</span>
             <p class="text-muted fw-semibold mt-2">No se encontraron jugadores que coincidan con el filtro.</p>
         </div>
 
     </main>
-
     <!-- ==========================================
          4. FOOTER ESTRUCTURADO
          ========================================== -->
@@ -169,48 +107,31 @@
         <div class="container">
             <div class="row g-4 mb-4">
                 <div class="col-md-6 text-center text-md-start">
-                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <h2 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h2>
                     <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
                 </div>
                 <div class="col-md-6 text-center text-md-end">
-                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <h2 class="fw-bold mb-3 fs-5">Información</h2>
                     <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
                         <li>📍 Complejo Deportivo Principal</li>
-                        <li>✉️ soporte@lifchile.cl</li>
+                        <li>✉ soporte@lifchile.cl</li>
                         <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
                     </ul>
                 </div>
             </div>
             <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
-                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+                <p class="mb-0">&copy; 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
 
-    <!-- ==========================================
+        <!-- ==========================================
          5. SCRIPTS
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/carrito.js"></script>
-    <script src="assets/js/validaciones.js"></script>
-
-    <!-- Script de Filtro -->
-    <script>
-        document.getElementById('inputBuscador').addEventListener('input', function (e) {
-            const query = e.target.value.toLowerCase().trim();
-            const tarjetas = document.querySelectorAll('.tarjeta-jugador');
-            let encontrados = 0;
-
-            tarjetas.forEach(card => {
-                const info = card.getAttribute('data-buscar').toLowerCase();
-                const coincide = info.includes(query);
-                card.classList.toggle('d-none', !coincide);
-                if (coincide) encontrados++;
-            });
-
-            document.getElementById('sinResultados').classList.toggle('d-none', encontrados > 0);
-        });
-    </script>
+    <script src="assets/js/jugadores.js"></script>
 </body>
 </html>

@@ -1,115 +1,123 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Entradas y e-Tickets | LIF</title>
+    <meta name="description" content="Boletería digital y venta de e-Tickets oficiales de la Liga Independiente de Fútbol (LIF).">
+    <title>Entradas y e-Tickets | LIF - Liga Independiente de Fútbol</title>
+    <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- HEADER & NAVBAR UNIFICADO DE LIF -->
+    <!-- ==========================================
+         1. NAVEGACIÓN
+         ========================================== -->
     <header class="sticky-top">
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2" aria-label="Navegación principal">
             <div class="container-fluid px-lg-4">
-                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html" aria-label="Inicio LIF">
                     <img src="assets/images/LOGO.png" alt="Logotipo LIF" class="logo-header">
                     <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLIF">
+                
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-controls="navMenu" aria-expanded="false" aria-label="Alternar navegación">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 
-                <div class="collapse navbar-collapse" id="navbarLIF">
-                    <ul class="navbar-nav mx-auto mb-2 mb-xl-0 small fw-bold">
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
                         <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="entradas.html" aria-current="page">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="entradas.html">Entradas</a></li>
                         <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="jugadores.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
                         <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
                         <li class="nav-item"><a class="nav-link text-warning" href="admin.html">Admin</a></li>
                     </ul>
-                    <div class="d-flex align-items-center gap-2 ms-xl-2">
+
+                    <!-- Botones de Acción y Modo Oscuro -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap" id="nav-user-actions">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3 link-invitado">Registrarse</a>
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3 link-invitado">Ingresar</a>
+                        
+                        <a href="perfil.html" class="btn btn-sm btn-success rounded-pill px-3 link-usuario d-none">Mi Perfil</a>
+                        <button id="btn-cerrar-sesion-1" class="btn btn-sm btn-danger rounded-circle link-usuario d-none" aria-label="Cerrar Sesión" title="Cerrar Sesión">🚪</button>
+                        
                         <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
-                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                            Tickets <span class="badge bg-danger ms-1 badge-carrito" aria-live="polite">0</span>
                         </a>
+                        
+                        <!-- Botón Modo Oscuro -->
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" aria-label="Alternar Modo Oscuro" title="Alternar Modo Oscuro">
+                            🌙
+                        </button>
                     </div>                   
                 </div>
             </div>
         </nav>
     </header>
 
+    <!-- ==========================================
+         2. BANNER HERO
+         ========================================== -->
     <section class="hero-green text-white py-4 text-center">
         <div class="container py-2">
-            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Boletería Oficial</span>
-            <h1 class="fw-black display-6 mb-0">Compra tus e-Tickets</h1>
+            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-2 shadow-sm">Boletería Oficial</span>
+            <h1 class="fw-black display-6 mb-0 text-shadow">Compra tus e-Tickets</h1>
+            <p class="mb-0 mt-2 text-white-50 small">Asegura tu entrada digital para la próxima jornada</p>
         </div>
     </section>
 
+    <!-- ==========================================
+         3. CONTENIDO PRINCIPAL
+         ========================================== -->
     <main class="container py-5 flex-grow-1">
-        <h2 class="fw-bold mb-4">Próximos Partidos Disponibles</h2>
+        
+        <h2 class="h5 fw-bold text-uppercase mb-4">Próximos Partidos Disponibles</h2>
         
         <!-- CONTENEDOR DINÁMICO DE ENTRADAS -->
         <div id="contenedor-entradas" class="row g-4"></div>
     </main>
 
-    <footer class="bg-dark-green text-white py-3 mt-auto">
-        <div class="container text-center extra-small text-white-50">
-            <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+    <!-- ==========================================
+         4. FOOTER
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h2 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h2>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h2 class="fw-bold mb-3 fs-5">Información</h2>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+            </div>
         </div>
     </footer>
 
+    <!-- ==========================================
+         5. SCRIPTS
+         ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/datos.js"></script>
+    <script src="assets/js/app.js"></script>
     <script src="assets/js/carrito.js"></script>
-
-    <script>
-        function renderizarEntradas() {
-            const contenedor = document.getElementById('contenedor-entradas');
-            if (typeof obtenerPartidos !== 'function') return;
-
-            const partidos = obtenerPartidos();
-
-            if (!partidos || partidos.length === 0) {
-                contenedor.innerHTML = `<div class="col-12"><div class="alert alert-info text-center rounded-4">No hay entradas disponibles en este momento.</div></div>`;
-                return;
-            }
-
-            contenedor.innerHTML = partidos.map(p => `
-                <div class="col-md-6 col-lg-6">
-                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
-                        <div class="card-body p-4 d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="badge bg-danger text-uppercase">${p.fase || 'OFICIAL'}</span>
-                                    <small class="text-muted">📍 ${p.sede}</small>
-                                </div>
-                                <h3 class="fw-black fs-4 text-dark mb-1">${p.equipoLocal} vs ${p.equipoVisitante}</h3>
-                                <p class="text-muted small mb-3">${p.descripcion || 'Entradas habilitadas para público general.'}</p>
-                                <div class="bg-light p-2 rounded-3 text-center mb-3">
-                                    <span class="fw-bold text-success d-block">${p.fecha}</span>
-                                    <small class="text-muted">${p.hora}</small>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between align-items-center pt-2 border-top">
-                                <div>
-                                    <small class="text-muted d-block">Entrada General</small>
-                                    <span class="fs-4 fw-black text-dark">$${Number(p.precio).toLocaleString('es-CL')}</span>
-                                </div>
-                                <button onclick="agregarAlCarrito('${p.equipoLocal} vs ${p.equipoVisitante}', ${p.precio})" class="btn btn-warning rounded-pill px-4 fw-bold">Comprar e-Ticket</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        document.addEventListener('DOMContentLoaded', renderizarEntradas);
-    </script>
+    <!-- Script exclusivo para la vista de entradas -->
+    <script src="assets/js/entradas.js"></script>
 </body>
 </html>

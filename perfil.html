@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Fixture, programación y resultados de la Liga Independiente de Fútbol (LIF).">
-    <title>Partidos | LIF - Liga Independiente de Fútbol</title>
+    <meta name="description" content="LIF - Liga Independiente de Fútbol. Fixture, resultados y gestión de entradas.">
+    <title>Mi Perfil | LIF - Liga Independiente de Fútbol</title>
+    
     <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
@@ -12,22 +13,28 @@
 <body class="d-flex flex-column min-vh-100 bg-light">
 
     <!-- ==========================================
-         1. NAVEGACIÓN COMPLETA UNIFICADA
+         1. NAVEGACIÓN
          ========================================== -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
             <div class="container-fluid px-lg-4">
+                
+                <!-- Logo y Marca -->
                 <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
                     <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
                     <span class="fw-black fs-4 text-white">LIF</span>
                 </a>
+
+                <!-- Botón Hamburguesa Móvil -->
                 <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Menú Navegación -->
                 <div class="collapse navbar-collapse" id="navMenu">
                     <ul class="navbar-nav mx-auto gap-xl-1">
                         <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
                         <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
@@ -43,10 +50,12 @@
                     <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap" id="nav-user-actions">
                         <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3 link-invitado">Registrarse</a>
                         <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3 link-invitado">Ingresar</a>
-                        <a href="perfil.html" class="btn btn-sm btn-success rounded-pill px-3 link-usuario d-none">👤 Mi Perfil</a>
+                        
+                        <a href="perfil.html" class="btn btn-sm btn-success rounded-pill px-3 link-usuario d-none">Mi Perfil</a>
+                        <button id="btn-cerrar-sesion-1" class="btn btn-sm btn-danger rounded-circle link-usuario d-none" title="Cerrar Sesión">🚪</button>
                         
                         <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
-                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                            Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
                         </a>
                         
                         <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
@@ -54,54 +63,91 @@
                         </button>
                     </div>                   
                 </div>
+
             </div>
         </nav>
     </header>
 
     <!-- ==========================================
-         2. BANNER HERO
+         2. PANEL DE PERFIL MINIMALISTA
          ========================================== -->
-    <section class="hero-green text-white py-4 text-center">
-        <div class="container py-2">
-            <span class="badge bg-light text-success fw-bold px-3 py-1 rounded-pill text-uppercase mb-2">Programación Oficial</span>
-            <h1 class="fw-black display-6 mb-0 text-shadow">Fixture y Resultados</h1>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         3. CONTENIDO PRINCIPAL
-         ========================================== -->
-    <main class="container py-5 flex-grow-1">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-                    <div class="card-header bg-dark-green text-white fw-bold py-3 text-center border-0">
-                        📅 Próximas Fechas Programadas
+    <main id="vista-usuario-normal" class="container py-5 flex-grow-1">
+        <div class="row justify-content-center g-4">
+            
+            <!-- COLUMNA IZQUIERDA: Menú y Sesión -->
+            <div class="col-lg-4 col-md-5">
+                <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100 bg-white">
+                    
+                    <!-- Avatar Minimalista -->
+                    <div class="bg-light text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 90px; height: 90px; font-size: 2.5rem;">
+                        👤
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-hover align-middle text-center m-0">
-                            <thead class="table-light extra-small text-muted text-uppercase">
-                                <tr>
-                                    <th scope="col">Fecha / Hora</th>
-                                    <th scope="col">Cancha</th>
-                                    <th scope="col" class="text-end w-25">Local</th>
-                                    <th scope="col"></th>
-                                    <th scope="col" class="text-start w-25">Visita</th>
-                                    <th scope="col">Estado</th>
-                                </tr>
-                            </thead>
-                            <tbody id="contenedor-partidos">
-                                <!-- Se renderiza dinámicamente desde assets/js/app.js o datos.js -->
-                            </tbody>
-                        </table>
+                    
+                    <!-- Textos dinámicos -->
+                    <h5 id="nombre-usuario-banner" class="fw-bold mb-1 text-dark">Cargando...</h5>
+                    <p id="email-usuario-banner" class="text-muted small mb-4">cargando@email.com</p>
+                    
+                    <!-- Menú Lateral Limpio -->
+                    <div class="list-group list-group-flush text-start mb-5 gap-1">
+                        <a href="perfil.html" class="list-group-item list-group-item-action border-0 rounded-3 text-success fw-bold bg-success-subtle px-3 py-2">
+                            Mis Datos
+                        </a>
+                        <a href="entradas.html" class="list-group-item list-group-item-action border-0 rounded-3 text-secondary px-3 py-2">
+                            Comprar Entradas
+                        </a>
+                        <a href="solicitud.html" class="list-group-item list-group-item-action border-0 rounded-3 text-secondary px-3 py-2">
+                            Solicitud de Equipo
+                        </a>
+                    </div>
+
+                    <!-- APARTADO DE CERRAR SESIÓN -->
+                    <div class="mt-auto border-top pt-4">
+                        <button id="btn-cerrar-sesion-2" class="btn btn-outline-danger w-100 rounded-pill fw-medium">
+                            Cerrar Sesión
+                        </button>
                     </div>
                 </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: Datos del Usuario -->
+            <div class="col-lg-6 col-md-7">
+                
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-body p-5">
+                        <h4 class="fw-bold mb-5 text-dark border-bottom pb-3">Perfil de Usuario</h4>
+                        
+                        <!-- Lista de datos con tipografía limpia -->
+                        <div class="row mb-4">
+                            <div class="col-sm-5 text-muted small text-uppercase fw-bold letter-spacing-1">Nombre Completo</div>
+                            <div class="col-sm-7 fw-medium text-dark fs-6" id="lbl-nombre-normal">-</div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-sm-5 text-muted small text-uppercase fw-bold letter-spacing-1">Correo Electrónico</div>
+                            <div class="col-sm-7 fw-medium text-dark fs-6" id="lbl-email-normal">-</div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-sm-5 text-muted small text-uppercase fw-bold letter-spacing-1">Estado de Cuenta</div>
+                            <div class="col-sm-7 fw-medium text-success fs-6">
+                                Activa
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-sm-5 text-muted small text-uppercase fw-bold letter-spacing-1">Miembro desde</div>
+                            <div class="col-sm-7 fw-medium text-dark fs-6">Temporada 2026</div>
+                        </div>
+                        
+                    </div>
+                </div>
+
             </div>
         </div>
     </main>
 
     <!-- ==========================================
-         4. FOOTER ESTRUCTURADO
+         3. FOOTER
          ========================================== -->
     <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
         <div class="container">
@@ -126,7 +172,7 @@
     </footer>
 
     <!-- ==========================================
-         5. SCRIPTS MODULARIZADOS
+         4. SCRIPTS
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
     <script src="assets/js/datos.js"></script>

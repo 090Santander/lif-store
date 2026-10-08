@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,8 +11,8 @@
 </head>
 <body class="d-flex flex-column min-vh-100 bg-light">
 
-    <!-- ==========================================
-         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
+    <!-- =============================================
+         1. NAVEGACIÓN PRINCIPAL
          ========================================== -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
@@ -30,33 +30,35 @@
                         <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
                         <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
                         <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link active" href="complejos.html" aria-current="page">Complejos</a></li>
                         <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
                         <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
                         <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
                         <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning" href="admin.html">Admin</a></li>
                     </ul>
 
-                    <!-- Botones de Acción y Modo Oscuro -->
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
-                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
-                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                    <!-- Controles de Usuario, Carrito y Tema -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap" id="nav-user-actions">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3 link-invitado">Registrarse</a>
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3 link-invitado">Ingresar</a>
+                        <a href="perfil.html" class="btn btn-sm btn-success rounded-pill px-3 link-usuario d-none">👤 Mi Perfil</a>
+
                         <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
                             🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
                         </a>
                         
-                        <!-- Botón de Modo Oscuro -->
+                        <!-- Botón Modo Oscuro -->
                         <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
                             🌙
                         </button>
                     </div>                   
-
                 </div>
             </div>
         </nav>
     </header>
-
+    
     <!-- ==========================================
          2. BANNER HERO
          ========================================== -->
@@ -182,6 +184,7 @@
          5. SCRIPTS
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/carrito.js"></script>
     <script src="assets/js/validaciones.js"></script>

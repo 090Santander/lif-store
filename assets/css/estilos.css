@@ -141,3 +141,47 @@ body.dark-mode .border-start,
 body.dark-mode .border-end {
     border-color: #2c3e35 !important;
 }
+
+
+/* ==========================================================================
+   7. TARJETAS DE NOTICIAS (ANIMACIONES Y ADAPTACIÓN DARK MODE)
+   ========================================================================== */
+.card-noticia {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto de elevación al pasar el mouse */
+.card-noticia:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.15) !important;
+}
+
+.card-noticia .contenedor-imagen {
+    overflow: hidden;
+}
+
+.card-noticia .img-noticia {
+    transition: transform 0.5s ease;
+    object-fit: cover;
+}
+
+/* Control de altura de imágenes para mantener uniformidad */
+.img-noticia-principal {
+    height: 100%;
+    min-height: 350px;
+}
+
+.img-noticia-grid {
+    height: 220px;
+}
+
+/* Zoom suave en la imagen al hacer hover en la tarjeta */
+.card-noticia:hover .img-noticia {
+    transform: scale(1.05);
+}
+
+/* Ajuste específico para que resalte elegante en Modo Oscuro */
+body.dark-mode .card-noticia:hover {
+    box-shadow: 0 1rem 3rem rgba(25, 135, 84, 0.15) !important; /* Resplandor verde suave */
+    border-color: var(--lif-green) !important;
+}

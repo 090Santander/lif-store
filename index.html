@@ -1,70 +1,64 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-bs-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="LIF - Liga Independiente de Fútbol. Fixture y resultados.">
+    <meta name="description" content="LIF - Liga Independiente de Fútbol. Fixture, resultados y gestión de entradas.">
     <title>LIF - Liga Independiente de Fútbol</title>
     
     <!-- Estilos -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/estilos.css">
 </head>
-<body class="d-flex flex-column min-vh-100">
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header class="sticky-top">
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+        <div class="container-fluid px-lg-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                <span class="fw-black fs-4 text-white">LIF</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto gap-xl-1">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                    <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
+                    <!-- Solo visible para Administradores -->
+                    <li class="nav-item link-admin d-none"><a class="nav-link text-warning fw-bold" href="admin.html">Admin</a></li>
+                </ul>
 
-    <!-- ==========================================
-         1. NAVEGACIÓN COMPLETA
-         ========================================== -->
-    <header class="sticky-top">
-        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
-            <div class="container-fluid px-lg-4">
-                
-                <!-- Logo y Marca -->
-                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
-                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
-                    <span class="fw-black fs-4 text-white">LIF</span>
-                </a>
+                <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                    <!-- Solo visibles para visitantes (Sin sesión) -->
+                    <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3 link-invitado">Registrarse</a>
+                    <a href="login.html" class="btn btn-sm btn-light text-success fw-bold rounded-pill px-3 shadow-sm link-invitado">Ingresar</a>
 
-                <!-- Botón Hamburguesa Móvil -->
-                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+                    <!-- Solo visibles para usuarios con sesión -->
+                    <a href="perfil.html" class="btn btn-sm btn-success rounded-pill px-3 link-usuario d-none">👤 Mi Perfil</a>
+                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 link-usuario btn-cerrar-sesion d-none">Salir</button>
 
-                <!-- Menú Navegación -->
-                <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav mx-auto gap-xl-1">
-                        <li class="nav-item"><a class="nav-link active" href="index.html">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
-                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
-                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
-                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
-                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
-                        <li class="nav-item"><a class="nav-link" href="admin.html">Administracion</a></li>
-                    </ul>
-
-                    <!-- Botones de Acción y Modo Oscuro -->
-                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
-                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
-                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
-                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
-                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
-                        </a>
-                        
-                        <!-- Botón de Modo Oscuro -->
-                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
-                            🌙
-                        </button>
-                    </div>                   
-                </div>
+                    <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                        🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                    </a>
+                    
+                    <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;">
+                        🌙
+                    </button>
+                </div>                   
 
             </div>
-        </nav>
-    </header>
-
+        </div>
+    </nav>
+</header>
     <!-- ==========================================
          2. HERO MINIMALISTA
          ========================================== -->
@@ -80,6 +74,10 @@
         </div>
     </section>
 
+    <!-- Puedes agregar aquí el resto del contenido de tu index.html (<main>, <footer>, y scripts) -->
+
+</body>
+</html>
     <!-- ==========================================
          3. PANEL DE ACCESOS (DASHBOARD)
          ========================================== -->
@@ -95,7 +93,7 @@
                 <a href="partidos.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">⚽</span>
-                        <h3 class="h6 fw-bold mb-0">Partidos</h3>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Partidos</h3>
                     </div>
                 </a>
             </div>
@@ -105,7 +103,7 @@
                 <a href="posiciones.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">🏆</span>
-                        <h3 class="h6 fw-bold mb-0">Posiciones</h3>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Posiciones</h3>
                     </div>
                 </a>
             </div>
@@ -125,7 +123,7 @@
                 <a href="noticias.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">📰</span>
-                        <h3 class="h6 fw-bold mb-0">Noticias</h3>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Noticias</h3>
                     </div>
                 </a>
             </div>
@@ -135,7 +133,7 @@
                 <a href="complejos.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">🏟️</span>
-                        <h3 class="h6 fw-bold mb-0">Complejos</h3>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Complejos</h3>
                     </div>
                 </a>
             </div>
@@ -145,7 +143,7 @@
                 <a href="actas.html" class="text-decoration-none">
                     <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
                         <span class="display-5 mb-2">📋</span>
-                        <h3 class="h6 fw-bold mb-0">Actas</h3>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Actas</h3>
                     </div>
                 </a>
             </div>
@@ -178,9 +176,10 @@
     </footer>
 
     <!-- ==========================================
-         5. SCRIPTS
+         5. SCRIPTS MODULARIZADOS
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/carrito.js"></script>
     <script src="assets/js/validaciones.js"></script>

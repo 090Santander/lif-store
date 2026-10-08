@@ -1,84 +1,54 @@
-// --- DATOS POR DEFECTO ---
-const noticiasIniciales = [
-    {
-        titulo: "Gran Final de la Liguilla 2026",
-        categoria: "Oficial",
-        fecha: "Hoy",
-        resumen: "Este sábado se define el campeón del torneo de clausura entre Cracks FC y Zánganos FC."
-    }
-];
-
-const partidosIniciales = [
-    {
-        equipoLocal: "Cracks FC",
-        equipoVisitante: "Zánganos FC",
-        fecha: "SÁBADO 12 SEPTIEMBRE",
-        hora: "16:00 hrs",
-        sede: "Sede Principal",
-        fase: "GRAN FINAL",
-        precio: 7000,
-        descripcion: "Se define el campeonato. Aforo máximo 500 personas."
+const DatosLIF = {
+    init() {
+        // Inicializar arrays vacíos si no existen
+        if (!localStorage.getItem('lif_noticias')) {
+            localStorage.setItem('lif_noticias', JSON.stringify([]));
+        }
+        if (!localStorage.getItem('lif_jugadores')) {
+            localStorage.setItem('lif_jugadores', JSON.stringify([]));
+        }
+        if (!localStorage.getItem('lif_partidos')) {
+            localStorage.setItem('lif_partidos', JSON.stringify([]));
+        }
+        if (!localStorage.getItem('lif_solicitudes')) {
+            localStorage.setItem('lif_solicitudes', JSON.stringify([]));
+        }
     },
-    {
-        equipoLocal: "Los Leones",
-        equipoVisitante: "Norte FC",
-        fecha: "DOMINGO 13 SEPTIEMBRE",
-        hora: "10:00 hrs",
-        sede: "Sede Norte",
-        fase: "SEMIFINAL JUNIOR",
-        precio: 4000,
-        descripcion: "Clásico de barrio. Ambiente familiar."
+
+    get(clave) {
+        return JSON.parse(localStorage.getItem(`lif_${clave}`)) || [];
+    },
+
+    guardar(clave, lista) {
+        localStorage.setItem(`lif_${clave}`, JSON.stringify(lista));
+    },
+
+    agregar(clave, item) {
+        const lista = this.get(clave);
+        item.id = Date.now(); // Generar ID único
+        lista.push(item);
+        this.guardar(clave, lista);
+        return item;
+    },
+
+    eliminar(clave, id) {
+        const lista = this.get(clave).filter(item => item.id !== id);
+        this.guardar(clave, lista);
+    },
+
+    // --- MANEJO DE SESIONES DE USUARIO ---
+    setUsuario(usuario) {
+        localStorage.setItem("LIF_USUARIO_ACTIVO", JSON.stringify(usuario));
+    },
+
+    getUsuario() {
+        return JSON.parse(localStorage.getItem("LIF_USUARIO_ACTIVO")) || null;
+    },
+
+    cerrarSesion() {
+        localStorage.removeItem("LIF_USUARIO_ACTIVO");
     }
-];
+};
 
-const jugadoresIniciales = [
-    { nombre: "Juan Román", equipo: "Cracks FC", posicion: "Mediocampista", dorsal: 10 }
-];
-
-// --- NOTICIAS ---
-function obtenerNoticias() {
-    const data = localStorage.getItem('lif_noticias');
-    return data ? JSON.parse(data) : noticiasIniciales;
-}
-function guardarNoticia(noticia) {
-    const noticias = obtenerNoticias();
-    noticias.unshift(noticia);
-    localStorage.setItem('lif_noticias', JSON.stringify(noticias));
-}
-function eliminarNoticia(index) {
-    const noticias = obtenerNoticias();
-    noticias.splice(index, 1);
-    localStorage.setItem('lif_noticias', JSON.stringify(noticias));
-}
-
-// --- PARTIDOS ---
-function obtenerPartidos() {
-    const data = localStorage.getItem('lif_partidos');
-    return data ? JSON.parse(data) : partidosIniciales;
-}
-function guardarPartido(partido) {
-    const partidos = obtenerPartidos();
-    partidos.unshift(partido);
-    localStorage.setItem('lif_partidos', JSON.stringify(partidos));
-}
-function eliminarPartido(index) {
-    const partidos = obtenerPartidos();
-    partidos.splice(index, 1);
-    localStorage.setItem('lif_partidos', JSON.stringify(partidos));
-}
-
-// --- JUGADORES ---
-function obtenerJugadores() {
-    const data = localStorage.getItem('lif_jugadores');
-    return data ? JSON.parse(data) : jugadoresIniciales;
-}
-function guardarJugador(jugador) {
-    const jugadores = obtenerJugadores();
-    jugadores.push(jugador);
-    localStorage.setItem('lif_jugadores', JSON.stringify(jugadores));
-}
-function eliminarJugador(index) {
-    const jugadores = obtenerJugadores();
-    jugadores.splice(index, 1);
-    localStorage.setItem('lif_jugadores', JSON.stringify(jugadores));
-}
+// Ejecutar inicialización al cargar el archivo
+DatosLIF.init();

@@ -12,7 +12,7 @@
 <body class="d-flex flex-column min-vh-100 bg-light">
 
     <!-- ==========================================
-         1. NAVEGACIÓN COMPLETA (TODOS LOS ARCHIVOS HTML)
+         1. NAVEGACIÓN COMPLETA
          ========================================== -->
     <header class="sticky-top">
         <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
@@ -46,7 +46,6 @@
                             🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
                         </a>
                         
-                        <!-- Botón de Modo Oscuro -->
                         <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
                             🌙
                         </button>
@@ -63,18 +62,15 @@
     <main class="container py-5 flex-grow-1 d-flex align-items-center justify-content-center">
         
         <div class="col-12 col-md-8 col-lg-5 col-xl-4">
-            <!-- Tarjeta de Login -->
             <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
                 
-                <!-- Encabezado de la Tarjeta -->
                 <div class="bg-dark-green text-white text-center py-4 px-4 border-bottom border-success border-4">
                     <h1 class="h3 fw-black mb-1">¡Bienvenido!</h1>
                     <p class="small text-white-50 mb-0">Ingresa a tu portal de jugador o hincha</p>
                 </div>
 
-                <!-- Cuerpo de la Tarjeta (Formulario) -->
                 <div class="card-body p-4 p-md-5">
-                    <form action="index.html" method="GET" id="formLogin">
+                    <form id="formLogin">
                         
                         <!-- Floating Label: Correo -->
                         <div class="form-floating mb-3">
@@ -88,7 +84,6 @@
                             <label for="inputPassword" class="text-muted">Contraseña</label>
                         </div>
 
-                        <!-- Opciones extra: Recordarme / Olvidé clave -->
                         <div class="d-flex justify-content-between align-items-center mb-4 small">
                             <div class="form-check">
                                 <input class="form-check-input border-success" type="checkbox" id="checkRecordar">
@@ -97,18 +92,15 @@
                             <a href="#" class="text-success text-decoration-none fw-bold">¿Olvidaste tu clave?</a>
                         </div>
 
-                        <!-- Botón Principal -->
                         <div class="d-grid mb-4">
                             <button type="submit" class="btn btn-success btn-lg rounded-pill fw-bold shadow-sm">Iniciar Sesión</button>
                         </div>
 
-                        <!-- Separador Visual -->
                         <div class="position-relative text-center mb-4">
                             <hr class="text-muted">
                             <span class="position-absolute top-50 start-50 translate-middle bg-white px-2 small text-muted">o ingresa con</span>
                         </div>
 
-                        <!-- Botón Redes Sociales -->
                         <div class="d-grid">
                             <button type="button" class="btn btn-outline-secondary rounded-pill fw-bold d-flex align-items-center justify-content-center gap-2">
                                 <span class="fs-5">G</span> Google
@@ -117,7 +109,6 @@
                     </form>
                 </div>
                 
-                <!-- Pie de la Tarjeta (Registro) -->
                 <div class="card-footer bg-light text-center py-3 border-0">
                     <p class="small text-muted mb-0">¿No tienes una cuenta? <a href="registro.html" class="text-success fw-bold text-decoration-none">Regístrate aquí</a></p>
                 </div>
@@ -155,8 +146,36 @@
          4. SCRIPTS
          ========================================== -->
     <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/carrito.js"></script>
     <script src="assets/js/validaciones.js"></script>
+
+    <!-- LÓGICA DE INICIO DE SESIÓN -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const formLogin = document.getElementById('formLogin');
+            
+            if (formLogin) {
+                formLogin.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const email = document.getElementById('inputEmail').value.trim();
+                    const password = document.getElementById('inputPassword').value.trim();
+
+                    // Comprobación de credenciales del Administrador
+                    if (email === 'admin@lifchile.cl' && password === 'admin123') {
+                        DatosLIF.iniciarSesionAdmin();
+                        alert('¡Bienvenido Administrador!');
+                        window.location.href = 'admin.html';
+                    } else {
+                        // Usuario público convencional
+                        alert('Inicio de sesión correcto.');
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+        });
+    </script>
 </body>
 </html>
