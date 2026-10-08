@@ -26,7 +26,7 @@ export default function Home() {
           </span>
           <h1 className="fw-black display-5 mb-3 text-shadow">Liga Independiente de Fútbol</h1>
           <p className="lead text-white-50 fs-6 mx-auto col-lg-6 mb-4">
-            El campeonato amateur más grande. Revisa el fixture, la tabla de posiciones y compra tus entradas.
+            El campeonato más grande de Santiago. Revisa el fixture, la tabla de posiciones y compra tus entradas.
           </p>
           <div className="d-flex justify-content-center gap-3">
             <Link to="/partidos" className="btn btn-light text-success fw-bold rounded-pill px-4 shadow">
@@ -55,7 +55,7 @@ export default function Home() {
                   }`}
                 >
                   <span className="display-5 mb-2">{a.icono}</span>
-                  <h3 className={`h6 fw-bold mb-0 ${a.destacado ? 'text-warning' : 'text-dark'}`}>
+                  <h3 className={`h6 fw-bold mb-0 ${a.destacado ? 'text-warning' : 'text-body'}`}>
                     {a.titulo}
                   </h3>
                 </div>

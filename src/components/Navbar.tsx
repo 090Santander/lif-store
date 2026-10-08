@@ -19,7 +19,7 @@ const enlaces = [
 export default function Navbar() {
   const navigate = useNavigate()
   const [usuario, setUsuario] = useState<Usuario | null>(() => DatosLIF.getUsuario())
-  const [tema, setTema] = useState<'light' | 'dark'>('light')
+  const [tema, setTema] = useState<'light' | 'dark'>(() => (localStorage.getItem('lif_tema') === 'dark' ? 'dark' : 'light'),)
   const cantidadCarrito = 0 // provisorio: lo conectamos al migrar carrito.js
 
   useEffect(() => {
