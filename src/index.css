@@ -116,6 +116,18 @@ body.dark-mode .table th {
     border-color: #2c3e35 !important;
 }
 
+.fila-exito {
+  --bs-table-bg: var(--bs-success-bg-subtle);
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-border-color: var(--bs-success-border-subtle);
+}
+
+.fila-peligro {
+  --bs-table-bg: var(--bs-danger-bg-subtle);
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-border-color: var(--bs-danger-border-subtle);
+}
+
 /* 5. Jerarquía de Títulos y Textos */
 body.dark-mode .text-dark,
 body.dark-mode .form-label,

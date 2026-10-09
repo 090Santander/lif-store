@@ -12,13 +12,13 @@ import Login from './pages/Login'
 import Registro from './pages/Registro'
 import Admin from './pages/Admin'
 import Pendiente from './pages/Pendiente'
+import Perfil from './pages/Perfil'
+import Contacto from './pages/Contacto'
+import Complejos from './pages/Complejos'
+import Actas from './pages/Actas'
 
 const paginasPendientes = [
-  { path: 'complejos', titulo: 'Complejos' },
-  { path: 'actas', titulo: 'Actas' },
-  { path: 'contacto', titulo: 'Contacto' },
   { path: 'solicitud', titulo: 'Solicitud' },
-  { path: 'perfil', titulo: 'Mi Perfil' },
 ]
 
 function App() {
@@ -34,6 +34,10 @@ function App() {
         <Route path="carrito" element={<Carrito />} />
         <Route path="login" element={<Login />} />
         <Route path="registro" element={<Registro />} />
+        <Route path="perfil" element={<Perfil />} />
+        <Route path="contacto" element={<Contacto />} />
+        <Route path="complejos" element={<Complejos />} />
+        <Route path="actas" element={<Actas />} />
         <Route element={<RutaAdmin />}>
           <Route path="admin" element={<Admin />} />
         </Route>

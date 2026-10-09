@@ -40,8 +40,9 @@ export interface Solicitud {
 }
 
 export interface Usuario {
-  rol: string 
-  [campo: string]: unknown
+  nombre: string
+  correo: string
+  rol: 'admin' | 'usuario'
 }
 
 export type ClaveColeccion = 'noticias' | 'jugadores' | 'partidos' | 'solicitudes' | 'usuarios'

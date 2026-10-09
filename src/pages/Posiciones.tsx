@@ -4,8 +4,8 @@ import { categorias, posicionesPorCategoria, type Categoria, type EstadoEquipo }
 import { obtenerIniciales } from '../utils/iniciales'
 
 const estilos: Record<EstadoEquipo, { fila: string; indicador: string }> = {
-  campeon: { fila: 'table-success border-success', indicador: 'bg-success' },
-  riesgo: { fila: 'table-danger border-danger', indicador: 'bg-danger' },
+  campeon: { fila: 'fila-exito', indicador: 'bg-success' },
+  riesgo: { fila: 'fila-peligro', indicador: 'bg-danger' },
   normal: { fila: '', indicador: 'bg-transparent' },
 }
 

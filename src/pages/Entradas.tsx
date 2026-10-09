@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import PageHero from '../components/PageHero'
 import EntradaCard from '../components/EntradaCard'
 import { DatosLIF, type Partido } from '../data/datosLIF'
 import { useCarrito } from '../context/CarritoContext'
@@ -13,21 +14,28 @@ export default function Entradas() {
   }
 
   return (
-    
-    <div className="container py-5">
-      <h2 className="h5 fw-bold text-uppercase mb-4">Próximos Partidos Disponibles</h2>
+    <>
+      <PageHero
+        etiqueta="Boletería Oficial"
+        titulo="Compra tus e-Tickets"
+        subtitulo="Asegura tu entrada digital para la próxima jornada"
+      />
 
-      {partidos.length === 0 ? (
-        <p className="text-center text-body-secondary py-4">
-          No hay partidos disponibles para la compra de tickets en este momento.
-        </p>
-      ) : (
-        <div className="row g-4">
-          {partidos.map((p) => (
-            <EntradaCard key={p.id} partido={p} onComprar={comprar} />
-          ))}
-        </div>
-      )}
-    </div>
+      <section className="container py-5">
+        <h2 className="h5 fw-bold text-uppercase mb-4">Próximos Partidos Disponibles</h2>
+
+        {partidos.length === 0 ? (
+          <p className="text-center text-body-secondary py-4">
+            No hay partidos disponibles para la compra de tickets en este momento.
+          </p>
+        ) : (
+          <div className="row g-4">
+            {partidos.map((p) => (
+              <EntradaCard key={p.id} partido={p} onComprar={comprar} />
+            ))}
+          </div>
+        )}
+      </section>
+    </>
   )
 }

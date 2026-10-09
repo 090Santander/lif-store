@@ -35,7 +35,7 @@ export default function Navbar() {
    }
 
   return (
-    <header className="sticky-top">
+    <header className="sticky-top" style={{ zIndex: 1030 }}>
       <nav className="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
         <div className="container-fluid px-lg-4">
           <Link className="navbar-brand d-flex align-items-center gap-2" to="/">
