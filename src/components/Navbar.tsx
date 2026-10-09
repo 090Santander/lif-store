@@ -23,8 +23,9 @@ export default function Navbar() {
   const cantidadCarrito = 0 // provisorio: lo conectamos al migrar carrito.js
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-bs-theme', tema)
-  }, [tema])
+  document.documentElement.setAttribute('data-bs-theme', tema)
+  localStorage.setItem('lif_tema', tema)
+}, [tema])
 
   const cerrarSesion = () => {
     DatosLIF.cerrarSesion()
