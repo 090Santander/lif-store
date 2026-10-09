@@ -11,3 +11,190 @@
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LIF - Liga Independiente de Fútbol. Fixture, resultados y gestión de entradas.">
+    <title>LIF - Liga Independiente de Fútbol</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+<header class="sticky-top">
+    <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+        <div class="container-fluid px-lg-4">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                <span class="fw-black fs-4 text-white">LIF</span>
+            </a>
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav mx-auto gap-xl-1">
+                    <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                    <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                    <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
+                    <!-- Solo visible para Administradores -->
+                    <li class="nav-item link-admin d-none"><a class="nav-link text-warning fw-bold" href="admin.html">Admin</a></li>
+                </ul>
+
+                <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                    <!-- Solo visibles para visitantes (Sin sesión) -->
+                    <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3 link-invitado">Registrarse</a>
+                    <a href="login.html" class="btn btn-sm btn-light text-success fw-bold rounded-pill px-3 shadow-sm link-invitado">Ingresar</a>
+
+                    <!-- Solo visibles para usuarios con sesión -->
+                    <a href="perfil.html" class="btn btn-sm btn-success rounded-pill px-3 link-usuario d-none">👤 Mi Perfil</a>
+                    <button type="button" class="btn btn-sm btn-outline-danger rounded-pill px-3 link-usuario btn-cerrar-sesion d-none">Salir</button>
+
+                    <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                        🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                    </a>
+                    
+                    <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;">
+                        🌙
+                    </button>
+                </div>                   
+
+            </div>
+        </div>
+    </nav>
+</header>
+    <!-- ==========================================
+         2. HERO MINIMALISTA
+         ========================================== -->
+    <section class="hero-green text-white py-5 text-center">
+        <div class="container py-4">
+            <span class="badge bg-light text-success fw-bold px-3 py-1 rounded-pill text-uppercase mb-3 shadow-sm">Temporada 2026</span>
+            <h1 class="fw-black display-5 mb-3 text-shadow">Liga Independiente de Fútbol</h1>
+            <p class="lead text-white-50 fs-6 mx-auto col-lg-6 mb-4">El campeonato amateur más grande. Revisa el fixture, la tabla de posiciones y compra tus entradas.</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="partidos.html" class="btn btn-light text-success fw-bold rounded-pill px-4 shadow">Ver Fixture</a>
+                <a href="entradas.html" class="btn btn-warning text-dark fw-bold rounded-pill px-4 shadow">Comprar e-Ticket</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Puedes agregar aquí el resto del contenido de tu index.html (<main>, <footer>, y scripts) -->
+
+</body>
+</html>
+    <!-- ==========================================
+         3. PANEL DE ACCESOS (DASHBOARD)
+         ========================================== -->
+    <main class="container py-5 flex-grow-1">
+        <div class="text-center mb-4">
+            <h2 class="h5 fw-bold text-uppercase">Accesos Directos</h2>
+            <div class="bg-success mx-auto mt-2" style="height: 3px; width: 40px; border-radius: 2px;"></div>
+        </div>
+        
+        <div class="row row-cols-2 row-cols-md-3 g-3 g-md-4">
+            <!-- Card Partidos -->
+            <div class="col">
+                <a href="partidos.html" class="text-decoration-none">
+                    <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
+                        <span class="display-5 mb-2">⚽</span>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Partidos</h3>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Card Posiciones -->
+            <div class="col">
+                <a href="posiciones.html" class="text-decoration-none">
+                    <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
+                        <span class="display-5 mb-2">🏆</span>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Posiciones</h3>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Card Entradas -->
+            <div class="col">
+                <a href="entradas.html" class="text-decoration-none">
+                    <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100 bg-dark-green text-white">
+                        <span class="display-5 mb-2">🎟️</span>
+                        <h3 class="h6 fw-bold text-warning mb-0">Entradas</h3>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Card Noticias -->
+            <div class="col">
+                <a href="noticias.html" class="text-decoration-none">
+                    <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
+                        <span class="display-5 mb-2">📰</span>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Noticias</h3>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Card Complejos -->
+            <div class="col">
+                <a href="complejos.html" class="text-decoration-none">
+                    <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
+                        <span class="display-5 mb-2">🏟️</span>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Complejos</h3>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Card Actas -->
+            <div class="col">
+                <a href="actas.html" class="text-decoration-none">
+                    <div class="card card-hover border-0 shadow-sm rounded-4 text-center p-4 h-100">
+                        <span class="display-5 mb-2">📋</span>
+                        <h3 class="h6 fw-bold mb-0 text-dark">Actas</h3>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================
+         4. FOOTER ESTRUCTURADO
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         5. SCRIPTS MODULARIZADOS
+         ========================================== -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/validaciones.js"></script>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Panel de administración de la Liga Independiente de Fútbol (LIF).">
+    <title>Panel de Administración | LIF</title>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <!-- ==========================================
+         1. NAVEGACIÓN SIMPLIFICADA (ADMIN)
+         ========================================== -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2" aria-label="Navegación del Administrador">
+            <div class="container-fluid px-lg-4">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="Logotipo LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF Admin</span>
+                </a>
+                
+                <div class="d-flex align-items-center ms-auto gap-2 flex-wrap">
+                    <!-- Botón Cerrar Sesión -->
+                    <button id="btn-cerrar-sesion-1" class="btn btn-sm btn-outline-danger rounded-pill fw-bold text-white border-danger" title="Cerrar Sesión" aria-label="Cerrar Sesión">
+                        <span aria-hidden="true">🚪</span> Cerrar Sesión
+                    </button>
+                    
+                    <!-- Volver al Sitio -->
+                    <a href="index.html" class="btn btn-sm btn-outline-light rounded-pill fw-bold">Volver al Sitio</a>
+                    
+                    <!-- Botón Modo Oscuro -->
+                    <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-1" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro" aria-label="Alternar Modo Oscuro">
+                        🌙
+                    </button>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==========================================
+         2. CONTENIDO PRINCIPAL (PANEL)
+         ========================================== -->
+    <main class="container py-4 flex-grow-1">
+        <h1 class="fw-bold mb-4">Panel de Administración</h1>
+
+        <!-- NAV TABS -->
+        <ul class="nav nav-tabs mb-4" id="adminTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active fw-bold text-success" id="noticias-tab" data-bs-toggle="tab" data-bs-target="#tab-noticias" type="button" role="tab" aria-controls="tab-noticias" aria-selected="true">
+                    <span aria-hidden="true">📰</span> Gestor de Noticias
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold text-success" id="partidos-tab" data-bs-toggle="tab" data-bs-target="#tab-partidos" type="button" role="tab" aria-controls="tab-partidos" aria-selected="false">
+                    <span aria-hidden="true">⚽</span> Partidos, Entradas y Noticias
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link fw-bold text-success" id="jugadores-tab" data-bs-toggle="tab" data-bs-target="#tab-jugadores" type="button" role="tab" aria-controls="tab-jugadores" aria-selected="false">
+                    <span aria-hidden="true">🏃</span> Gestor de Jugadores
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content" id="adminTabsContent">
+
+            <!-- TAB 1: GESTOR DE NOTICIAS GENERAL -->
+            <div class="tab-pane fade show active" id="tab-noticias" role="tabpanel" aria-labelledby="noticias-tab">
+                <div class="row g-4">
+                    <div class="col-md-5">
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h2 class="fs-5 fw-bold mb-3">Publicar Nueva Noticia</h2>
+                            <form id="form-nueva-noticia">
+                                <div class="mb-2">
+                                    <label for="n-titulo" class="form-label small fw-bold">Título de la Noticia</label>
+                                    <input type="text" id="n-titulo" class="form-control" required placeholder="Ej: Gran Final de la Liguilla 2026">
+                                </div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label for="n-categoria" class="form-label small fw-bold">Categoría</label>
+                                        <select id="n-categoria" class="form-select" required>
+                                            <option value="Oficial">Oficial</option>
+                                            <option value="Deportes">Deportes</option>
+                                            <option value="Tribunal">Tribunal</option>
+                                            <option value="Infraestructura">Infraestructura</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="n-fecha" class="form-label small fw-bold">Fecha / Tiempo</label>
+                                        <input type="text" id="n-fecha" class="form-control" required placeholder="Ej: Hoy / Hace 2 hrs">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="n-resumen" class="form-label small fw-bold">Resumen / Contenido</label>
+                                    <textarea id="n-resumen" class="form-control" rows="3" required placeholder="Escribe el resumen o cuerpo de la publicación..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100 rounded-pill fw-bold">Publicar Noticia</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h2 class="fs-5 fw-bold mb-3">Noticias Publicadas</h2>
+                            <ul id="lista-noticias-admin" class="list-group list-group-flush"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- TAB 2: PARTIDOS, ENTRADAS Y NOTICIAS RELACIONADAS -->
+            <div class="tab-pane fade" id="tab-partidos" role="tabpanel" aria-labelledby="partidos-tab">
+                <div class="row g-4">
+                    <div class="col-md-5">
+                        <!-- FORMULARIO DE PARTIDOS -->
+                        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                            <h2 class="fs-5 fw-bold mb-3">Agregar Nuevo Partido / Entrada</h2>
+                            <form id="form-nuevo-partido">
+                                <div class="mb-2">
+                                    <label for="p-local" class="form-label small fw-bold">Equipo Local</label>
+                                    <input type="text" id="p-local" class="form-control" required placeholder="Ej: Cracks FC">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="p-visitante" class="form-label small fw-bold">Equipo Visitante</label>
+                                    <input type="text" id="p-visitante" class="form-control" required placeholder="Ej: Zánganos FC">
+                                </div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label for="p-fecha" class="form-label small fw-bold">Fecha / Texto</label>
+                                        <input type="text" id="p-fecha" class="form-control" required placeholder="SÁBADO 12 SEPT">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="p-hora" class="form-label small fw-bold">Hora</label>
+                                        <input type="text" id="p-hora" class="form-control" required placeholder="16:00 hrs">
+                                    </div>
+                                </div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label for="p-sede" class="form-label small fw-bold">Sede</label>
+                                        <input type="text" id="p-sede" class="form-control" required placeholder="Sede Principal">
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="p-fase" class="form-label small fw-bold">Fase / Categoría</label>
+                                        <input type="text" id="p-fase" class="form-control" required placeholder="Gran Final">
+                                    </div>
+                                </div>
+                                <div class="mb-2">
+                                    <label for="p-precio" class="form-label small fw-bold">Precio Entrada ($)</label>
+                                    <input type="number" id="p-precio" class="form-control" min="0" required placeholder="5000">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="p-desc" class="form-label small fw-bold">Descripción / Detalles</label>
+                                    <textarea id="p-desc" class="form-control" rows="2" placeholder="Detalles del aforo o requisitos..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100 rounded-pill fw-bold">Publicar Partido y Tickets</button>
+                            </form>
+                        </div>
+
+                        <!-- FORMULARIO DE NOTICIA DESDE LA SECCIÓN DE PARTIDOS -->
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h2 class="fs-5 fw-bold mb-3"><span aria-hidden="true">📰</span> Agregar Noticia de Partido</h2>
+                            <form id="form-noticia-partido">
+                                <div class="mb-2">
+                                    <label for="np-titulo" class="form-label small fw-bold">Título de la Noticia</label>
+                                    <input type="text" id="np-titulo" class="form-control" required placeholder="Ej: Venta de Entradas Habilitada">
+                                </div>
+                                <div class="row g-2 mb-2">
+                                    <div class="col-6">
+                                        <label for="np-categoria" class="form-label small fw-bold">Categoría</label>
+                                        <select id="np-categoria" class="form-select" required>
+                                            <option value="Deportes">Deportes</option>
+                                            <option value="Oficial">Oficial</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="np-fecha" class="form-label small fw-bold">Fecha / Tiempo</label>
+                                        <input type="text" id="np-fecha" class="form-control" required placeholder="Ej: Hace 10 min">
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="np-resumen" class="form-label small fw-bold">Resumen / Contenido</label>
+                                    <textarea id="np-resumen" class="form-control" rows="2" required placeholder="Breve actualización del encuentro..."></textarea>
+                                </div>
+                                <button type="submit" class="btn btn-outline-success w-100 rounded-pill fw-bold">Publicar Noticia</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-md-7">
+                        <div class="card border-0 shadow-sm rounded-4 p-4 mb-4">
+                            <h2 class="fs-5 fw-bold mb-3">Partidos Registrados</h2>
+                            <ul id="lista-partidos-admin" class="list-group list-group-flush"></ul>
+                        </div>
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h2 class="fs-5 fw-bold mb-3">Últimas Noticias</h2>
+                            <ul id="lista-noticias-partidos-admin" class="list-group list-group-flush"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: AGREGAR Y VER JUGADORES -->
+            <div class="tab-pane fade" id="tab-jugadores" role="tabpanel" aria-labelledby="jugadores-tab">
+                <div class="row g-4">
+                    <div class="col-md-5">
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h2 class="fs-5 fw-bold mb-3">Registrar Nuevo Jugador</h2>
+                            <form id="form-nuevo-jugador">
+                                <div class="mb-2">
+                                    <label for="j-nombre" class="form-label small fw-bold">Nombre Completo</label>
+                                    <input type="text" id="j-nombre" class="form-control" required placeholder="Ej: Juan Román">
+                                </div>
+                                <div class="mb-2">
+                                    <label for="j-equipo" class="form-label small fw-bold">Equipo</label>
+                                    <input type="text" id="j-equipo" class="form-control" required placeholder="Ej: Cracks FC">
+                                </div>
+                                <div class="row g-2 mb-3">
+                                    <div class="col-6">
+                                        <label for="j-posicion" class="form-label small fw-bold">Posición</label>
+                                        <select id="j-posicion" class="form-select" required>
+                                            <option value="Portero">Portero</option>
+                                            <option value="Defensa">Defensa</option>
+                                            <option value="Mediocampista">Mediocampista</option>
+                                            <option value="Delantero">Delantero</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label for="j-dorsal" class="form-label small fw-bold">Dorsal (#)</label>
+                                        <input type="number" id="j-dorsal" class="form-control" min="1" max="99" required placeholder="10">
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-success w-100 rounded-pill fw-bold">Guardar Jugador</button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card border-0 shadow-sm rounded-4 p-4">
+                            <h2 class="fs-5 fw-bold mb-3">Plantel Registrado</h2>
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Jugador</th>
+                                            <th scope="col">Equipo</th>
+                                            <th scope="col">Posición</th>
+                                            <th scope="col">Acciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="lista-jugadores-admin"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+
+
+    <!-- Modal para Editar Estadísticas de Jugador -->
+<div class="modal fade" id="modalStatsJugador" tabindex="-1" aria-labelledby="modalStatsLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content rounded-4 border-0 shadow">
+            <div class="modal-header bg-warning text-dark border-0 rounded-top-4">
+                <h5 class="modal-title fw-bold" id="modalStatsLabel">📊 Estadísticas del Jugador</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+            </div>
+            <div class="modal-body p-4">
+                <input type="hidden" id="stat-jugador-id">
+                <h6 id="stat-jugador-nombre" class="fw-bold mb-4 text-center text-success fs-5"></h6>
+                
+                <div class="row g-3 text-center">
+                    <div class="col-6">
+                        <label class="form-label fw-bold small text-muted">Partidos Jugados (PJ)</label>
+                        <input type="number" id="stat-pj" class="form-control text-center fw-bold fs-5" min="0" value="0">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold small text-muted">Goles Anotados</label>
+                        <input type="number" id="stat-goles" class="form-control text-center fw-bold fs-5 text-success" min="0" value="0">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold small text-muted">T. Amarillas (TA)</label>
+                        <input type="number" id="stat-ta" class="form-control text-center fw-bold fs-5 text-warning bg-light" min="0" value="0">
+                    </div>
+                    <div class="col-6">
+                        <label class="form-label fw-bold small text-muted">T. Rojas (TR)</label>
+                        <input type="number" id="stat-tr" class="form-control text-center fw-bold fs-5 text-danger bg-light" min="0" value="0">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer border-0">
+                <button type="button" class="btn btn-light rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-success rounded-pill px-4 fw-bold" onclick="guardarEstadisticasJugador()">Guardar Stats</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+    
+    <!-- ==========================================
+         3. PIE DE PÁGINA
+         ========================================== -->
+    <footer class="bg-dark-green text-white py-3 mt-auto">
+        <div class="container text-center extra-small text-white-50">
+            <p class="mb-0">&copy; 2026 LIF - Liga Independiente de Fútbol. Panel de Administración.</p>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         4. SCRIPTS
+         ========================================== -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/admin.js"></script>
+</body>
+</html>
+

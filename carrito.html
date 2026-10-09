@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Carrito de compras y pago de entradas LIF.">
+    <title>Carrito de Compras | LIF</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <!-- 1. NAVEGACIÓN -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" aria-label="Abrir menú">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
+                    </ul>
+
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark active shadow-sm">
+                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                        </a>
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" aria-label="Modo Oscuro">🌙</button>
+                    </div>                   
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- 2. HERO -->
+    <section class="hero-green text-white py-4 text-center">
+        <div class="container py-2">
+            <span class="badge bg-warning text-dark fw-bold px-3 py-1 rounded-pill text-uppercase mb-2 shadow-sm">Boletería</span>
+            <h1 class="fw-black display-6 mb-0 text-shadow">Tu Carrito</h1>
+            <p class="mb-0 mt-2 text-white-50 small">Revisa tus e-Tickets antes de pagar</p>
+        </div>
+    </section>
+
+    <!-- 3. CONTENIDO DEL CARRITO -->
+    <main class="container py-5 flex-grow-1">
+        <div class="row g-4">
+            
+            <!-- Columna Izquierda: Productos -->
+            <div class="col-lg-8">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                    <div class="card-header bg-white py-3 fw-bold border-bottom text-dark">
+                        Entradas Seleccionadas
+                    </div>
+                    <!-- El contenido de este contenedor se inyecta dinámicamente desde carrito.js -->
+                    <div id="lista-carrito" class="list-group list-group-flush">
+                    </div>
+                </div>
+                <a href="entradas.html" class="text-success fw-bold text-decoration-none">← Seguir comprando</a>
+            </div>
+
+            <!-- Columna Derecha: Resumen de Compra -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm rounded-4 p-4 sticky-lg-top" style="top: 100px;">
+                    <h4 class="fw-bold h5 mb-4 text-dark">Resumen de Orden</h4>
+                    
+                    <div class="d-flex justify-content-between mb-2 small">
+                        <span class="text-muted">Subtotal</span>
+                        <span class="fw-bold text-dark" id="resumen-subtotal">$0</span>
+                    </div>
+                    <div class="d-flex justify-content-between mb-3 small">
+                        <span class="text-muted">Cargo por servicio (10%)</span>
+                        <span class="fw-bold text-dark" id="resumen-cargo">$0</span>
+                    </div>
+                    
+                    <hr class="border-secondary">
+                    
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="fw-black fs-5 text-dark">Total</span>
+                        <span class="fw-black fs-5 text-success" id="resumen-total">$0</span>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <!-- El botón llama al Modal nativo de Bootstrap -->
+                        <button class="btn btn-warning fw-bold text-dark rounded-pill py-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalPago">Proceder al Pago</button>
+                    </div>
+                    
+                    <div class="mt-4 text-center">
+                        <p class="extra-small text-muted mb-2">Medios de pago seguros</p>
+                        <div class="d-flex justify-content-center gap-2 opacity-50">
+                            <span class="fs-4">💳</span> <span class="fs-4">🏦</span> <span class="fs-4">📱</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- 4. FOOTER -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h5 class="fw-bold text-warning mb-3">LIF Chile</h5>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h5 class="fw-bold mb-3">Información</h5>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 small text-white-50">
+                <p class="mb-0">&copy; 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 5. MODAL DE PAGOS -->
+    <div class="modal fade" id="modalPago" tabindex="-1" aria-labelledby="modalPagoLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header bg-dark-green text-white border-0 rounded-top-4">
+                    <h5 class="modal-title fw-bold" id="modalPagoLabel">💳 Método de Pago</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                </div>
+                <div class="modal-body p-4">
+                    <p class="text-muted small mb-3">Selecciona cómo deseas pagar tus entradas:</p>
+                    
+                    <div class="list-group mb-4 border-0 gap-2">
+                        <label class="list-group-item d-flex gap-3 align-items-center p-3 rounded-4 shadow-sm border border-success border-opacity-25 bg-light" style="cursor: pointer;">
+                            <input class="form-check-input flex-shrink-0 fs-4 mt-0" type="radio" name="metodoPago" value="webpay" checked>
+                            <div>
+                                <h6 class="mb-0 fw-bold text-dark">Webpay Plus</h6>
+                                <small class="text-muted">Tarjeta de Crédito, Débito o Prepago</small>
+                            </div>
+                        </label>
+                        <label class="list-group-item d-flex gap-3 align-items-center p-3 rounded-4 shadow-sm border" style="cursor: pointer;">
+                            <input class="form-check-input flex-shrink-0 fs-4 mt-0" type="radio" name="metodoPago" value="transferencia">
+                            <div>
+                                <h6 class="mb-0 fw-bold text-dark">Transferencia Bancaria</h6>
+                                <small class="text-muted">Transferencia directa desde tu banco</small>
+                            </div>
+                        </label>
+                    </div>
+
+                    <button type="button" class="btn btn-success w-100 rounded-pill fw-bold" id="btn-confirmar-pago">Confirmar y Pagar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 6. SCRIPTS -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/validaciones.js"></script>
+</body>
+</html>

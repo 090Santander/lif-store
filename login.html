@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inicia sesión en la Liga Independiente de Fútbol (LIF).">
+    <title>Ingresar | LIF - Liga Independiente de Fútbol</title>
+    <!-- Estilos -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <!-- ==========================================
+         1. NAVEGACIÓN COMPLETA
+         ========================================== -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
+                </a>
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
+                    </ul>
+
+                    <!-- Botones de Acción y Modo Oscuro -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3">Registrarse</a>
+                        <a href="login.html" class="btn btn-sm btn-light text-success fw-bold rounded-pill px-3 shadow-sm">Ingresar</a>
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                            🎟️ Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                        </a>
+                        
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
+                            🌙
+                        </button>
+                    </div>                   
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==========================================
+         2. CONTENEDOR CENTRAL (LOGIN CARD)
+         ========================================== -->
+    <main class="container py-5 flex-grow-1 d-flex align-items-center justify-content-center">
+        
+        <div class="col-12 col-md-8 col-lg-5 col-xl-4">
+            <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+                
+                <div class="bg-dark-green text-white text-center py-4 px-4 border-bottom border-success border-4">
+                    <h1 class="h3 fw-black mb-1">¡Bienvenido!</h1>
+                    <p class="small text-white-50 mb-0">Ingresa a tu portal de jugador o hincha</p>
+                </div>
+
+                <div class="card-body p-4 p-md-5">
+                    <form id="formLogin">
+                        
+                        <!-- Floating Label: Correo -->
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control rounded-3 focus-success" id="inputEmail" placeholder="nombre@ejemplo.com" required>
+                            <label for="inputEmail" class="text-muted">Correo electrónico</label>
+                        </div>
+
+                        <!-- Floating Label: Contraseña -->
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control rounded-3 focus-success" id="inputPassword" placeholder="Contraseña" required>
+                            <label for="inputPassword" class="text-muted">Contraseña</label>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-4 small">
+                            <div class="form-check">
+                                <input class="form-check-input border-success" type="checkbox" id="checkRecordar">
+                                <label class="form-check-label text-secondary" for="checkRecordar">Recordarme</label>
+                            </div>
+                            <a href="#" class="text-success text-decoration-none fw-bold">¿Olvidaste tu clave?</a>
+                        </div>
+
+                        <div class="d-grid mb-4">
+                            <button type="submit" class="btn btn-success btn-lg rounded-pill fw-bold shadow-sm">Iniciar Sesión</button>
+                        </div>
+
+                        <div class="position-relative text-center mb-4">
+                            <hr class="text-muted">
+                            <span class="position-absolute top-50 start-50 translate-middle bg-white px-2 small text-muted">o ingresa con</span>
+                        </div>
+
+                        <div class="d-grid">
+                            <button type="button" class="btn btn-outline-secondary rounded-pill fw-bold d-flex align-items-center justify-content-center gap-2">
+                                <span class="fs-5">G</span> Google
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="card-footer bg-light text-center py-3 border-0">
+                    <p class="small text-muted mb-0">¿No tienes una cuenta? <a href="registro.html" class="text-success fw-bold text-decoration-none">Regístrate aquí</a></p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- ==========================================
+         3. FOOTER ESTRUCTURADO
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         4. SCRIPTS
+         ========================================== -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/validaciones.js"></script>
+
+    <!-- LÓGICA DE INICIO DE SESIÓN -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const formLogin = document.getElementById('formLogin');
+            
+            if (formLogin) {
+                formLogin.addEventListener('submit', (e) => {
+                    e.preventDefault();
+
+                    const email = document.getElementById('inputEmail').value.trim();
+                    const password = document.getElementById('inputPassword').value.trim();
+
+                    // Comprobación de credenciales del Administrador
+                    if (email === 'admin@lifchile.cl' && password === 'admin123') {
+                        DatosLIF.iniciarSesionAdmin();
+                        alert('¡Bienvenido Administrador!');
+                        window.location.href = 'admin.html';
+                    } else {
+                        // Usuario público convencional
+                        alert('Inicio de sesión correcto.');
+                        window.location.href = 'index.html';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>

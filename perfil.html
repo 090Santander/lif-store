@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="LIF - Liga Independiente de Fútbol. Fixture, resultados y gestión de entradas.">
+    <title>Mi Perfil | LIF - Liga Independiente de Fútbol</title>
+    
+    <!-- Estilos -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/estilos.css">
+</head>
+<body class="d-flex flex-column min-vh-100 bg-light">
+
+    <!-- ==========================================
+         1. NAVEGACIÓN
+         ========================================== -->
+    <header class="sticky-top">
+        <nav class="navbar navbar-expand-xl navbar-dark bg-dark-green shadow-sm py-2">
+            <div class="container-fluid px-lg-4">
+                
+                <!-- Logo y Marca -->
+                <a class="navbar-brand d-flex align-items-center gap-2" href="index.html">
+                    <img src="assets/images/LOGO.png" alt="LIF" class="logo-header">
+                    <span class="fw-black fs-4 text-white">LIF</span>
+                </a>
+
+                <!-- Botón Hamburguesa Móvil -->
+                <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Menú Navegación -->
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav mx-auto gap-xl-1">
+                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link" href="partidos.html">Partidos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="posiciones.html">Posiciones</a></li>
+                        <li class="nav-item"><a class="nav-link" href="noticias.html">Noticias</a></li>
+                        <li class="nav-item"><a class="nav-link" href="complejos.html">Complejos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="entradas.html">Entradas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="actas.html">Actas</a></li>
+                        <li class="nav-item"><a class="nav-link" href="jugador.html">Jugadores</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contacto.html">Contacto</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitud.html">Solicitud</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning" href="admin.html">Admin</a></li>
+                    </ul>
+
+                    <!-- Botones de Acción y Modo Oscuro -->
+                    <div class="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap" id="nav-user-actions">
+                        <a href="registro.html" class="btn btn-sm btn-outline-warning rounded-pill px-3 link-invitado">Registrarse</a>
+                        <a href="login.html" class="btn btn-sm btn-outline-light rounded-pill px-3 link-invitado">Ingresar</a>
+                        
+                        <a href="perfil.html" class="btn btn-sm btn-success rounded-pill px-3 link-usuario d-none">Mi Perfil</a>
+                        <button id="btn-cerrar-sesion-1" class="btn btn-sm btn-danger rounded-circle link-usuario d-none" title="Cerrar Sesión">🚪</button>
+                        
+                        <a href="carrito.html" class="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
+                            Tickets <span class="badge bg-danger ms-1 badge-carrito">0</span>
+                        </a>
+                        
+                        <button id="btn-dark-mode" class="btn btn-sm btn-dark border border-secondary rounded-circle ms-2" style="width: 35px; height: 35px;" title="Alternar Modo Oscuro">
+                            🌙
+                        </button>
+                    </div>                   
+                </div>
+
+            </div>
+        </nav>
+    </header>
+
+    <!-- ==========================================
+         2. PANEL DE PERFIL MINIMALISTA
+         ========================================== -->
+    <main id="vista-usuario-normal" class="container py-5 flex-grow-1">
+        <div class="row justify-content-center g-4">
+            
+            <!-- COLUMNA IZQUIERDA: Menú y Sesión -->
+            <div class="col-lg-4 col-md-5">
+                <div class="card border-0 shadow-sm rounded-4 p-4 text-center h-100 bg-white">
+                    
+                    <!-- Avatar Minimalista -->
+                    <div class="bg-light text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 90px; height: 90px; font-size: 2.5rem;">
+                        👤
+                    </div>
+                    
+                    <!-- Textos dinámicos -->
+                    <h5 id="nombre-usuario-banner" class="fw-bold mb-1 text-dark">Cargando...</h5>
+                    <p id="email-usuario-banner" class="text-muted small mb-4">cargando@email.com</p>
+                    
+                    <!-- Menú Lateral Limpio -->
+                    <div class="list-group list-group-flush text-start mb-5 gap-1">
+                        <a href="perfil.html" class="list-group-item list-group-item-action border-0 rounded-3 text-success fw-bold bg-success-subtle px-3 py-2">
+                            Mis Datos
+                        </a>
+                        <a href="entradas.html" class="list-group-item list-group-item-action border-0 rounded-3 text-secondary px-3 py-2">
+                            Comprar Entradas
+                        </a>
+                        <a href="solicitud.html" class="list-group-item list-group-item-action border-0 rounded-3 text-secondary px-3 py-2">
+                            Solicitud de Equipo
+                        </a>
+                    </div>
+
+                    <!-- APARTADO DE CERRAR SESIÓN -->
+                    <div class="mt-auto border-top pt-4">
+                        <button id="btn-cerrar-sesion-2" class="btn btn-outline-danger w-100 rounded-pill fw-medium">
+                            Cerrar Sesión
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMNA DERECHA: Datos del Usuario -->
+            <div class="col-lg-6 col-md-7">
+                
+                <div class="card border-0 shadow-sm rounded-4 h-100 bg-white">
+                    <div class="card-body p-5">
+                        <h4 class="fw-bold mb-5 text-dark border-bottom pb-3">Perfil de Usuario</h4>
+                        
+                        <!-- Lista de datos con tipografía limpia -->
+                        <div class="row mb-4">
+                            <div class="col-sm-5 text-muted small text-uppercase fw-bold letter-spacing-1">Nombre Completo</div>
+                            <div class="col-sm-7 fw-medium text-dark fs-6" id="lbl-nombre-normal">-</div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-sm-5 text-muted small text-uppercase fw-bold letter-spacing-1">Correo Electrónico</div>
+                            <div class="col-sm-7 fw-medium text-dark fs-6" id="lbl-email-normal">-</div>
+                        </div>
+                        
+                        <div class="row mb-4">
+                            <div class="col-sm-5 text-muted small text-uppercase fw-bold letter-spacing-1">Estado de Cuenta</div>
+                            <div class="col-sm-7 fw-medium text-success fs-6">
+                                Activa
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-sm-5 text-muted small text-uppercase fw-bold letter-spacing-1">Miembro desde</div>
+                            <div class="col-sm-7 fw-medium text-dark fs-6">Temporada 2026</div>
+                        </div>
+                        
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- ==========================================
+         3. FOOTER
+         ========================================== -->
+    <footer class="bg-dark-green text-white pt-5 pb-3 border-top border-success border-4 mt-auto">
+        <div class="container">
+            <div class="row g-4 mb-4">
+                <div class="col-md-6 text-center text-md-start">
+                    <h4 class="fw-bold text-warning mb-3 fs-5">LIF Chile</h4>
+                    <p class="small text-white-50 pe-md-5">Promoviendo el fútbol amateur con estándares profesionales. Mantente al día con nuestro fixture y compra tus entradas de forma digital.</p>
+                </div>
+                <div class="col-md-6 text-center text-md-end">
+                    <h4 class="fw-bold mb-3 fs-5">Información</h4>
+                    <ul class="list-unstyled small d-flex flex-column gap-2 text-white-50">
+                        <li>📍 Complejo Deportivo Principal</li>
+                        <li>✉️ soporte@lifchile.cl</li>
+                        <li><a href="contacto.html" class="text-success text-decoration-none fw-bold">Contacto y Soporte</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="text-center border-top border-secondary pt-3 extra-small text-white-50">
+                <p class="mb-0">© 2026 LIF - Liga Independiente de Fútbol. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==========================================
+         4. SCRIPTS
+         ========================================== -->
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/datos.js"></script>
+    <script src="assets/js/app.js"></script>
+    <script src="assets/js/carrito.js"></script>
+    <script src="assets/js/validaciones.js"></script>
+</body>
+</html>

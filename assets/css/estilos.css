@@ -1,0 +1,187 @@
+/* ==========================================================================
+   LIF - HOJA DE ESTILOS MINIMALISTA (TEMA VERDE Y MODO OSCURO)
+   ========================================================================== */
+
+/* --- VARIABLES GLOBALES --- */
+:root {
+    --lif-green-dark: #0a3622;
+    --lif-green: #198754;
+    --lif-bg-soft: #f4f7f5;
+    --lif-accent: #ffc107;
+    --lif-text: #212529;
+    --lif-transition: all 0.25s ease-in-out;
+}
+
+/* --- BASE Y TIPOGRAFÍA --- */
+body {
+    background-color: var(--lif-bg-soft);
+    color: var(--lif-text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.fw-black { font-weight: 900; }
+.extra-small { font-size: 0.75rem; }
+
+/* --- ENCABEZADO Y LOGO --- */
+.bg-dark-green {
+    background-color: var(--lif-green-dark) !important;
+}
+
+.logo-header {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+}
+
+.nav-link {
+    font-size: 0.9rem;
+    transition: var(--lif-transition);
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--lif-accent) !important;
+}
+
+/* --- HERO Y TARJETAS MINIMALISTAS --- */
+.hero-green {
+    background: linear-gradient(135deg, var(--lif-green-dark) 0%, var(--lif-green) 100%);
+    border-bottom: 4px solid var(--lif-accent);
+}
+
+.card-hover {
+    transition: var(--lif-transition);
+    border: 1px solid rgba(25, 135, 84, 0.12) !important;
+}
+
+.card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(10, 54, 34, 0.12) !important;
+}
+
+/* ==========================================================================
+   MODO OSCURO (DARK MODE) COMPATIBLE CON BOOTSTRAP
+   ========================================================================== */
+
+/* 1. Fondo principal y contenedores globales */
+body.dark-mode, 
+body.dark-mode.bg-light,
+[data-bs-theme="dark"] body {
+    background-color: #121815 !important;
+    color: #e9ecef !important;
+}
+
+/* 2. Tarjetas, contenedores blancos y listas */
+body.dark-mode .bg-light,
+body.dark-mode .bg-white,
+body.dark-mode .card,
+body.dark-mode .list-group-item {
+    background-color: #1a231e !important;
+    color: #f8f9fa !important;
+    border-color: #2c3e35 !important;
+}
+
+/* 3. Formularios, Entradas de texto y Desplegables */
+body.dark-mode .form-control,
+body.dark-mode .form-select {
+    background-color: #243029 !important;
+    color: #ffffff !important;
+    border-color: #384e42 !important;
+}
+
+body.dark-mode .form-control::placeholder {
+    color: #8e9b94 !important;
+}
+
+body.dark-mode .form-control:focus,
+body.dark-mode .form-select:focus {
+    background-color: #2b3a32 !important;
+    color: #ffffff !important;
+    border-color: var(--lif-green) !important;
+    box-shadow: 0 0 0 0.25rem rgba(25, 135, 84, 0.25) !important;
+}
+
+/* 4. Tablas en Modo Oscuro */
+body.dark-mode .table {
+    --bs-table-bg: #1a231e;
+    --bs-table-color: #f8f9fa;
+    --bs-table-border-color: #2c3e35;
+    color: #f8f9fa !important;
+}
+
+body.dark-mode .table td,
+body.dark-mode .table th {
+    background-color: #1a231e !important;
+    color: #f8f9fa !important;
+    border-color: #2c3e35 !important;
+}
+
+/* 5. Jerarquía de Títulos y Textos */
+body.dark-mode .text-dark,
+body.dark-mode .form-label,
+body.dark-mode h1, 
+body.dark-mode h2, 
+body.dark-mode h3, 
+body.dark-mode h4, 
+body.dark-mode h5,
+body.dark-mode h6 {
+    color: #ffffff !important;
+}
+
+body.dark-mode .text-muted,
+body.dark-mode .text-secondary {
+    color: #a0ac9e !important;
+}
+
+/* 6. Bordes y Separadores generales */
+body.dark-mode .border,
+body.dark-mode .border-bottom,
+body.dark-mode .border-top,
+body.dark-mode .border-start,
+body.dark-mode .border-end {
+    border-color: #2c3e35 !important;
+}
+
+
+/* ==========================================================================
+   7. TARJETAS DE NOTICIAS (ANIMACIONES Y ADAPTACIÓN DARK MODE)
+   ========================================================================== */
+.card-noticia {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efecto de elevación al pasar el mouse */
+.card-noticia:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.15) !important;
+}
+
+.card-noticia .contenedor-imagen {
+    overflow: hidden;
+}
+
+.card-noticia .img-noticia {
+    transition: transform 0.5s ease;
+    object-fit: cover;
+}
+
+/* Control de altura de imágenes para mantener uniformidad */
+.img-noticia-principal {
+    height: 100%;
+    min-height: 350px;
+}
+
+.img-noticia-grid {
+    height: 220px;
+}
+
+/* Zoom suave en la imagen al hacer hover en la tarjeta */
+.card-noticia:hover .img-noticia {
+    transform: scale(1.05);
+}
+
+/* Ajuste específico para que resalte elegante en Modo Oscuro */
+body.dark-mode .card-noticia:hover {
+    box-shadow: 0 1rem 3rem rgba(25, 135, 84, 0.15) !important; /* Resplandor verde suave */
+    border-color: var(--lif-green) !important;
+}
