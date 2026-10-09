@@ -1,34 +1,33 @@
 export interface Noticia {
   id: number
   titulo: string
-  resumen?: string
-  contenido?: string
-  extracto?: string
-  categoria?: string
-  fecha?: string
-  tiempo?: string
+  categoria: string
+  fecha: string
+  resumen: string
   destacada?: boolean
 }
 
 export interface Partido {
   id: number
-  equipoLocal?: string
-  local?: string
-  equipoVisitante?: string
-  visita?: string
-  precio?: number
-  fase?: string
-  fecha?: string
-  hora?: string
-  sede?: string
+  equipoLocal: string
+  equipoVisitante: string
+  fecha: string
+  hora: string
+  sede: string
+  fase: string
+  precio: number
+  descripcion?: string
+  estado?: string
+  golesLocal?: number
+  golesVisita?: number
 }
 
 export interface Jugador {
   id: number
   nombre: string
-  posicion?: string
-  equipo?: string
-  dorsal?: number
+  equipo: string
+  posicion: string
+  dorsal: string
   pj?: number
   goles?: number
   ta?: number
@@ -41,16 +40,16 @@ export interface Solicitud {
 }
 
 export interface Usuario {
-  rol: string // 'admin' u otros; lo afinamos cuando migremos login/registro
+  rol: string 
   [campo: string]: unknown
 }
 
-export type ClaveColeccion = 'noticias' | 'jugadores' | 'partidos' | 'solicitudes'
+export type ClaveColeccion = 'noticias' | 'jugadores' | 'partidos' | 'solicitudes' | 'usuarios'
 
 const CLAVE_USUARIO = 'LIF_USUARIO_ACTIVO'
 
 function init(): void {
-  const claves: ClaveColeccion[] = ['noticias', 'jugadores', 'partidos', 'solicitudes']
+  const claves: ClaveColeccion[] = ['noticias', 'jugadores', 'partidos', 'solicitudes', 'usuarios']
   claves.forEach((clave) => {
     if (!localStorage.getItem(`lif_${clave}`)) {
       localStorage.setItem(`lif_${clave}`, JSON.stringify([]))
@@ -80,7 +79,7 @@ function eliminar(clave: ClaveColeccion, id: number): void {
   guardar(clave, lista)
 }
 
-// --- Sesión de usuario ---
+
 function setUsuario(usuario: Usuario): void {
   localStorage.setItem(CLAVE_USUARIO, JSON.stringify(usuario))
 }

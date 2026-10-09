@@ -6,31 +6,49 @@ interface CampoProps {
   type?: string
   required?: boolean
   min?: number
+  max?: number
+  maxLength?: number
+  placeholder?: string
+  filas?: number // si se indica, se dibuja un <textarea>
+  error?: string
 }
 
 export default function Campo({
-  id,
-  etiqueta,
-  value,
-  onChange,
-  type = 'text',
-  required = true,
-  min,
+  id, etiqueta, value, onChange, type = 'text', required = true,
+  min, max, maxLength, placeholder, filas, error,
 }: CampoProps) {
+  const clases = `form-control${error ? ' is-invalid' : ''}`
+
   return (
-    <div className="mb-3">
-      <label htmlFor={id} className="form-label fw-semibold small">
+    <div className="mb-2">
+      <label htmlFor={id} className="form-label small fw-bold">
         {etiqueta}
       </label>
-      <input
-        id={id}
-        type={type}
-        className="form-control"
-        value={value}
-        required={required}
-        min={min}
-        onChange={(e) => onChange(e.target.value)}
-      />
+      {filas ? (
+        <textarea
+          id={id}
+          className={clases}
+          rows={filas}
+          value={value}
+          required={required}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      ) : (
+        <input
+          id={id}
+          type={type}
+          className={clases}
+          value={value}
+          required={required}
+          min={min}
+          max={max}
+          maxLength={maxLength}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e.target.value)}
+        />
+      )}
+      {error && <div className="text-danger extra-small mt-1">{error}</div>}
     </div>
   )
 }

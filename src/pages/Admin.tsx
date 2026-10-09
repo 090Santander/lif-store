@@ -1,18 +1,20 @@
 import { useState } from 'react'
-import PageHero from '../components/PageHero'
-import PanelNoticias from '../components/admin/PanelNoticias'
-import PanelPartidos from '../components/admin/PanelPartidos'
-import PanelJugadores from '../components/admin/PanelJugadores'
+import FormNoticia from '../components/admin/FormNoticia'
+import ListaNoticias from '../components/admin/ListaNoticias'
+import FormPartido from '../components/admin/FormPartidos'
+import ListaPartidos from '../components/admin/ListaPartidos'
+import FormJugador from '../components/admin/FormJugador'
+import TablaJugadores from '../components/admin/TablaJugadores'
 import ModalStats, { type Estadisticas } from '../components/admin/ModalStats'
 import { useColeccion } from '../hooks/useColeccion'
 import type { Jugador, Noticia, Partido } from '../data/datosLIF'
 
 type Pestana = 'noticias' | 'partidos' | 'jugadores'
 
-const pestanas: { clave: Pestana; texto: string }[] = [
-  { clave: 'noticias', texto: '📰 Noticias' },
-  { clave: 'partidos', texto: '⚽ Partidos' },
-  { clave: 'jugadores', texto: '👤 Jugadores' },
+const pestanas: { clave: Pestana; icono: string; texto: string }[] = [
+  { clave: 'noticias', icono: '📰', texto: 'Gestor de Noticias' },
+  { clave: 'partidos', icono: '⚽', texto: 'Partidos, Entradas y Noticias' },
+  { clave: 'jugadores', icono: '🏃', texto: 'Gestor de Jugadores' },
 ]
 
 export default function Admin() {
@@ -31,57 +33,87 @@ export default function Admin() {
   }
 
   return (
-    <>
-      <PageHero etiqueta="Administración" titulo="Panel de Control" />
+    <div className="container py-4">
+      <h1 className="fw-bold mb-4">Panel de Administración</h1>
 
-      <section className="container py-5">
-        <ul className="nav nav-tabs mb-4">
-          {pestanas.map((p) => (
-            <li className="nav-item" key={p.clave}>
-              <button
-                type="button"
-                className={`nav-link fw-bold ${pestana === p.clave ? 'active' : ''}`}
-                onClick={() => setPestana(p.clave)}
-              >
-                {p.texto}
-              </button>
-            </li>
-          ))}
-        </ul>
+      <ul className="nav nav-tabs mb-4" role="tablist">
+        {pestanas.map((p) => (
+          <li className="nav-item" role="presentation" key={p.clave}>
+            <button
+              type="button"
+              role="tab"
+              aria-selected={pestana === p.clave}
+              className={`nav-link fw-bold text-success ${pestana === p.clave ? 'active' : ''}`}
+              onClick={() => setPestana(p.clave)}
+            >
+              <span aria-hidden="true">{p.icono}</span> {p.texto}
+            </button>
+          </li>
+        ))}
+      </ul>
 
-        {pestana === 'noticias' && (
-          <PanelNoticias
-            noticias={noticias.items}
-            onAgregar={noticias.agregar}
-            onEliminar={noticias.eliminar}
-          />
-        )}
-
-        {pestana === 'partidos' && (
-          <>
-            <PanelPartidos
-              partidos={partidos.items}
-              onAgregar={partidos.agregar}
-              onEliminar={partidos.eliminar}
-            />
-            <h2 className="h5 fw-bold mt-5 mb-3">Noticias de partidos</h2>
-            <PanelNoticias
-              noticias={noticias.items}
+      {pestana === 'noticias' && (
+        <div className="row g-4">
+          <div className="col-md-5">
+            <FormNoticia
+              prefijo="n"
+              titulo="Publicar Nueva Noticia"
+              categorias={['Oficial', 'Deportes', 'Tribunal', 'Infraestructura']}
+              placeholders={{
+                titulo: 'Ej: Gran Final de la Liguilla 2026',
+                fecha: 'Ej: Hoy / Hace 2 hrs',
+                resumen: 'Escribe el resumen o cuerpo de la publicación...',
+              }}
+              textoBoton="Publicar Noticia"
               onAgregar={noticias.agregar}
-              onEliminar={noticias.eliminar}
             />
-          </>
-        )}
+          </div>
+          <div className="col-md-7">
+            <ListaNoticias titulo="Noticias Publicadas" noticias={noticias.items} onEliminar={noticias.eliminar} />
+          </div>
+        </div>
+      )}
 
-        {pestana === 'jugadores' && (
-          <PanelJugadores
-            jugadores={jugadores.items}
-            onAgregar={jugadores.agregar}
-            onEliminar={jugadores.eliminar}
-            onEditarStats={setEditando}
-          />
-        )}
-      </section>
+      {pestana === 'partidos' && (
+        <div className="row g-4">
+          <div className="col-md-5">
+            <FormPartido onAgregar={partidos.agregar} />
+            <FormNoticia
+              prefijo="np"
+              titulo={<><span aria-hidden="true">📰</span> Agregar Noticia de Partido</>}
+              categorias={['Deportes', 'Oficial']}
+              placeholders={{
+                titulo: 'Ej: Venta de Entradas Habilitada',
+                fecha: 'Ej: Hace 10 min',
+                resumen: 'Breve actualización del encuentro...',
+              }}
+              filas={2}
+              textoBoton="Publicar Noticia"
+              claseBoton="btn-outline-success"
+              onAgregar={noticias.agregar}
+            />
+          </div>
+          <div className="col-md-7">
+            <ListaPartidos partidos={partidos.items} onEliminar={partidos.eliminar} />
+            <ListaNoticias titulo="Últimas Noticias" noticias={noticias.items} onEliminar={noticias.eliminar} />
+          </div>
+        </div>
+      )}
+
+      {pestana === 'jugadores' && (
+        <div className="row g-4">
+          <div className="col-md-5">
+            <FormJugador onAgregar={jugadores.agregar} />
+          </div>
+          <div className="col-md-7">
+            <TablaJugadores
+              jugadores={jugadores.items}
+              onEliminar={jugadores.eliminar}
+              onEditarStats={setEditando}
+            />
+          </div>
+        </div>
+      )}
 
       {editando && (
         <ModalStats
@@ -91,6 +123,6 @@ export default function Admin() {
           onCerrar={() => setEditando(null)}
         />
       )}
-    </>
+    </div>
   )
 }

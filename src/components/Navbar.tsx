@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router'
 import logo from '../assets/LOGO.png'
-import { DatosLIF, type Usuario } from '../data/datosLIF'
+import { useAuth } from '../context/AuthContext'
+import { useCarrito } from '../context/CarritoContext'
 
 const enlaces = [
   { to: '/', texto: 'Inicio' },
@@ -18,21 +19,20 @@ const enlaces = [
 
 export default function Navbar() {
   const navigate = useNavigate()
-  const [usuario, setUsuario] = useState<Usuario | null>(() => DatosLIF.getUsuario())
+  const { usuario, esAdmin, cerrarSesion } = useAuth()
   const [tema, setTema] = useState<'light' | 'dark'>(() => (localStorage.getItem('lif_tema') === 'dark' ? 'dark' : 'light'),)
-  const cantidadCarrito = 0 // provisorio: lo conectamos al migrar carrito.js
+  const { cantidad } = useCarrito()
 
   useEffect(() => {
   document.documentElement.setAttribute('data-bs-theme', tema)
   localStorage.setItem('lif_tema', tema)
 }, [tema])
 
-  const cerrarSesion = () => {
-    DatosLIF.cerrarSesion()
-    setUsuario(null)
-    alert('Has cerrado sesión correctamente.')
-    navigate('/')
-  }
+     const salir = () => {
+     cerrarSesion()
+     alert('Has cerrado sesión correctamente.')
+     navigate('/')
+   }
 
   return (
     <header className="sticky-top">
@@ -61,7 +61,7 @@ export default function Navbar() {
                   </NavLink>
                 </li>
               ))}
-              {usuario?.rol === 'admin' && (
+              {esAdmin &&(
                 <li className="nav-item">
                   <NavLink className="nav-link text-warning fw-bold" to="/admin">
                     Admin
@@ -79,7 +79,7 @@ export default function Navbar() {
                   <button
                     type="button"
                     className="btn btn-sm btn-outline-danger rounded-pill px-3"
-                    onClick={cerrarSesion}
+                    onClick={salir}
                   >
                     Salir
                   </button>
@@ -99,7 +99,7 @@ export default function Navbar() {
               )}
 
               <Link to="/carrito" className="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
-                🎟️ Tickets <span className="badge bg-danger ms-1">{cantidadCarrito}</span>
+                🎟️ Tickets <span className="badge bg-danger ms-1">{cantidad}</span>
               </Link>
 
               <button
