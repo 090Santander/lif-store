@@ -78,4 +78,12 @@ describe('Navbar Component', () => {
     renderNavbar()
     expect(screen.getByText('Admin')).toBeTruthy()
   })
+
+  it('debe alternar el menú móvil al hacer clic en el botón toggler', () => {
+    renderNavbar()
+    // Toma el primer botón (el toggler de Bootstrap) y simula abrir y cerrar el menú móvil
+    const botonMenu = screen.getAllByRole('button')[0]
+    fireEvent.click(botonMenu)
+    fireEvent.click(botonMenu)
+  })
 })

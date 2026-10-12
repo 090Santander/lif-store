@@ -46,7 +46,6 @@ const assetStubPlugin = {
       return null;
     });
 
-    // Solo ESM: mezclar module.exports con export default generaba un warning
     build.onLoad({ filter: /.*/, namespace: 'asset-stub' }, () => ({
       contents: 'export default "test-file-stub";',
       loader: 'js'
@@ -96,10 +95,12 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     files: [
+      { pattern: 'src/**/*.spec.ts', watched: false },
       { pattern: 'src/**/*.spec.tsx', watched: false }
     ],
 
     preprocessors: {
+      'src/**/*.spec.ts': ['esbuild'],
       'src/**/*.spec.tsx': ['esbuild']
     },
 
@@ -121,8 +122,12 @@ module.exports = function(config) {
       dir: 'coverage/',
       reporters: [
         { type: 'html' },
+        { type: 'text' },
         { type: 'text-summary' }
-      ]
+      ],
+      check: {
+        global: { statements: 80, branches: 80, functions: 80, lines: 80 }
+      }
     },
 
     port: 9876,

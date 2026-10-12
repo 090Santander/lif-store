@@ -1,9 +1,10 @@
-export function obtenerIniciales(nombre: string, porDefecto = 'J'): string {
-  const base = nombre.trim() || porDefecto
-  return base
-    .split(/\s+/)
-    .map((palabra) => palabra[0])
-    .join('')
-    .substring(0, 2)
-    .toUpperCase()
+export const obtenerIniciales = (nombre?: string): string => {
+  if (!nombre || !nombre.trim()) {
+    return '?'
+  }
+  const partes = nombre.trim().split(/\s+/)
+  if (partes.length === 1) {
+    return partes[0].charAt(0).toUpperCase()
+  }
+  return (partes[0].charAt(0) + partes[partes.length - 1].charAt(0)).toUpperCase()
 }

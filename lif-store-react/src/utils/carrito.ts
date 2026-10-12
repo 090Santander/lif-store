@@ -21,7 +21,7 @@ export function crearTicket(partido: Partido): Ticket {
     encuentro: `${partido.equipoLocal} vs ${partido.equipoVisitante}`,
     localidad: partido.fase || 'General',
     precio: precioDe(partido),
-    fecha: `${partido.fecha} ${partido.hora}`.trim(),
+    fecha: `${partido.fecha} ${partido.hora ?? ""}`.trim(),
   }
 }
 

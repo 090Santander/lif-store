@@ -1,135 +1,173 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, act } from '@testing-library/react'
 import { CarritoProvider, useCarrito } from './CarritoContext'
+import type { ItemCarrito } from './CarritoContext'
 
-const ComponentePrueba = () => {
-  const {
-    carrito,
-    agregarAlCarrito,
-    eliminarDelCarrito,
-    vaciarCarrito,
-    obtenerTotal,
-    obtenerCantidadTotal,
-  } = useCarrito()
+let ctx!: ReturnType<typeof useCarrito>
 
-  return (
-    <div>
-      <span data-testid="cantidad">{obtenerCantidadTotal()}</span>
-      <span data-testid="total">{obtenerTotal()}</span>
-      <button
-        onClick={() =>
-          agregarAlCarrito({ id: 1, nombre: 'Entrada Final', precio: 5000, cantidad: 1 })
-        }
-      >
-        Agregar
-      </button>
-      <button onClick={() => eliminarDelCarrito(1)}>Eliminar</button>
-      <button onClick={() => vaciarCarrito()}>Vaciar</button>
-      <ul>
-        {carrito.map((item) => (
-          <li key={item.id}>{item.nombre}</li>
-        ))}
-      </ul>
-    </div>
+const Captura = () => {
+  ctx = useCarrito()
+  return null
+}
+
+const renderProvider = () =>
+  render(
+    <CarritoProvider>
+      <Captura />
+    </CarritoProvider>
   )
-}
 
-const ComponenteError = () => {
-  useCarrito()
-  return <div>No renderizar</div>
-}
+const crearItem = (id: number | string, precio = 100, cantidad = 1): ItemCarrito => ({
+  id,
+  nombre: `Entrada ${id}`,
+  precio,
+  cantidad,
+})
+
+const itemSinCantidad = (id: number): ItemCarrito =>
+  ({ id, nombre: `Entrada ${id}`, precio: 100 }) as unknown as ItemCarrito
 
 describe('CarritoContext', () => {
   beforeEach(() => {
     localStorage.clear()
   })
 
-  it('debe agregar un item al carrito y calcular la cantidad y el total', () => {
-    render(
-      <CarritoProvider>
-        <ComponentePrueba />
-      </CarritoProvider>
-    )
-
-    expect(screen.getByTestId('cantidad').textContent).toBe('0')
-
-    fireEvent.click(screen.getByText('Agregar'))
-
-    expect(screen.getByTestId('cantidad').textContent).toBe('1')
-    expect(screen.getByTestId('total').textContent).toBe('5000')
-    expect(screen.getByText('Entrada Final')).toBeTruthy()
+  afterEach(() => {
+    localStorage.clear()
   })
 
-  it('debe incrementar la cantidad si el item ya existe en el carrito', () => {
-    render(
-      <CarritoProvider>
-        <ComponentePrueba />
-      </CarritoProvider>
-    )
+  describe('estado inicial', () => {
+    it('empieza con el carrito vacío cuando no hay datos guardados', () => {
+      renderProvider()
+      expect(ctx.carrito).toEqual([])
+    })
 
-    fireEvent.click(screen.getByText('Agregar'))
-    fireEvent.click(screen.getByText('Agregar'))
+    it('recupera el carrito guardado en localStorage', () => {
+      localStorage.setItem('carrito_lif', JSON.stringify([crearItem(1, 500, 2)]))
+      renderProvider()
+      expect(ctx.carrito.length).toBe(1)
+      expect(ctx.carrito[0].cantidad).toBe(2)
+    })
 
-    expect(screen.getByTestId('cantidad').textContent).toBe('2')
-    expect(screen.getByTestId('total').textContent).toBe('10000')
+    it('empieza vacío cuando el contenido guardado no es JSON válido', () => {
+      localStorage.setItem('carrito_lif', '{no-es-json')
+      renderProvider()
+      expect(ctx.carrito).toEqual([])
+    })
+
+    it('empieza vacío cuando localStorage lanza un error al leer', () => {
+      spyOn(Storage.prototype, 'getItem').and.throwError('Error simulado')
+      renderProvider()
+      expect(ctx.carrito).toEqual([])
+    })
   })
 
-  it('debe eliminar un item del carrito', () => {
-    render(
-      <CarritoProvider>
-        <ComponentePrueba />
-      </CarritoProvider>
-    )
+  describe('persistencia', () => {
+    it('guarda el carrito en localStorage cada vez que cambia', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1)))
+      const guardado = JSON.parse(localStorage.getItem('carrito_lif') as string)
+      expect(guardado.length).toBe(1)
+      expect(guardado[0].id).toBe(1)
+    })
 
-    fireEvent.click(screen.getByText('Agregar'))
-    expect(screen.getByTestId('cantidad').textContent).toBe('1')
-
-    fireEvent.click(screen.getByText('Eliminar'))
-    expect(screen.getByTestId('cantidad').textContent).toBe('0')
+    it('registra un error en consola cuando no se puede guardar', () => {
+      spyOn(Storage.prototype, 'setItem').and.throwError('Error simulado')
+      spyOn(console, 'error')
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1)))
+      expect(console.error).toHaveBeenCalled()
+    })
   })
 
-  it('debe vaciar el carrito completamente', () => {
-    render(
-      <CarritoProvider>
-        <ComponentePrueba />
-      </CarritoProvider>
-    )
+  describe('agregarAlCarrito', () => {
+    it('agrega un item nuevo con su cantidad', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1, 100, 3)))
+      expect(ctx.carrito.length).toBe(1)
+      expect(ctx.carrito[0].cantidad).toBe(3)
+    })
 
-    fireEvent.click(screen.getByText('Agregar'))
-    fireEvent.click(screen.getByText('Vaciar'))
+    it('asigna cantidad 1 a un item nuevo que no trae cantidad', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(itemSinCantidad(1)))
+      expect(ctx.carrito[0].cantidad).toBe(1)
+    })
 
-    expect(screen.getByTestId('cantidad').textContent).toBe('0')
+    it('suma la cantidad cuando el item ya existe', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1, 100, 2)))
+      act(() => ctx.agregarAlCarrito(crearItem(1, 100, 3)))
+      expect(ctx.carrito.length).toBe(1)
+      expect(ctx.carrito[0].cantidad).toBe(5)
+    })
+
+    it('suma 1 cuando el item repetido no trae cantidad', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1, 100, 2)))
+      act(() => ctx.agregarAlCarrito(itemSinCantidad(1)))
+      expect(ctx.carrito[0].cantidad).toBe(3)
+    })
+
+    it('solo modifica el item repetido y deja los demás intactos', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1, 100, 1)))
+      act(() => ctx.agregarAlCarrito(crearItem(2, 200, 1)))
+      act(() => ctx.agregarAlCarrito(crearItem(2, 200, 4)))
+      expect(ctx.carrito.length).toBe(2)
+      expect(ctx.carrito[0].cantidad).toBe(1)
+      expect(ctx.carrito[1].cantidad).toBe(5)
+    })
   })
 
-  it('debe cargar datos desde localStorage si existen', () => {
-    const itemGuardado = [{ id: 99, nombre: 'Ticket Guardado', precio: 3000, cantidad: 1 }]
-    localStorage.setItem('carrito_lif', JSON.stringify(itemGuardado))
+  describe('eliminarDelCarrito', () => {
+    it('quita solo el item con el id indicado', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1)))
+      act(() => ctx.agregarAlCarrito(crearItem(2)))
+      act(() => ctx.eliminarDelCarrito(1))
+      expect(ctx.carrito.map((i) => i.id)).toEqual([2])
+    })
 
-    render(
-      <CarritoProvider>
-        <ComponentePrueba />
-      </CarritoProvider>
-    )
-
-    expect(screen.getByText('Ticket Guardado')).toBeTruthy()
-    expect(screen.getByTestId('total').textContent).toBe('3000')
+    it('no cambia nada si el id no existe', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1)))
+      act(() => ctx.eliminarDelCarrito(99))
+      expect(ctx.carrito.length).toBe(1)
+    })
   })
 
-  it('debe ignorar un carrito guardado con JSON dañado', () => {
-    localStorage.setItem('carrito_lif', 'esto no es json')
-
-    render(
-      <CarritoProvider>
-        <ComponentePrueba />
-      </CarritoProvider>
-    )
-
-    expect(screen.getByTestId('cantidad').textContent).toBe('0')
+  describe('vaciarCarrito', () => {
+    it('elimina todos los items', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1)))
+      act(() => ctx.agregarAlCarrito(crearItem(2)))
+      act(() => ctx.vaciarCarrito())
+      expect(ctx.carrito).toEqual([])
+    })
   })
 
-  it('debe lanzar un error si useCarrito se usa fuera de CarritoProvider', () => {
-    spyOn(console, 'error')
-    expect(() => render(<ComponenteError />)).toThrowError(
-      'useCarrito debe ser usado dentro de un CarritoProvider'
-    )
+  describe('totales', () => {
+    it('devuelve 0 en total y cantidad cuando el carrito está vacío', () => {
+      renderProvider()
+      expect(ctx.obtenerTotal()).toBe(0)
+      expect(ctx.obtenerCantidadTotal()).toBe(0)
+    })
+
+    it('calcula el total en dinero y la cantidad de entradas', () => {
+      renderProvider()
+      act(() => ctx.agregarAlCarrito(crearItem(1, 1000, 2)))
+      act(() => ctx.agregarAlCarrito(crearItem(2, 500, 3)))
+      expect(ctx.obtenerTotal()).toBe(3500)
+      expect(ctx.obtenerCantidadTotal()).toBe(5)
+    })
+  })
+
+  describe('useCarrito', () => {
+    it('lanza un error si se usa fuera de un CarritoProvider', () => {
+      spyOn(console, 'error')
+      expect(() => render(<Captura />)).toThrowError(
+        'useCarrito debe ser usado dentro de un CarritoProvider'
+      )
+    })
   })
 })
