@@ -1,132 +1,206 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# ⚽ LIF 2.0 — Liga Independiente de Fútbol
 
-Currently, two official plugins are available:
+> **Plataforma web dinámica, responsive y escalable** diseñada para centralizar la gestión de torneos deportivos, automatizar procesos administrativos y transformar la experiencia del jugador mediante estadísticas en tiempo real y módulos interactivos[cite: 1].
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## 📌 Contexto Institucional y Créditos
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+* **Asignatura:** FULLSTACK II[cite: 1]
+* **Docente Supervisor:** Roberto Moreno[cite: 1]
+* **Desarrolladores:** Antonia Inostroza & Renato Santander[cite: 1]
+* **Organización / Repositorio:** [`090Santander/lif-store`](https://www.google.com/search?q=https://github.com/090Santander/lif-store)[cite: 1]
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🎯 Declaración del Problema y Solución Técnica
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### El Problema
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+La plataforma tradicional de la Liga Independiente de Fútbol (`lif.cl`) presentaba severas limitaciones operativas: procesamiento lento de datos, tablas de posiciones desactualizadas y flujos de trabajo basados en registros físicos en papel (control de tarjetas, planillas de partidos y acreditaciones)[cite: 1]. Esto generaba opacidad informativa y cuellos de botella administrativos[cite: 1].
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### La Solución
+
+**LIF 2.0** rearchitectura el ecosistema digital mediante una Single Page Application (SPA) construida en React + TypeScript[cite: 1]. La solución automatiza la compilación de datos de partidos, la venta diferida de entradas con carrito persistente, el control de acceso basado en roles (RBAC) y la visualización interactiva de métricas del torneo en tiempo real[cite: 1].
+
+---
+
+## 📋 Matriz de Requerimientos y Trazabilidad
+
+### Requerimientos Funcionales (RF)
+
+| Código | Módulo | Descripción Técnica | Estado |
+| --- | --- | --- | --- |
+| **RF-01** | Seguridad | Autenticación de usuarios, gestión de sesiones y protección de rutas administrativas mediante `RutaAdmin`[cite: 1]. | **Implementado** |
+| **RF-05** | Competición | Módulo de actas digitales, registro de goles, sanciones y eventos en vivo[cite: 1]. | **Implementado** |
+| **RF-06** | Estadísticas | Renderizado dinámico de tablas de posiciones, rendimiento de plantillas y goleadores[cite: 1]. | **Implementado** |
+| **RF-07** | Geolocalización | Integración de mapa de sedes y fichas informativas de los complejos deportivos[cite: 1]. | **Implementado** |
+| **RF-08** | E-Commerce | Carrito de compras reactivo con persistencia local (`localStorage`) y cálculo de totales[cite: 1]. | **Implementado** |
+
+### Requerimientos No Funcionales (RNF)
+
+| Código | Categoría | Criterio de Aceptación | Estado |
+| --- | --- | --- | --- |
+| **RNF-03** | Seguridad | Cifrado y procesamiento seguro de credenciales con hashing (BCrypt)[cite: 1]. | **Cumplido** |
+| **RNF-08** | Compatibilidad | Interfaz Responsive (Mobile-First) optimizada para Chrome, Firefox, Safari y Edge[cite: 1]. | **Cumplido** |
+| **RNF-09** | Calidad / QA | Cobertura de pruebas unitarias superior al 80% global en la suite de componentes y contextos. | **Superado (95.27%)** |
+
+---
+
+## 🛠️ Stack Tecnológico
+
+```text
+┌─────────────────────────────────────────────────────────────────┐
+│                      CAPA DE PRESENTACIÓN                       │
+│       React 18  │  TypeScript 5  │  Vite 5  │  Bootstrap 5       │
+└────────────────────────────────┬────────────────────────────────┘
+                                 │
+┌────────────────────────────────┴────────────────────────────────┐
+│                   GESTIÓN DE ESTADO Y LÓGICA                    │
+│   Context API (AuthContext, CarritoContext)  │  Web Storage API   │
+└────────────────────────────────┬────────────────────────────────┘
+                                 │
+┌────────────────────────────────┴────────────────────────────────┐
+│                      CALIDAD & TESTING SUITE                    │
+│   Karma Test Runner  │  Jasmine Framework  │  RTL  │  esbuild   │
+└─────────────────────────────────────────────────────────────────┘
 
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+* **Core Framework:** React 18 (Arquitectura funcional orientada a Hooks).
+* **Lenguaje:** TypeScript (Tipado estricto e interfaces desacopladas).
+* **Build System & HMR:** Vite + esbuild compiler.
+* **UI & Estilos:** CSS3 modular, Bootstrap 5, utilidades responsivas y soporte dinámico de temas (Light/Dark mode)[cite: 1].
+* **Validaciones de Dominio:** Módulo 11 para la verificación del RUT chileno, restricción de correo institucional y regla de negocio +18[cite: 1].
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## 🏗️ Arquitectura de Directorios
+
+```text
+lif-store-react/
+├── .github/                 # Workflows y plantillas de CI/CD
+├── public/                  # Assets estáticos servidos directamente
+├── src/
+│   ├── assets/              # Identidad visual, logos y multimedia
+│   ├── components/          # Componentes presentacionales aislados
+│   │   ├── admin/           # Módulos exclusivos de administración
+│   │   ├── solicitud/       # Formulario y flujos de inscripción
+│   │   └── *.spec.tsx       # Pruebas unitarias asociadas a componentes
+│   ├── context/             # Proveedores de estado global de la aplicación
+│   │   ├── AuthContext.tsx  # Estado de sesión y tokens
+│   │   └── CarritoContext.tsx # Estado reactivo del carrito de compras
+│   ├── data/                # Mock data y adaptadores de la capa de datos
+│   ├── utils/               # Funciones puras (Módulo 11, formateadores)
+│   ├── App.tsx              # Ruteador central y Layout principal
+│   └── main.tsx             # Bootstrap de la aplicación React
+├── karma.conf.cjs           # Configuración del ejecutor de pruebas Karma
+├── tsconfig.json            # Configuración del compilador TypeScript
+└── package.json             # Manifiesto de dependencias y scripts
 
 ```
-# ⚽ LIF 2.0 - Liga Independiente de Fútbol[cite: 1]
-
-> Plataforma web dinámica, responsive y escalable que centraliza la gestión del torneo y transforma la experiencia del jugador mediante estadísticas avanzadas, automatización administrativa y módulos interactivos[cite: 1].
-
-¡Hola! 👋 Bienvenidos al repositorio oficial de **LIF 2.0**[cite: 1]. Somos **Antonia Inostroza** y **Renato Santander**, y desarrollamos este proyecto para la asignatura FULLSTACK II con el docente ROBERTO MORENO[cite: 1].
 
 ---
 
-## 🎯 El Problema y Nuestra Solución
+## 🧪 Control de Calidad y Pruebas Unitarias
 
-Identificamos que la carga y visualización de resultados y tablas de posición en la página actual de la liga (lif.cl) es lenta y poco interactiva[cite: 1]. Además, tareas como la inscripción de jugadores, el control de tarjetas amarillas/rojas y la programación de fechas requieren una gestión administrativa ardua, haciendo que el acceso a la información sea confuso[cite: 1]. 
+La plataforma implementa un entorno de pruebas automatizado basado en **Karma**, **Jasmine** y **React Testing Library** (`@testing-library/react`), garantizando la resiliencia del software ante refactorizaciones.
 
-Para solucionar esto, desarrollamos **LIF 2.0**, un sistema que convierte la gestión manual y las planillas en papel en datos en tiempo real, ofreciendo una comunidad digital interconectada y una experiencia que motiva al usuario a navegar constantemente[cite: 1].
+### Reporte de Cobertura Ejecutado (`npm test`)
 
----
+```text
+-----------------------|---------|----------|---------|---------|-------------------
+File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
+-----------------------|---------|----------|---------|---------|-------------------
+All files              |   95.27 |    98.70 |   98.24 |   95.68 |                   
+ components/           |  100.00 |    97.14 |  100.00 |  100.00 |                   
+ context/              |  100.00 |   100.00 |  100.00 |  100.00 |                   
+ utils/                |  100.00 |   100.00 |  100.00 |  100.00 |                   
+ data/                 |   72.72 |   100.00 |   90.00 |   76.19 | 19-22, 26
+-----------------------|---------|----------|---------|---------|-------------------
+TOTAL: 68 SUCCESS | 0 FAILED
 
-## ✨ Requisitos y Funcionalidades Core
+```
 
-El sistema fue diseñado cumpliendo estrictos estándares de la industria y requerimientos funcionales (RF) y no funcionales (RNF):
+### Ejecución de Pruebas
 
-* **RF-01**: Autenticación y control de acceso[cite: 1].
-* **RF-05**: Registro de actas de partidos[cite: 1].
-* **RF-06**: Consulta de tabla de posiciones y estadísticas[cite: 1].
-* **RF-07**: Visualización de ubicación de complejos[cite: 1].
-* **RNF-03**: Las contraseñas almacenadas en la base de datos deben estar encriptadas utilizando algoritmos de hash seguros (ej. BCrypt)[cite: 1].
-* **RNF-08**: El frontend en React debe ser ejecutable y funcional en los navegadores web modernos más utilizados (Google Chrome, Mozilla Firefox, Safari, Microsoft Edge) tanto en escritorio como en dispositivos móviles[cite: 1].
+```bash
+# Lanzar la suite completa de tests en entorno Chrome Headless
+npm test
 
----
+# Modo observación durante el desarrollo
+npx karma start karma.conf.cjs --single-run=false
 
-## ⚙️ Metodología y Gestión del Proyecto
-
-Para asegurar la calidad y adaptabilidad del desarrollo, implementamos flujos de trabajo profesionales:
-
-* **Scrum y Sprints:** Dividimos el proyecto en iteraciones para entregar módulos funcionales progresivos (Frontend, Validaciones, Carrito)[cite: 1].
-* **Trabajo Colaborativo:** Definición clara de roles y reuniones breves de sincronización (Daily Standups) para resolver bloqueos[cite: 1].
-* **GitFlow Adaptado:** Implementación de una rama principal `main` para código estable y ramas secundarias por funcionalidad para entregas incrementales[cite: 1].
-* **Control de Versiones y Calidad:** Uso de control atómico con la convención *Conventional Commits* (feat, fix, style, docs) y revisiones cruzadas de código (code review) antes de cada integración final[cite: 1].
-
----
-
-## 👥 División de Roles y Responsabilidades del Equipo
-
-Nos dividimos la arquitectura del proyecto para maximizar nuestra eficiencia:
-
-* **Módulo Frontend & Estructura (HTML5 & CSS3)**: 
-  * Maquetación semántica de las 9 vistas del sitio web (index, login, registro, entradas, etc.)[cite: 1].
-  * Implementación de hojas de estilo externas (`estilos.css`), modo oscuro y diseño responsive con Bootstrap 5[cite: 1].
-* **Módulo de Lógica & Comportamiento (JavaScript)**: 
-  * Desarrollo de `validaciones.js` integrando el algoritmo Módulo 11 para RUT chileno, restricción de dominios institucionales/Gmail y validación de edad mínima (+18)[cite: 1].
-  * Lógica de interfaz en `carrito.js`, `partidos.js` y `auth.js` utilizando `localStorage`[cite: 1].
-* **Módulo de Administración & Documentación**: 
-  * Control del repositorio GitHub `090Santander/lif-store` y resolución de conflictos[cite: 1].
-  * Redacción del informe técnico, documentación en `README.md` y preparación de la presentación de evaluación[cite: 1].
+```
 
 ---
 
-Con el respaldo de un stack tecnológico moderno, este proyecto está preparado para hacer crecer a la Liga Independiente de Fútbol hoy y escalar hacia el futuro[cite: 1].
+## 🚀 Guía de Instalación y Despliegue Local
+
+### Prerrequisitos
+
+* **Node.js:** `>= 18.18.0` (LTS recomendado)
+* **npm:** `>= 9.0.0`
+
+### Proceso de Despliegue
+
+1. **Clonar el repositorio:**
+```bash
+git clone https://github.com/090Santander/lif-store.git
+cd lif-store/lif-store-react
+
+```
+
+
+2. **Instalar dependencias del proyecto:**
+```bash
+npm install
+
+```
+
+
+3. **Ejecutar en entorno de desarrollo:**
+```bash
+npm run dev
+
+```
+
+
+*La aplicación estará disponible en `http://localhost:5173`.*
+4. **Compilar artefacto de producción:**
+```bash
+npm run build
+
+```
+
+
+*Los archivos optimizados se generarán en la carpeta `dist/`.*
+
+---
+
+## 🔄 Metodología de Desarrollo y Flujo de Trabajo
+
+* **Metodología Ágil:** Ciclos de desarrollo estructurados bajo **Scrum** con iteraciones orientadas a incrementos funcionales de software[cite: 1].
+* **Estrategia de Ramificación (GitFlow Adaptado):**
+* `main`: Código verificado y listo para despliegue.
+* `feature/*`: Ramas de desarrollo para nuevas características.
+* `fix/*`: Correcciones de errores y parches de estabilidad.
+
+
+* **Estándar de Conmutación:** Formato *Conventional Commits* (`feat:`, `fix:`, `test:`, `docs:`, `refactor:`)[cite: 1].
+
+---
+
+## 👥 Matriz de Responsabilidades del Equipo
+
+| Integrante | Rol Principal | Áreas de Contribución |
+| --- | --- | --- |
+| **Antonia Inostroza** | Frontend Architect & UI Engineer | Diseños responsivos, semántica HTML5, maquetación de vistas, tematización (Dark Mode) e integración con Bootstrap 5[cite: 1]. |
+| **Renato Santander** | Lead Software & QA Engineer | Implementación de TypeScript, lógica de estado global (`CarritoContext`), algoritmo Módulo 11, suite de pruebas unitarias en Karma/Jasmine e integración de repositorios[cite: 1]. |
+
+---
+
+## 📄 Licencia
+
+Este proyecto está distribuido bajo la Licencia **MIT**. Consulta el archivo [`LICENSE`](https://www.google.com/search?q=LICENSE) para obtener más información.
