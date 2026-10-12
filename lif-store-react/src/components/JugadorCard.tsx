@@ -20,7 +20,7 @@ export default function JugadorCard({ jugador }: JugadorCardProps) {
             <span className="badge bg-success mb-1">{jugador.posicion ?? 'Jugador'}</span>
             <h5 className="fw-bold mb-0 text-body">{jugador.nombre}</h5>
             <small className="text-body-secondary">
-              {jugador.equipo ?? 'LIF'} - Dorsal #{jugador.dorsal ?? 0}
+              {jugador.equipo ?? 'LIF'} | Dorsal #{jugador.dorsal ?? 0}
             </small>
           </div>
         </div>

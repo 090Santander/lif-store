@@ -1,56 +1,91 @@
-/* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useEffect, useState, type ReactNode } from 'react'
-import type { Partido } from '../data/datosLIF'
-import { crearTicket, type Ticket } from '../utils/carrito'
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
 
-const KEY_CARRITO = 'LIF_CARRITO_ENTRADAS'
-
-function leerCarrito(): Ticket[] {
-  try {
-    const raw = localStorage.getItem(KEY_CARRITO)
-    return raw ? (JSON.parse(raw) as Ticket[]) : []
-  } catch {
-    return []
-  }
-}
-
-interface CarritoContextValue {
-  tickets: Ticket[]
+export interface ItemCarrito {
+  id: number | string
+  nombre: string
+  precio: number
   cantidad: number
-  agregar: (partido: Partido) => Ticket
-  eliminar: (idUnico: number) => void
-  vaciar: () => void
+  tipo?: string
+  [key: string]: any
 }
 
-const CarritoContext = createContext<CarritoContextValue | null>(null)
+interface CarritoContextType {
+  carrito: ItemCarrito[]
+  agregarAlCarrito: (item: ItemCarrito) => void
+  eliminarDelCarrito: (id: number | string) => void
+  vaciarCarrito: () => void
+  obtenerTotal: () => number
+  obtenerCantidadTotal: () => number
+}
+
+const CarritoContext = createContext<CarritoContextType | undefined>(undefined)
 
 export function CarritoProvider({ children }: { children: ReactNode }) {
-  const [tickets, setTickets] = useState<Ticket[]>(leerCarrito)
+  const [carrito, setCarrito] = useState<ItemCarrito[]>(() => {
+    try {
+      const guardado = localStorage.getItem('carrito_lif')
+      return guardado ? JSON.parse(guardado) : []
+    } catch {
+      return []
+    }
+  })
 
   useEffect(() => {
-    localStorage.setItem(KEY_CARRITO, JSON.stringify(tickets))
-  }, [tickets])
+    try {
+      localStorage.setItem('carrito_lif', JSON.stringify(carrito))
+    } catch (e) {
+      console.error('Error al guardar el carrito en localStorage', e)
+    }
+  }, [carrito])
 
-  const agregar = (partido: Partido) => {
-    const ticket = crearTicket(partido)
-    setTickets((actual) => [...actual, ticket])
-    return ticket
+  const agregarAlCarrito = (item: ItemCarrito) => {
+    setCarrito((prev) => {
+      const existe = prev.find((i) => i.id === item.id)
+      if (existe) {
+        return prev.map((i) =>
+          i.id === item.id ? { ...i, cantidad: i.cantidad + (item.cantidad || 1) } : i
+        )
+      }
+      return [...prev, { ...item, cantidad: item.cantidad || 1 }]
+    })
   }
 
-  const eliminar = (idUnico: number) =>
-    setTickets((actual) => actual.filter((t) => t.idUnico !== idUnico))
+  const eliminarDelCarrito = (id: number | string) => {
+    setCarrito((prev) => prev.filter((i) => i.id !== id))
+  }
 
-  const vaciar = () => setTickets([])
+  const vaciarCarrito = () => {
+    setCarrito([])
+  }
+
+  const obtenerTotal = () => {
+    return carrito.reduce((acc, item) => acc + item.precio * item.cantidad, 0)
+  }
+
+  const obtenerCantidadTotal = () => {
+    return carrito.reduce((acc, item) => acc + item.cantidad, 0)
+  }
 
   return (
-    <CarritoContext.Provider value={{ tickets, cantidad: tickets.length, agregar, eliminar, vaciar }}>
+    <CarritoContext.Provider
+      value={{
+        carrito,
+        agregarAlCarrito,
+        eliminarDelCarrito,
+        vaciarCarrito,
+        obtenerTotal,
+        obtenerCantidadTotal,
+      }}
+    >
       {children}
     </CarritoContext.Provider>
   )
 }
 
 export function useCarrito() {
-  const ctx = useContext(CarritoContext)
-  if (!ctx) throw new Error('useCarrito debe usarse dentro de <CarritoProvider>')
-  return ctx
+  const context = useContext(CarritoContext)
+  if (!context) {
+    throw new Error('useCarrito debe ser usado dentro de un CarritoProvider')
+  }
+  return context
 }
