@@ -9,7 +9,6 @@ export interface CamposRegistro {
 
 export type ErroresRegistro = Partial<Record<keyof CamposRegistro, string>>
 
-// Supuestos míos (tu validaciones.js de registro no me llegó): ajústalos a tu pauta.
 const REGEX_RUN = /^[0-9]{7,8}[0-9K]$/i // 7-8 dígitos + dígito verificador, sin puntos ni guión
 const REGEX_CORREO = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const LARGO_MINIMO_CLAVE = 4
