@@ -2,13 +2,14 @@ import { render, screen, fireEvent, cleanup } from '@testing-library/react'
 import FormSolicitud from './FormSolicitud'
 import type { TipoSolicitudDef } from '../../data/solicitud'
 
-const mockDefCompleto: TipoSolicitudDef = {
-  id: 'transferencia',
+const mockDefCompleto = {
+  clave: 'transferencia',
   titulo: 'Solicitud de Transferencia',
   descripcion: 'Permite solicitar la transferencia de un jugador',
   detalleEtiqueta: 'Motivo de la solicitud',
   detalleRequerido: true,
   detallePlaceholder: 'Ingrese el motivo...',
+  icono: 'bi-arrow-left-right',
   campos: [
     {
       id: 'rutJugador',
@@ -27,14 +28,16 @@ const mockDefCompleto: TipoSolicitudDef = {
       ancho: 6
     }
   ]
-}
+} as unknown as TipoSolicitudDef
 
-const mockDefFallbacks: TipoSolicitudDef = {
-  id: 'general',
+const mockDefFallbacks = {
+  clave: 'general',
   titulo: 'Solicitud General',
   descripcion: 'Solicitud básica',
   detalleEtiqueta: 'Detalles generales',
   detalleRequerido: false,
+  detallePlaceholder: 'Ingrese detalle...',
+  icono: 'bi-file-text',
   campos: [
     {
       id: 'categoria',
@@ -43,7 +46,7 @@ const mockDefFallbacks: TipoSolicitudDef = {
       requerido: false
     }
   ]
-}
+} as unknown as TipoSolicitudDef
 
 describe('Componente FormSolicitud (FormSolicitud.spec.tsx)', () => {
   afterEach(() => cleanup())
