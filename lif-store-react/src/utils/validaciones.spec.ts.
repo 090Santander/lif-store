@@ -1,0 +1,61 @@
+import {
+  validarRun,
+  validarCorreo,
+  validarTexto,
+  validarClave,
+  validarConfirmacion,
+  validarRegistro
+} from './validaciones'
+
+describe('Validaciones Utils', () => {
+  it('debe validar RUN correctamente', () => {
+    expect(validarRun('')).toBe('El RUN es obligatorio.')
+    expect(validarRun('123')).toContain('RUN inválido')
+    expect(validarRun('190000000')).toBeNull()
+  })
+
+  it('debe validar correo correctamente', () => {
+    expect(validarCorreo('')).toBe('El correo es obligatorio.')
+    expect(validarCorreo('correo-invalido')).toBe('Ingresa un correo válido.')
+    expect(validarCorreo('test@lif.cl')).toBeNull()
+  })
+
+  it('debe validar texto obligatorio', () => {
+    expect(validarTexto('', 'El nombre')).toBe('El nombre es obligatorio.')
+    expect(validarTexto('Juan', 'El nombre')).toBeNull()
+  })
+
+  it('debe validar clave', () => {
+    expect(validarClave('')).toBe('La contraseña es obligatoria.')
+    expect(validarClave('123')).toContain('Debe tener al menos')
+    expect(validarClave('12345')).toBeNull()
+  })
+
+  it('debe validar confirmación de clave', () => {
+    expect(validarConfirmacion('12345', '')).toBe('Confirma tu contraseña.')
+    expect(validarConfirmacion('12345', '54321')).toBe('Las contraseñas no coinciden.')
+    expect(validarConfirmacion('12345', '12345')).toBeNull()
+  })
+
+  it('debe validar registro completo con éxito y con errores', () => {
+    const conErrores = validarRegistro({
+      run: '',
+      correo: 'invalido',
+      nombre: '',
+      apellidos: '',
+      clave: '123',
+      claveConfirma: '999'
+    })
+    expect(conErrores.run).toBeTruthy()
+
+    const valido = validarRegistro({
+      run: '190000000',
+      correo: 'test@lif.cl',
+      nombre: 'Juan',
+      apellidos: 'Pérez',
+      clave: '12345',
+      claveConfirma: '12345'
+    })
+    expect(Object.keys(valido).length).toBe(0)
+  })
+})

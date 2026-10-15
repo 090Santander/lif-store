@@ -1,10 +1,16 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router'
-import logo from '../assets/LOGO.png'
+// @ts-ignore
+import logo from '../assets/images/LOGO.png'
 import { useAuth } from '../context/AuthContext'
 import { useCarrito } from '../context/CarritoContext'
 
-const enlaces = [
+interface Enlace {
+  to: string
+  texto: string
+}
+
+const enlaces: Enlace[] = [
   { to: '/', texto: 'Inicio' },
   { to: '/partidos', texto: 'Partidos' },
   { to: '/posiciones', texto: 'Posiciones' },
@@ -14,25 +20,36 @@ const enlaces = [
   { to: '/actas', texto: 'Actas' },
   { to: '/jugadores', texto: 'Jugadores' },
   { to: '/contacto', texto: 'Contacto' },
-  { to: '/solicitud', texto: 'Solicitud' },
+  { to: '/solicitud', texto: 'Solicitud' }
 ]
 
 export default function Navbar() {
   const navigate = useNavigate()
   const { usuario, esAdmin, cerrarSesion } = useAuth()
-  const [tema, setTema] = useState<'light' | 'dark'>(() => (localStorage.getItem('lif_tema') === 'dark' ? 'dark' : 'light'),)
-  const { cantidad } = useCarrito()
+  const [tema, setTema] = useState<'light' | 'dark'>(() =>
+    localStorage.getItem('lif_tema') === 'dark' ? 'dark' : 'light'
+  )
+
+  const contextCarrito = useCarrito() as any
+  const cantidad =
+    contextCarrito.cantidad ??
+    (Array.isArray(contextCarrito.carrito)
+      ? contextCarrito.carrito.reduce(
+          (acc: number, item: any) => acc + (item.cantidad || 1),
+          0
+        )
+      : 0)
 
   useEffect(() => {
-  document.documentElement.setAttribute('data-bs-theme', tema)
-  localStorage.setItem('lif_tema', tema)
-}, [tema])
+    document.documentElement.setAttribute('data-bs-theme', tema)
+    localStorage.setItem('lif_tema', tema)
+  }, [tema])
 
-     const salir = () => {
-     cerrarSesion()
-     alert('Has cerrado sesión correctamente.')
-     navigate('/')
-   }
+  const salir = () => {
+    cerrarSesion()
+    alert('Has cerrado sesión correctamente.')
+    navigate('/')
+  }
 
   return (
     <header className="sticky-top" style={{ zIndex: 1030 }}>
@@ -47,69 +64,65 @@ export default function Navbar() {
             className="navbar-toggler border-0"
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#navMenu"
+            data-bs-target="#navbarMain"
           >
             <span className="navbar-toggler-icon"></span>
           </button>
 
-          <div className="collapse navbar-collapse" id="navMenu">
-            <ul className="navbar-nav mx-auto gap-xl-1">
+          <div className="collapse navbar-collapse" id="navbarMain">
+            <ul className="navbar-nav me-auto mb-2 mb-xl-0">
               {enlaces.map((e) => (
                 <li className="nav-item" key={e.to}>
-                  <NavLink className="nav-link" to={e.to} end={e.to === '/'}>
+                  <NavLink
+                    to={e.to}
+                    className={({ isActive }) =>
+                      `nav-link fw-semibold px-2 ${isActive ? 'active text-warning' : ''}`
+                    }
+                  >
                     {e.texto}
                   </NavLink>
                 </li>
               ))}
-              {esAdmin &&(
+              {esAdmin && (
                 <li className="nav-item">
-                  <NavLink className="nav-link text-warning fw-bold" to="/admin">
+                  <NavLink to="/admin" className="nav-link fw-bold text-danger">
                     Admin
                   </NavLink>
                 </li>
               )}
             </ul>
 
-            <div className="d-flex align-items-center gap-2 mt-3 mt-xl-0 flex-wrap">
-              {usuario ? (
-                <>
-                  <Link to="/perfil" className="btn btn-sm btn-success rounded-pill px-3">
-                    👤 Mi Perfil
-                  </Link>
-                  <button
-                    type="button"
-                    className="btn btn-sm btn-outline-danger rounded-pill px-3"
-                    onClick={salir}
-                  >
-                    Salir
-                  </button>
-                </>
-              ) : (
-                <>
-                  <Link to="/registro" className="btn btn-sm btn-outline-warning rounded-pill px-3">
-                    Registrarse
-                  </Link>
-                  <Link
-                    to="/login"
-                    className="btn btn-sm btn-light text-success fw-bold rounded-pill px-3 shadow-sm"
-                  >
-                    Ingresar
-                  </Link>
-                </>
-              )}
-
-              <Link to="/carrito" className="btn btn-sm btn-warning rounded-pill px-3 fw-bold text-dark">
-                🎟️ Tickets <span className="badge bg-danger ms-1">{cantidad}</span>
+            <div className="d-flex align-items-center gap-3">
+              <Link to="/carrito" className="btn btn-outline-light position-relative">
+                🛒
+                {cantidad > 0 && (
+                  <span className="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {cantidad}
+                  </span>
+                )}
               </Link>
 
               <button
-                type="button"
-                className="btn btn-sm btn-dark border border-secondary rounded-circle ms-2"
-                style={{ width: 35, height: 35 }}
-                onClick={() => setTema(tema === 'dark' ? 'light' : 'dark')}
+                className="btn btn-sm btn-outline-secondary"
+                onClick={() => setTema(tema === 'light' ? 'dark' : 'light')}
               >
-                {tema === 'dark' ? '☀️' : '🌙'}
+                {tema === 'light' ? '🌙' : '☀️'}
               </button>
+
+              {usuario ? (
+                <div className="d-flex align-items-center gap-2">
+                  <Link to="/perfil" className="btn btn-sm btn-light fw-bold">
+                    {usuario.nombre || usuario.correo}
+                  </Link>
+                  <button className="btn btn-sm btn-danger" onClick={salir}>
+                    Salir
+                  </button>
+                </div>
+              ) : (
+                <Link to="/login" className="btn btn-sm btn-warning fw-bold">
+                  Ingresar
+                </Link>
+              )}
             </div>
           </div>
         </div>

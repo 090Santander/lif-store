@@ -7,7 +7,11 @@ import { formatearPesos } from '../utils/formato'
 import PageHero from '../components/PageHero'
 
 export default function Carrito() {
-  const { tickets, eliminar, vaciar } = useCarrito()
+  const context = useCarrito() as any
+  const tickets = context?.tickets || context?.carrito || context?.items || []
+  const eliminar = context?.eliminar || context?.eliminarDelCarrito || (() => {})
+  const vaciar = context?.vaciar || context?.vaciarCarrito || (() => {})
+
   const [mostrarPago, setMostrarPago] = useState(false)
   const { subtotal, cargo, total } = calcularResumen(tickets)
 
@@ -41,10 +45,10 @@ export default function Carrito() {
                     No tienes entradas agregadas a tu carrito.
                   </div>
                 ) : (
-                  tickets.map((t) => {
-                    const esVip = t.localidad.includes('VIP')
+                  tickets.map((t: any) => {
+                    const esVip = t.localidad?.includes('VIP')
                     return (
-                      <div className="list-group-item p-4" key={t.idUnico}>
+                      <div className="list-group-item p-4" key={t.idUnico || t.id}>
                         <div className="row align-items-center g-3">
                           <div className="col-auto">
                             <span className={`display-6 ${esVip ? 'text-warning' : 'text-success'} opacity-75`}>
@@ -54,18 +58,18 @@ export default function Carrito() {
                           <div className="col">
                             <h5 className="mb-1 fw-bold text-body">{t.encuentro}</h5>
                             <p className="mb-0 text-body-secondary extra-small">
-                              {t.localidad} - {t.fecha}
+                              {t.localidad} • {t.fecha}
                             </p>
                           </div>
                           <div className="col-12 col-sm-auto d-flex align-items-center gap-3">
                             <span className="fw-bold text-body" style={{ width: 80, textAlign: 'right' }}>
-                              {formatearPesos(t.precio)}
+                              {formatearPesos(t.precio || 0)}
                             </span>
                             <button
                               type="button"
                               className="btn btn-sm btn-outline-danger border-0"
                               aria-label="Eliminar entrada"
-                              onClick={() => eliminar(t.idUnico)}
+                              onClick={() => eliminar(t.idUnico || t.id)}
                             >
                               🗑️
                             </button>

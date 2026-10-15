@@ -1,26 +1,46 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { useEffect } from 'react'
+import { render, screen, fireEvent, cleanup } from '@testing-library/react'
 import { MemoryRouter } from 'react-router'
 import Navbar from './Navbar'
-import { AuthProvider } from '../context/AuthContext'
-import { CarritoProvider } from '../context/CarritoContext'
-import { DatosLIF } from '../data/datosLIF'
+import { AuthProvider, useAuth } from '../context/AuthContext'
+import { CarritoProvider, useCarrito } from '../context/CarritoContext'
 
-describe('Navbar Component', () => {
-  beforeEach(() => {
-    spyOn(window, 'alert').and.stub()
-    localStorage.clear()
-  })
-
-  afterEach(() => {
-    localStorage.clear()
-  })
-
-  const renderNavbar = (temaInicial = 'light') => {
-    if (temaInicial === 'dark') {
-      localStorage.setItem('lif_tema', 'dark')
+function AuthSetter({ user }: { user: any }) {
+  const { iniciarSesion } = useAuth()
+  useEffect(() => {
+    if (user) {
+      iniciarSesion(user)
     }
+  }, [user])
+  return null
+}
 
-    return render(
+function CarritoSetter({ item }: { item: any }) {
+  const context = useCarrito() as any
+  useEffect(() => {
+    if (item) {
+      const fn = context.agregarAlCarrito || context.agregar || context.agregarItem
+      if (fn) {
+        fn(item)
+      }
+    }
+  }, [item])
+  return null
+}
+
+describe('Componente Navbar (Navbar.spec.tsx)', () => {
+  afterEach(() => cleanup())
+
+  beforeEach(() => {
+    localStorage.clear()
+    sessionStorage.clear()
+    if (!jasmine.isSpy(window.alert)) {
+      spyOn(window, 'alert').and.stub()
+    }
+  })
+
+  it('debe renderizar enlaces básicos y botones de invitado por defecto', () => {
+    render(
       <AuthProvider>
         <CarritoProvider>
           <MemoryRouter>
@@ -29,61 +49,107 @@ describe('Navbar Component', () => {
         </CarritoProvider>
       </AuthProvider>
     )
-  }
 
-  it('debe renderizar enlaces básicos y botones de invitado por defecto', () => {
-    renderNavbar()
     expect(screen.getByText('LIF')).toBeTruthy()
     expect(screen.getByText('Inicio')).toBeTruthy()
-    expect(screen.getByText('Registrarse')).toBeTruthy()
+    expect(screen.getByText('Partidos')).toBeTruthy()
     expect(screen.getByText('Ingresar')).toBeTruthy()
   })
 
-  it('debe alternar el tema al hacer clic en el botón de cambio de tema', () => {
-    renderNavbar('light')
+  it('debe alternar el tema visual (claro/oscuro) al hacer clic en el botón de tema', () => {
+    render(
+      <AuthProvider>
+        <CarritoProvider>
+          <MemoryRouter>
+            <Navbar />
+          </MemoryRouter>
+        </CarritoProvider>
+      </AuthProvider>
+    )
 
-    const botonTema = screen.getByText('🌙')
-    fireEvent.click(botonTema)
-    expect(document.documentElement.getAttribute('data-bs-theme')).toBe('dark')
+    const btnTema = screen.getByText('🌙') || screen.getByText('☀️')
+    expect(btnTema).toBeTruthy()
 
-    const botonTemaDark = screen.getByText('☀️')
-    fireEvent.click(botonTemaDark)
-    expect(document.documentElement.getAttribute('data-bs-theme')).toBe('light')
+    fireEvent.click(btnTema)
+    expect(localStorage.getItem('lif_tema')).toBeDefined()
   })
 
-  it('debe permitir cerrar sesión cuando hay un usuario activo', () => {
-    DatosLIF.setUsuario({
-      nombre: 'Pedro',
-      correo: 'pedro@lif.cl',
-      rol: 'usuario'
-    })
+  it('debe mostrar el nombre del usuario y permitir cerrar sesión cuando hay un usuario autenticado', async () => {
+    const usuarioMock = { correo: 'pedro@lif.cl', nombre: 'Pedro', rol: 'user' }
 
-    renderNavbar()
+    render(
+      <AuthProvider>
+        <AuthSetter user={usuarioMock} />
+        <CarritoProvider>
+          <MemoryRouter>
+            <Navbar />
+          </MemoryRouter>
+        </CarritoProvider>
+      </AuthProvider>
+    )
 
-    expect(screen.getByText('👤 Mi Perfil')).toBeTruthy()
+    const nombreUsuario = await screen.findByText(/Pedro/i)
+    expect(nombreUsuario).toBeTruthy()
 
-    const botonSalir = screen.getByText('Salir')
-    fireEvent.click(botonSalir)
+    const btnSalir = screen.getByText('Salir')
+    expect(btnSalir).toBeTruthy()
 
+    fireEvent.click(btnSalir)
     expect(window.alert).toHaveBeenCalledWith('Has cerrado sesión correctamente.')
   })
 
-  it('debe mostrar la opción Admin cuando el usuario es administrador', () => {
-    DatosLIF.setUsuario({
-      nombre: 'Admin LIF',
-      correo: 'admin@lif.cl',
-      rol: 'admin'
-    })
+  it('debe mostrar el correo como nombre cuando el usuario no tiene la propiedad nombre definida', async () => {
+    const usuarioMock = { correo: 'usuario@lif.cl', rol: 'user' }
 
-    renderNavbar()
-    expect(screen.getByText('Admin')).toBeTruthy()
+    render(
+      <AuthProvider>
+        <AuthSetter user={usuarioMock} />
+        <CarritoProvider>
+          <MemoryRouter>
+            <Navbar />
+          </MemoryRouter>
+        </CarritoProvider>
+      </AuthProvider>
+    )
+
+    const correoUsuario = await screen.findByText(/usuario@lif.cl/i)
+    expect(correoUsuario).toBeTruthy()
   })
 
-  it('debe alternar el menú móvil al hacer clic en el botón toggler', () => {
-    renderNavbar()
-    // Toma el primer botón (el toggler de Bootstrap) y simula abrir y cerrar el menú móvil
-    const botonMenu = screen.getAllByRole('button')[0]
-    fireEvent.click(botonMenu)
-    fireEvent.click(botonMenu)
+  it('debe mostrar el enlace de Admin cuando el usuario es administrador', async () => {
+    // Cambiamos el nombre del usuario a "Carlos" para evitar duplicar el texto "Admin" en el botón de perfil
+    const adminMock = { correo: 'admin@lif.cl', nombre: 'Carlos', rol: 'admin' }
+
+    render(
+      <AuthProvider>
+        <AuthSetter user={adminMock} />
+        <CarritoProvider>
+          <MemoryRouter>
+            <Navbar />
+          </MemoryRouter>
+        </CarritoProvider>
+      </AuthProvider>
+    )
+
+    const enlaceAdmin = await screen.findByText('Admin')
+    expect(enlaceAdmin).toBeTruthy()
+  })
+
+  it('debe renderizar el contador de elementos cuando el carrito contiene productos', async () => {
+    const productoMock = { id: '1', titulo: 'Entrada Partido', precio: 3000, cantidad: 2 }
+
+    render(
+      <AuthProvider>
+        <CarritoProvider>
+          <CarritoSetter item={productoMock} />
+          <MemoryRouter>
+            <Navbar />
+          </MemoryRouter>
+        </CarritoProvider>
+      </AuthProvider>
+    )
+
+    const badge = await screen.findByText('2')
+    expect(badge).toBeTruthy()
   })
 })

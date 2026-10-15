@@ -22,3 +22,4 @@ export function useColeccion<T extends { id: number }>(clave: ClaveColeccion) {
 
   return { items, agregar, eliminar, actualizar }
 }
+

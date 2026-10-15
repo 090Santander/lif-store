@@ -1,4 +1,3 @@
-// karma.conf.cjs
 const fs = require('fs');
 const esbuild = require('esbuild');
 
@@ -58,7 +57,7 @@ const cleanCoveragePlugin = {
   name: 'clean-coverage-transformer',
   setup(build) {
     build.onLoad({ filter: /\.(tsx|ts)$/ }, async (args) => {
-      if (args.path.includes('.spec.') || args.path.includes('node_modules')) {
+      if (args.path.includes('.spec.') || args.path.includes('node_modules') || args.path.includes('setupTests')) {
         return null;
       }
 
@@ -95,11 +94,13 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
 
     files: [
+      { pattern: 'src/setupTests.ts', watched: false },
       { pattern: 'src/**/*.spec.ts', watched: false },
       { pattern: 'src/**/*.spec.tsx', watched: false }
     ],
 
     preprocessors: {
+      'src/setupTests.ts': ['esbuild'],
       'src/**/*.spec.ts': ['esbuild'],
       'src/**/*.spec.tsx': ['esbuild']
     },

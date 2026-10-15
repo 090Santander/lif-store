@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import FormNoticia from '../components/admin/FormNoticia'
 import ListaNoticias from '../components/admin/ListaNoticias'
-import FormPartido from '../components/admin/FormPartidos'
+import FormPartido from '../components/admin/FormPartido'
 import ListaPartidos from '../components/admin/ListaPartidos'
 import FormJugador from '../components/admin/FormJugador'
 import TablaJugadores from '../components/admin/TablaJugadores'
