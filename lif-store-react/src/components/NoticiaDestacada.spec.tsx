@@ -5,9 +5,10 @@ import NoticiaDestacada from './NoticiaDestacada'
 describe('NoticiaDestacada Component', () => {
   it('debe renderizar la noticia destacada', () => {
     const noticia = {
-      id: 'nd1',
+      id: 1,
       titulo: 'Comienza el Torneo Clausura',
       resumen: 'Inscripciones abiertas',
+      categoria: 'Torneo',
       fecha: '2026-10-12',
       imagen: 'destacada.jpg'
     }

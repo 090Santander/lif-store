@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router'
 // @ts-ignore
-import logo from '../assets/images/LOGO.png'
+import logo from "../assets/LOGO.png";
+
+
 import { useAuth } from '../context/AuthContext'
 import { useCarrito } from '../context/CarritoContext'
 
