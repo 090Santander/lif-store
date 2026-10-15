@@ -6,11 +6,19 @@ import { useCarrito } from '../context/CarritoContext'
 
 export default function Entradas() {
   const [partidos] = useState(() => DatosLIF.get<Partido>('partidos'))
-  const { agregar } = useCarrito()
+  const context = useCarrito() as any
+  const agregar =
+    context?.agregar ||
+    context?.agregarTicket ||
+    context?.agregarAlCarrito ||
+    context?.addTicket ||
+    (() => ({}))
 
   const comprar = (partido: Partido) => {
     const ticket = agregar(partido)
-    alert(`🎟️ ¡Entrada agregada al carrito!\n${ticket.encuentro}`)
+    const encuentro =
+      ticket?.encuentro || `${partido.equipoLocal} vs ${partido.equipoVisitante}`
+    alert(`🎟️ ¡Entrada agregada al carrito!\n${encuentro}`)
   }
 
   return (
@@ -22,7 +30,9 @@ export default function Entradas() {
       />
 
       <section className="container py-5">
-        <h2 className="h5 fw-bold text-uppercase mb-4">Próximos Partidos Disponibles</h2>
+        <h2 className="h5 fw-bold text-uppercase mb-4">
+          Próximos Partidos Disponibles
+        </h2>
 
         {partidos.length === 0 ? (
           <p className="text-center text-body-secondary py-4">

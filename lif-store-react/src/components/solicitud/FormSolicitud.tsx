@@ -14,7 +14,9 @@ export default function FormSolicitud({ def, onEnviar }: FormSolicitudProps) {
   const [detalle, setDetalle] = useState('')
   const [errores, setErrores] = useState<ErroresSolicitud>({})
 
-  const cambiar = (id: string) => (valor: string) => setDatos({ ...datos, [id]: valor })
+  // Actualización funcional obligatoria para evitar cierres obsoletos en eventos en lote
+  const cambiar = (id: string) => (valor: string) =>
+    setDatos((prev) => ({ ...prev, [id]: valor }))
 
   const enviar = (e: FormEvent) => {
     e.preventDefault()
