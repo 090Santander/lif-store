@@ -1,123 +1,172 @@
 # LIF Store
 
-Plataforma web para la Liga Independiente de Fútbol. El repositorio incluye un frontend React y un backend Spring Boot modular que administra usuarios, partidos, noticias, jugadores, solicitudes y órdenes de entradas.
+Plataforma web de la Liga Independiente de Fútbol (LIF). Permite consultar la actividad de la liga, gestionar solicitudes y crear órdenes de entradas mediante una aplicación React conectada a una API Spring Boot.
 
-## Estructura
+## Documentación
 
-    backend/
-      api-gateway/       # API pública en el puerto 8080
-      auth-service/      # Usuarios y autenticación
-      league-service/    # Partidos, noticias y jugadores
-      request-service/   # Solicitudes
-      tickets-service/   # Órdenes de entradas
-      eureka-server/     # Descubrimiento de servicios
-      shared/            # Seguridad y manejo común de errores
-    frontend/
-      lif-store-react/   # Aplicación React activa
-      legacy/            # Fuentes anteriores preservadas
+| Guía | Contenido |
+|---|---|
+| [Backend](backend/README.md) | Microservicios, configuración, API y ejecución con Docker o Maven. |
+| [Frontend](frontend/README.md) | Instalación, configuración, páginas y comandos de desarrollo. |
 
-Cada servicio de negocio sigue las capas controller, service, repository, model y dto. Los datos se guardan en MySQL y Flyway administra las migraciones.
+## Funcionalidades
+
+- Consulta de partidos, posiciones, noticias, jugadores, actas y complejos deportivos.
+- Registro, inicio de sesión, perfil de usuario y acceso con roles.
+- Envío y seguimiento de solicitudes.
+- Carrito de entradas y consulta de órdenes asociadas a la cuenta.
+- Panel de administración para gestionar el contenido de la liga y las solicitudes.
+
+Las órdenes de entradas se crean en estado `PENDIENTE_PAGO`. El proyecto todavía no integra un proveedor de pagos, por lo que no procesa cobros ni emite entradas pagadas.
+
+## Arquitectura
+
+```mermaid
+flowchart LR
+    Browser[React + TypeScript] --> Gateway[API Gateway :8080]
+    Gateway --> Auth[Autenticación :8081]
+    Gateway --> League[Contenido de liga :8082]
+    Gateway --> Requests[Solicitudes :8083]
+    Gateway --> Tickets[Órdenes de entradas :8084]
+    Auth --> Eureka[Eureka :8761]
+    League --> Eureka
+    Requests --> Eureka
+    Tickets --> Eureka
+    Gateway --> Eureka
+    Auth --> MySQL[(MySQL 8.4)]
+    League --> MySQL
+    Requests --> MySQL
+    Tickets --> MySQL
+```
+
+El backend está compuesto por servicios Spring Boot independientes, un API Gateway y Eureka para descubrir servicios. MySQL almacena los datos; Flyway administra las migraciones de cada servicio. El frontend consume el Gateway mediante REST y autenticación JWT.
+
+## Estructura del repositorio
+
+```text
+backend/
+  api-gateway/       Enrutamiento y seguridad de entrada
+  auth-service/      Usuarios y autenticación
+  league-service/    Partidos, noticias y jugadores
+  request-service/   Solicitudes
+  tickets-service/   Órdenes de entradas
+  eureka-server/     Descubrimiento de servicios
+  shared/            Seguridad y componentes compartidos
+frontend/
+  lif-store-react/   Aplicación React activa
+  legacy/            Fuentes anteriores conservadas
+```
 
 ## Requisitos
 
 - Git.
-- Docker Desktop con Docker Compose v2 en Windows, o Docker Engine y el plugin Docker Compose v2 en Linux.
-- Node.js 20.19+ o 22.12+ y npm para el frontend.
-- Java 21 solo si vas a compilar o ejecutar servicios fuera de Docker. El modo Docker no requiere instalar Java ni Maven en el equipo.
+- Docker Desktop con Docker Compose v2 en Windows; Docker Engine y el plugin Docker Compose v2 en Linux.
+- Node.js `20.19+` o `22.12+` y npm.
+- Java 21 solo para compilar o ejecutar servicios fuera de Docker. Docker construye el backend con Maven y Java dentro de la imagen.
 
-- **Windows:** inicia Docker Desktop antes de continuar y usa contenedores Linux (WSL 2 recomendado).
-- **Linux:** inicia el servicio Docker y confirma que tu usuario tenga permiso para ejecutar docker.
+En Windows, inicia Docker Desktop y utiliza contenedores Linux (WSL 2 recomendado). En Linux, inicia Docker y asegúrate de que tu usuario pueda ejecutar el comando `docker`.
 
-La primera ejecución necesita conexión a Internet para descargar imágenes y dependencias.
+## Inicio rápido
 
-## Puesta en marcha
+Los comandos de Docker se ejecutan desde la raíz del repositorio, donde se encuentran `backend/` y `frontend/`.
 
-Ejecuta los pasos desde la raíz del repositorio, donde están las carpetas backend y frontend.
+### 1. Clonar el proyecto
 
-### 1. Clonar el repositorio
+```bash
+git clone https://github.com/090Santander/lif-store.git
+cd lif-store
+```
 
-    git clone https://github.com/090Santander/lif-store.git
-    cd lif-store
-
-### 2. Crear los archivos de entorno
+### 2. Crear la configuración local
 
 En PowerShell:
 
-    Copy-Item backend/.env.example backend/.env
-    Copy-Item frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
+```powershell
+Copy-Item backend/.env.example backend/.env
+Copy-Item frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
+```
 
 En Linux:
 
-    cp backend/.env.example backend/.env
-    cp frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
+```bash
+cp backend/.env.example backend/.env
+cp frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
+```
 
-Edita backend/.env y reemplaza las claves de ejemplo, al menos:
+Edita `backend/.env` y reemplaza las credenciales de ejemplo. Define contraseñas locales y un `JWT_SECRET` aleatorio de al menos 32 bytes. Configura también `LIF_ADMIN_EMAIL` y `LIF_ADMIN_PASSWORD` para crear la cuenta administradora local.
 
-- MYSQL_ROOT_PASSWORD y LIF_DB_PASSWORD con contraseñas locales.
-- JWT_SECRET con una clave aleatoria de al menos 32 bytes.
-- LIF_ADMIN_EMAIL y LIF_ADMIN_PASSWORD con las credenciales del administrador local.
-
-No subas los archivos .env al repositorio. El archivo .env.local del frontend usa por defecto http://localhost:8080/api.
+Los archivos `.env` y `.env.local` están excluidos de Git; conserva las credenciales únicamente en tu equipo.
 
 ### 3. Iniciar el backend
 
-Desde la raíz del repositorio, el mismo comando funciona en PowerShell y Linux:
+El mismo comando sirve en PowerShell y Linux:
 
-    docker compose --env-file backend/.env -f backend/docker-compose.yml up --build -d
+```bash
+docker compose --env-file backend/.env -f backend/docker-compose.yml up --build -d
+```
 
-La primera compilación puede tardar varios minutos. Comprueba el estado de los servicios:
+La primera ejecución descarga imágenes y compila los servicios, por lo que puede tardar varios minutos. Comprueba su estado:
 
-    docker compose --env-file backend/.env -f backend/docker-compose.yml ps
+```bash
+docker compose --env-file backend/.env -f backend/docker-compose.yml ps
+```
 
 ### 4. Iniciar el frontend
 
-En una segunda terminal, desde la raíz del repositorio:
+Abre otra terminal desde la raíz del repositorio y ejecuta:
 
-    cd frontend/lif-store-react
-    npm ci
-    npm run dev
+```bash
+cd frontend/lif-store-react
+npm ci
+npm run dev
+```
 
-Abre http://localhost:5173. El administrador inicial usa el correo y la contraseña definidos en LIF_ADMIN_EMAIL y LIF_ADMIN_PASSWORD.
+Visita <http://localhost:5173>. La aplicación usa por defecto el API Gateway en <http://localhost:8080/api>. Para entrar como administrador local, usa el correo y la contraseña definidos en `LIF_ADMIN_EMAIL` y `LIF_ADMIN_PASSWORD`.
 
-## Servicios y documentación API
+## Direcciones locales
 
-| Componente | URL local |
+| Componente | Dirección |
 |---|---|
-| Frontend | http://localhost:5173 |
-| API Gateway | http://localhost:8080/api |
-| Eureka | http://localhost:8761 |
-| Swagger de autenticación | http://localhost:8081/swagger-ui.html |
-| Swagger de liga | http://localhost:8082/swagger-ui.html |
-| Swagger de solicitudes | http://localhost:8083/swagger-ui.html |
-| Swagger de entradas | http://localhost:8084/swagger-ui.html |
+| Aplicación web | <http://localhost:5173> |
+| API Gateway | <http://localhost:8080/api> |
+| Eureka | <http://localhost:8761> |
+| Swagger de autenticación | <http://localhost:8081/swagger-ui.html> |
+| Swagger de liga | <http://localhost:8082/swagger-ui.html> |
+| Swagger de solicitudes | <http://localhost:8083/swagger-ui.html> |
+| Swagger de entradas | <http://localhost:8084/swagger-ui.html> |
 
-La API usa JWT Bearer. El registro valida el RUN chileno con módulo 11; las operaciones administrativas requieren el rol ADMIN. Los precios de las entradas se consultan desde el backend.
+## Comandos habituales
 
-Las órdenes de compra quedan en estado PENDIENTE_PAGO. El proyecto todavía no integra un proveedor de pagos, por lo que no realiza cobros ni emite entradas pagadas.
+Desde `frontend/lif-store-react`:
 
-## Comandos útiles
+```bash
+npm run dev      # Servidor local de desarrollo
+npm run lint     # Revisión estática
+npm run build    # Compilación de producción en dist/
+npm run test     # Pruebas del frontend con Karma y Jasmine
+```
 
-Ejecuta estos comandos desde frontend/lif-store-react:
+Desde la raíz del repositorio, para revisar los logs del API Gateway:
 
-    npm run dev       # servidor de desarrollo
-    npm run build     # compilación de producción
-    npm run lint      # revisión estática
+```bash
+docker compose --env-file backend/.env -f backend/docker-compose.yml logs -f api-gateway
+```
 
-Para ver logs del backend desde la raíz del repositorio:
+Detener los contenedores y conservar la base local:
 
-    docker compose --env-file backend/.env -f backend/docker-compose.yml logs -f api-gateway
+```bash
+docker compose --env-file backend/.env -f backend/docker-compose.yml down
+```
 
-Detener los contenedores y conservar la base de datos:
-
-    docker compose --env-file backend/.env -f backend/docker-compose.yml down
-
-Para borrar también los datos locales de MySQL, añade -v a down. Esa acción elimina las órdenes y usuarios locales guardados en el volumen.
+Para eliminar también la base de datos local y sus órdenes, añade `-v` al comando `down`.
 
 ## Solución de problemas
 
-- **No se puede conectar con Docker:** inicia Docker Desktop en Windows o el servicio Docker en Linux; verifica con docker compose version.
-- **El puerto ya está en uso:** libera los puertos 3306, 5173, 8080–8084 y 8761, o cambia las asignaciones en backend/docker-compose.yml.
-- **El frontend muestra error de conexión:** espera a que los servicios terminen de iniciar y revisa los logs con el comando anterior. Confirma que VITE_API_URL apunte a http://localhost:8080/api.
-- **Cambiaste dependencias del frontend:** vuelve a ejecutar npm ci desde frontend/lif-store-react.
+- **Docker no responde:** inicia Docker Desktop en Windows o el servicio Docker en Linux; comprueba `docker compose version`.
+- **Un puerto está ocupado:** libera los puertos `3306`, `5173`, `8080–8084` y `8761`, o ajusta las asignaciones en `backend/docker-compose.yml`.
+- **La web no conecta con la API:** confirma que el backend esté iniciado y que `VITE_API_URL` apunte a `http://localhost:8080/api`.
+- **Cambiaste dependencias de JavaScript:** vuelve a ejecutar `npm ci` dentro de `frontend/lif-store-react`.
 
-Para levantar un servicio Spring Boot desde el IDE se requiere Java 21 y configurar las variables de base de datos, Eureka y JWT descritas en backend/README.md.
+---
+
+Consulta también las guías específicas: [backend](backend/README.md) · [frontend](frontend/README.md).

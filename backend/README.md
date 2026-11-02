@@ -1,145 +1,198 @@
-# Backend LIF Store
+# Backend · LIF Store
 
-Backend REST de la Liga Independiente de Fútbol. Sigue el patrón de `gestionbibliotecas`: servicios Spring Boot independientes, Eureka para descubrimiento y un API Gateway como punto de entrada.
+API REST para la Liga Independiente de Fútbol. El backend implementa servicios Spring Boot separados por dominio, registro de servicios con Eureka y un API Gateway como punto de acceso para el frontend.
+
+[Volver al README principal](../README.md) · [Guía del frontend](../frontend/README.md)
 
 ## Arquitectura
 
 ```mermaid
 flowchart LR
-    Front[Frontend React] --> Gateway[API Gateway :8080]
-    Gateway --> Auth[Auth y usuarios :8081]
-    Gateway --> League[Partidos, noticias y jugadores :8082]
-    Gateway --> Requests[Solicitudes :8083]
-    Gateway --> Tickets[Entradas :8084]
+    Client[Frontend] --> Gateway[API Gateway :8080]
+    Gateway --> Auth[auth-service :8081]
+    Gateway --> League[league-service :8082]
+    Gateway --> Request[request-service :8083]
+    Gateway --> Tickets[tickets-service :8084]
     Auth --> Eureka[Eureka :8761]
     League --> Eureka
-    Requests --> Eureka
+    Request --> Eureka
     Tickets --> Eureka
     Gateway --> Eureka
-    Auth --> DB1[(MySQL lif_usuarios)]
-    League --> DB2[(MySQL lif_liga)]
-    Requests --> DB3[(MySQL lif_solicitudes)]
-    Tickets --> DB4[(MySQL lif_entradas)]
+    Auth --> DB[(MySQL 8.4)]
+    League --> DB
+    Request --> DB
+    Tickets --> DB
     Tickets --> League
 ```
 
-Cada servicio mantiene las capas `controller`, `service`, `repository`, `model` y `dto`. La configuración común de seguridad y errores está en `shared`; las tablas se crean y evolucionan con Flyway.
+Los servicios de dominio están organizados en capas `controller`, `service`, `repository`, `model` y `dto`. El módulo `shared` contiene elementos comunes de seguridad y manejo de errores. Cada servicio de dominio administra su propio esquema y sus migraciones con Flyway.
+
+## Tecnologías
+
+- Java 21 y Spring Boot 4.
+- Spring Cloud, Eureka y Spring Cloud Gateway.
+- Spring Security y tokens JWT.
+- Spring Data JPA, MySQL 8.4 y Flyway.
+- Maven Wrapper y Docker Compose.
+- OpenAPI/Swagger para explorar los servicios REST.
+
+## Servicios
+
+| Módulo | Puerto | Responsabilidad | Base de datos |
+|---|---:|---|---|
+| `eureka-server` | 8761 | Registro y descubrimiento de servicios. | — |
+| `api-gateway` | 8080 | Entrada REST, enrutamiento, JWT y CORS. | — |
+| `auth-service` | 8081 | Registro, inicio de sesión, usuarios y roles. | `lif_usuarios` |
+| `league-service` | 8082 | Partidos, noticias y jugadores. | `lif_liga` |
+| `request-service` | 8083 | Creación y gestión de solicitudes. | `lif_solicitudes` |
+| `tickets-service` | 8084 | Órdenes de entradas y consulta de precios de partidos. | `lif_entradas` |
 
 ## Requisitos
 
-- Java 21 y Maven 3.6.3+ para ejecutar servicios fuera de Docker.
-- Docker Engine y Docker Compose para levantar la plataforma completa.
+Para levantar la plataforma completa:
 
-## Ejecución local con Docker
+- Docker Desktop y Docker Compose v2 en Windows, o Docker Engine y Docker Compose v2 en Linux.
+- Conexión a Internet durante la primera compilación para descargar imágenes y dependencias.
 
-Ejecuta los comandos desde la raíz del repositorio, donde están las carpetas backend y frontend.
+Para compilar desde el equipo con Maven Wrapper también se requiere Java 21. Maven se descarga mediante el wrapper.
 
-En PowerShell:
+## Configuración local
 
-    Copy-Item backend/.env.example backend/.env
+Ejecuta los comandos desde la raíz del repositorio.
 
-En Linux:
+PowerShell:
 
-    cp backend/.env.example backend/.env
-
-Edita backend/.env y reemplaza las contraseñas de ejemplo. JWT_SECRET debe tener al menos 32 bytes; define también LIF_ADMIN_EMAIL y LIF_ADMIN_PASSWORD. Después, en Windows o Linux, inicia la plataforma desde la raíz:
-
-    docker compose --env-file backend/.env -f backend/docker-compose.yml up --build -d
-
-Consulta el estado:
-
-    docker compose --env-file backend/.env -f backend/docker-compose.yml ps
-
-La URL base para el frontend es http://localhost:8080/api. El frontend React usa esa dirección por defecto; para cambiarla, configura VITE_API_URL en frontend/lif-store-react/.env.local y ejecuta npm run dev desde frontend/lif-store-react. Autenticación, solicitudes, contenido administrativo y órdenes usan estos endpoints; el carrito se conserva temporalmente en el navegador. Eureka queda en http://localhost:8761. Las interfaces Swagger de los servicios están disponibles en:
-
-- Auth y usuarios: `http://localhost:8081/swagger-ui.html`
-- Liga: `http://localhost:8082/swagger-ui.html`
-- Solicitudes: `http://localhost:8083/swagger-ui.html`
-- Entradas: `http://localhost:8084/swagger-ui.html`
-
-Para detener los contenedores y conservar los datos de MySQL:
-
-    docker compose --env-file backend/.env -f backend/docker-compose.yml down
-
-Para borrar también la base local usa el mismo comando con -v. Esa acción elimina los usuarios y órdenes guardados en el volumen.
-
-## Ejecución de un servicio desde el IDE
-
-Levanta primero MySQL y Eureka con Docker, luego configura en el IDE estas variables para el servicio que ejecutarás:
-
-```text
-SPRING_DATASOURCE_URL=jdbc:mysql://localhost:3306/lif_usuarios?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-SPRING_DATASOURCE_USERNAME=lif_app
-SPRING_DATASOURCE_PASSWORD=<LIF_DB_PASSWORD de .env>
-EUREKA_URL=http://localhost:8761/eureka/
-JWT_SECRET=<JWT_SECRET de .env>
+```powershell
+Copy-Item backend/.env.example backend/.env
 ```
 
-Usa el esquema correspondiente al servicio (`lif_liga`, `lif_solicitudes` o `lif_entradas`) y configura `CORS_ALLOWED_ORIGINS` con el origen de Vite. Para tickets agrega `LEAGUE_SERVICE_URL=http://localhost:8082`.
+Linux:
 
-## Autenticación y permisos
+```bash
+cp backend/.env.example backend/.env
+```
 
-- `POST /api/auth/register` crea una cuenta de rol `usuario`; el rol no se acepta desde el cliente.
-- `POST /api/auth/login` devuelve un token Bearer firmado con HS256 y el perfil del usuario.
-- `GET /api/auth/me` y `GET /api/usuarios/me` devuelven el perfil del token.
-- El usuario administrador inicial se crea desde `LIF_ADMIN_EMAIL` y `LIF_ADMIN_PASSWORD` al iniciar `auth-service`.
-- Consultas públicas: partidos, noticias y jugadores. Crear, editar y borrar contenido requiere el rol `ADMIN`.
-- Solicitudes y órdenes de entradas se filtran por el usuario autenticado; las acciones de administración requieren `ADMIN`.
-- La contraseña se guarda con BCrypt. El backend no procesa ni almacena datos de tarjetas.
+Edita `backend/.env` antes de iniciar el backend:
 
-El secreto de ejemplo de `application.yml` sirve únicamente para ejecución manual local. Cambia `JWT_SECRET` para cualquier entorno compartido o desplegado. Debe tener al menos 32 bytes y coincidir entre gateway y servicios.
+| Variable | Uso |
+|---|---|
+| `MYSQL_ROOT_PASSWORD` | Contraseña de administración de MySQL. |
+| `LIF_DB_PASSWORD` | Contraseña del usuario de aplicación `lif_app`. |
+| `JWT_SECRET` | Secreto compartido por el Gateway y los servicios; mínimo 32 bytes. |
+| `CORS_ALLOWED_ORIGINS` | Orígenes autorizados, separados por comas. Por defecto permite Vite local. |
+| `LIF_ADMIN_EMAIL` | Correo de la cuenta administradora inicial. |
+| `LIF_ADMIN_PASSWORD` | Contraseña de la cuenta administradora inicial. |
 
-## API principal
+Usa valores locales propios y no publiques el archivo `backend/.env`.
 
-| Método | Ruta | Acceso | Acción |
+## Ejecutar toda la plataforma
+
+Desde la raíz del repositorio, el comando es igual en PowerShell y Linux:
+
+```bash
+docker compose --env-file backend/.env -f backend/docker-compose.yml up --build -d
+```
+
+Ver el estado de los contenedores:
+
+```bash
+docker compose --env-file backend/.env -f backend/docker-compose.yml ps
+```
+
+Seguir los logs de un servicio:
+
+```bash
+docker compose --env-file backend/.env -f backend/docker-compose.yml logs -f api-gateway
+```
+
+Los servicios se conectan a un volumen persistente de MySQL. Para detenerlos y conservar los datos:
+
+```bash
+docker compose --env-file backend/.env -f backend/docker-compose.yml down
+```
+
+Para eliminar también el volumen local de MySQL, utiliza `down -v`. Esto borra los datos locales de la base.
+
+## Endpoints
+
+El frontend consume la API a través de `http://localhost:8080/api`. Las interfaces Swagger se sirven directamente desde cada servicio:
+
+| Servicio | Swagger | Salud |
+|---|---|---|
+| Autenticación | <http://localhost:8081/swagger-ui.html> | <http://localhost:8081/actuator/health> |
+| Liga | <http://localhost:8082/swagger-ui.html> | <http://localhost:8082/actuator/health> |
+| Solicitudes | <http://localhost:8083/swagger-ui.html> | <http://localhost:8083/actuator/health> |
+| Entradas | <http://localhost:8084/swagger-ui.html> | <http://localhost:8084/actuator/health> |
+| Eureka | <http://localhost:8761> | <http://localhost:8761/actuator/health> |
+| API Gateway | — | <http://localhost:8080/actuator/health> |
+
+### API principal
+
+| Método | Ruta | Acceso | Descripción |
 |---|---|---|---|
-| POST | `/api/auth/register` | Público | Registro |
-| POST | `/api/auth/login` | Público | Inicio de sesión |
-| GET | `/api/auth/me` | Usuario | Perfil actual |
-| GET, POST | `/api/partidos` | Público, Admin | Consultar o crear partidos |
-| GET, PUT, DELETE | `/api/partidos/{id}` | Público en GET, Admin en cambios | Administrar un partido |
-| GET, POST | `/api/noticias` | Público, Admin | Consultar o publicar noticias |
-| GET, PUT, DELETE | `/api/noticias/{id}` | Público en GET, Admin en cambios | Administrar noticia |
-| GET, POST | `/api/jugadores` | Público, Admin | Consultar o registrar jugadores |
-| GET, PUT, DELETE | `/api/jugadores/{id}` | Público en GET, Admin en cambios | Administrar jugador y estadísticas |
-| POST | `/api/solicitudes` | Usuario | Crear una solicitud |
-| GET | `/api/solicitudes/mias` | Usuario | Listar solicitudes propias |
-| GET | `/api/solicitudes` | Admin | Listar todas las solicitudes |
-| PATCH | `/api/solicitudes/{id}/estado` | Admin | Aprobar o rechazar |
-| POST | `/api/entradas/compras` | Usuario | Crear una orden de entradas |
-| GET | `/api/entradas/mias` | Usuario | Ver órdenes propias |
-| GET | `/api/entradas` | Admin | Ver todas las órdenes |
+| `POST` | `/api/auth/register` | Público | Registrar una cuenta de usuario. |
+| `POST` | `/api/auth/login` | Público | Iniciar sesión y obtener JWT. |
+| `GET` | `/api/auth/me` | Usuario | Consultar el perfil autenticado. |
+| `GET`, `POST` | `/api/partidos` | Público, Admin | Listar partidos; crear requiere rol `ADMIN`. |
+| `GET`, `PUT`, `DELETE` | `/api/partidos/{id}` | Público, Admin | Consultar; modificar requiere rol `ADMIN`. |
+| `GET`, `POST` | `/api/noticias` | Público, Admin | Listar noticias; crear requiere rol `ADMIN`. |
+| `GET`, `PUT`, `DELETE` | `/api/noticias/{id}` | Público, Admin | Consultar; modificar requiere rol `ADMIN`. |
+| `GET`, `POST` | `/api/jugadores` | Público, Admin | Listar jugadores; crear requiere rol `ADMIN`. |
+| `GET`, `PUT`, `DELETE` | `/api/jugadores/{id}` | Público, Admin | Consultar; modificar requiere rol `ADMIN`. |
+| `POST` | `/api/solicitudes` | Usuario | Crear una solicitud. |
+| `GET` | `/api/solicitudes/mias` | Usuario | Listar solicitudes propias. |
+| `GET` | `/api/solicitudes` | Admin | Listar todas las solicitudes. |
+| `PATCH` | `/api/solicitudes/{id}/estado` | Admin | Cambiar el estado de una solicitud. |
+| `POST` | `/api/entradas/compras` | Usuario | Crear una orden de entradas. |
+| `GET` | `/api/entradas/mias` | Usuario | Consultar órdenes propias. |
+| `GET` | `/api/entradas` | Admin | Consultar todas las órdenes. |
 
-Ejemplo de registro (el RUN se valida con módulo 11):
+Los recursos `/api/usuarios` permiten consultar usuarios para administración; `/api/usuarios/me` devuelve el perfil del usuario autenticado.
 
-```json
-{
-  "run": "190110222",
-  "correo": "persona@ejemplo.cl",
-  "nombre": "Camila",
-  "apellidos": "Pérez Soto",
-  "clave": "una-clave-segura"
-}
+## Autenticación y reglas de negocio
+
+- Los endpoints protegidos reciben `Authorization: Bearer <token>`.
+- Las contraseñas se almacenan con BCrypt. El rol de la cuenta creada por registro lo asigna el backend.
+- El registro valida el RUN chileno. El usuario administrador inicial se configura mediante `LIF_ADMIN_EMAIL` y `LIF_ADMIN_PASSWORD`.
+- Las solicitudes y órdenes se consultan según la identidad del token; el rol `ADMIN` permite las operaciones administrativas.
+- El servicio de entradas obtiene los precios desde el servicio de liga; no confía en el precio enviado por el navegador.
+- La orden se crea como `PENDIENTE_PAGO`. No hay integración con proveedor de pagos ni almacenamiento de datos de tarjetas.
+
+## Compilar con Maven Wrapper
+
+Desde `backend/`:
+
+PowerShell:
+
+```powershell
+.\mvnw.cmd -DskipTests package
 ```
 
-Ejemplo de compra. El precio se consulta en el servicio de partidos; el cliente no puede fijarlo en la solicitud:
-
-```json
-{
-  "entradas": [
-    { "partidoId": 1, "cantidad": 2 }
-  ]
-}
-```
-
-El resultado queda en estado `PENDIENTE_PAGO`. Para aceptar pagos reales se debe integrar un proveedor de pagos y confirmar la orden con su notificación firmada.
-
-## Construcción
-
-Empaquetar todos los módulos sin ejecutar pruebas:
+Linux:
 
 ```bash
 ./mvnw -DskipTests package
 ```
 
-Los servicios exponen `GET /actuator/health`. Los endpoints y modelos REST se documentan con OpenAPI/Swagger.
+Los artefactos compilados quedan en el directorio `target/` de cada módulo.
+
+## Estructura
+
+```text
+backend/
+  api-gateway/
+  auth-service/
+  eureka-server/
+  league-service/
+  request-service/
+  shared/
+  tickets-service/
+  docker/mysql/init/  Scripts de inicialización de esquemas
+  docker-compose.yml
+  Dockerfile
+  pom.xml
+```
+
+---
+
+[README principal](../README.md) · [Guía del frontend](../frontend/README.md)
