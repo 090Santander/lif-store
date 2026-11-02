@@ -4,7 +4,7 @@ import CampoSelect from '../CampoSelect'
 import type { Jugador } from '../../data/datosLIF'
 
 interface FormJugadorProps {
-  onAgregar: (jugador: Omit<Jugador, 'id'>) => void
+  onAgregar: (jugador: Omit<Jugador, 'id'>) => Promise<boolean> | void
 }
 
 const posiciones = ['Portero', 'Defensa', 'Mediocampista', 'Delantero']
@@ -12,19 +12,25 @@ const vacio = { nombre: '', equipo: '', posicion: posiciones[0], dorsal: '' }
 
 export default function FormJugador({ onAgregar }: FormJugadorProps) {
   const [form, setForm] = useState(vacio)
+  const [guardando, setGuardando] = useState(false)
 
   const cambiar = (campo: keyof typeof vacio) => (valor: string) =>
     setForm({ ...form, [campo]: valor })
 
-  const enviar = (e: FormEvent) => {
+  const enviar = async (e: FormEvent) => {
     e.preventDefault()
-    onAgregar({
-      nombre: form.nombre.trim(),
-      equipo: form.equipo.trim(),
-      posicion: form.posicion,
-      dorsal: form.dorsal,
-    })
-    setForm(vacio)
+    setGuardando(true)
+    try {
+      const resultado = await onAgregar({
+        nombre: form.nombre.trim(),
+        equipo: form.equipo.trim(),
+        posicion: form.posicion,
+        dorsal: form.dorsal,
+      })
+      if (resultado !== false) setForm(vacio)
+    } finally {
+      setGuardando(false)
+    }
   }
 
   return (
@@ -41,8 +47,8 @@ export default function FormJugador({ onAgregar }: FormJugadorProps) {
             <Campo id="j-dorsal" etiqueta="Dorsal (#)" type="number" min={1} max={99} placeholder="10" value={form.dorsal} onChange={cambiar('dorsal')} />
           </div>
         </div>
-        <button type="submit" className="btn btn-success w-100 rounded-pill fw-bold mt-2">
-          Guardar Jugador
+        <button type="submit" disabled={guardando} className="btn btn-success w-100 rounded-pill fw-bold mt-2">
+          {guardando ? 'Guardando…' : 'Guardar Jugador'}
         </button>
       </form>
     </div>

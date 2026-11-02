@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useNavigate } from 'react-router'
-// @ts-ignore
-import logo from "../assets/LOGO.png";
-
+import logo from '../assets/LOGO.png'
 
 import { useAuth } from '../context/AuthContext'
 import { useCarrito } from '../context/CarritoContext'
@@ -28,19 +26,11 @@ const enlaces: Enlace[] = [
 export default function Navbar() {
   const navigate = useNavigate()
   const { usuario, esAdmin, cerrarSesion } = useAuth()
+  const { obtenerCantidadTotal } = useCarrito()
   const [tema, setTema] = useState<'light' | 'dark'>(() =>
     localStorage.getItem('lif_tema') === 'dark' ? 'dark' : 'light'
   )
-
-  const contextCarrito = useCarrito() as any
-  const cantidad =
-    contextCarrito.cantidad ??
-    (Array.isArray(contextCarrito.carrito)
-      ? contextCarrito.carrito.reduce(
-          (acc: number, item: any) => acc + (item.cantidad || 1),
-          0
-        )
-      : 0)
+  const cantidad = obtenerCantidadTotal()
 
   useEffect(() => {
     document.documentElement.setAttribute('data-bs-theme', tema)

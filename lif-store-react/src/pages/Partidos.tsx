@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import PageHero from '../components/PageHero'
-import { DatosLIF, type Partido } from '../data/datosLIF'
+import type { Partido } from '../data/datosLIF'
+import { useColeccion } from '../hooks/useColeccion'
 
 export default function Partidos() {
-  const [partidos] = useState(() => DatosLIF.get<Partido>('partidos'))
+  const { items: partidos, cargando, error } = useColeccion<Partido>('partidos')
 
   return (
     <>
@@ -14,6 +14,7 @@ export default function Partidos() {
       />
 
       <section className="container py-5">
+        {error && <div className="alert alert-danger" role="alert">{error}</div>}
         <div className="row justify-content-center">
           <div className="col-lg-10">
             <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
@@ -33,7 +34,9 @@ export default function Partidos() {
                     </tr>
                   </thead>
                   <tbody>
-                    {partidos.length === 0 ? (
+                    {cargando ? (
+                      <tr><td colSpan={6} className="py-4 text-body-secondary" role="status">Cargando partidos…</td></tr>
+                    ) : partidos.length === 0 ? (
                       <tr>
                         <td colSpan={6} className="py-4 text-body-secondary">
                           No hay partidos programados por el momento.

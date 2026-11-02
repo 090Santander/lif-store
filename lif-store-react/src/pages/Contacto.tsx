@@ -29,8 +29,15 @@ export default function Contacto() {
 
   const enviar = (e: FormEvent) => {
     e.preventDefault()
-    alert('Mensaje enviado con éxito')
-    setForm(vacio)
+    const asunto = `[LIF] ${form.motivo}`
+    const cuerpo = [
+      `Nombre: ${form.nombre}`,
+      `Correo: ${form.correo}`,
+      `Teléfono: ${form.telefono || 'No indicado'}`,
+      '',
+      form.mensaje,
+    ].join('\n')
+    window.location.href = `mailto:contacto@ligalif.cl?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`
   }
 
   return (
@@ -114,7 +121,7 @@ export default function Contacto() {
                   </div>
                   <div className="col-12 mt-4">
                     <button type="submit" className="btn btn-success fw-bold rounded-pill w-100 py-2 shadow-sm">
-                      Enviar Mensaje 🚀
+                      Abrir correo para enviar 🚀
                     </button>
                   </div>
                 </div>

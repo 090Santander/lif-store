@@ -47,7 +47,7 @@ La plataforma tradicional de la Liga Independiente de Fútbol (`lif.cl`) present
 ```text
 ┌─────────────────────────────────────────────────────────────────┐
 │                     CAPA DE PRESENTACIÓN                        │
-│        React 18  │  TypeScript 5  │  Vite 5  │  Bootstrap 5     │
+│        React 19  │  TypeScript 6  │  Vite 8  │  Bootstrap 5     │
 └────────────────────────────────┬────────────────────────────────┘
                                  │
 ┌────────────────────────────────┴────────────────────────────────┐
@@ -61,15 +61,26 @@ La plataforma tradicional de la Liga Independiente de Fútbol (`lif.cl`) present
 └─────────────────────────────────────────────────────────────────┘
 ```
 
-* **Core Framework:** React 18 (Arquitectura funcional orientada a Hooks).
+* **Core Framework:** React 19 (Arquitectura funcional orientada a Hooks).
 
-* **Lenguaje:** TypeScript (Tipado estricto e interfaces desacopladas).
+* **Lenguaje:** TypeScript 6 (Tipado estricto e interfaces desacopladas).
 
-* **Build System & HMR:** Vite + esbuild compiler.
+* **Build System & HMR:** Vite 8 + Rolldown.
 
 * **UI & Estilos:** CSS3 modular, Bootstrap 5, utilidades responsivas y soporte dinámico de temas (Light/Dark mode).
 
 * **Validaciones de Dominio:** Módulo 11 para la verificación del RUT chileno, restricción de correo institucional y regla de negocio +18.
+
+### Backend Spring Boot
+
+El frontend se conecta al backend modular ubicado en [`../../backend`](../../backend/README.md), con API Gateway, Eureka y servicios independientes para autenticación, liga, solicitudes y entradas. El usuario puede consultar sus órdenes y administración puede revisar las órdenes creadas. Para desarrollo local, revisa [`lif-store-react/.env.example`](lif-store-react/.env.example) si necesitas cambiar la URL de la API; por defecto usa `http://localhost:8080/api`.
+
+Primero inicia el backend siguiendo su [guía de ejecución](../../backend/README.md). Después, desde `frontend/lif-store/lif-store-react`, ejecuta:
+
+```bash
+npm install
+npm run dev
+```
 
 ## 🏗️ Arquitectura de Directorios
 
@@ -132,7 +143,7 @@ npx karma start karma.conf.cjs --single-run=false
 
 ### Prerrequisitos
 
-* **Node.js:** `>= 18.18.0` (LTS recomendado)
+* **Node.js:** `^20.19.0` o `>= 22.12.0` (requerido por Vite 8)
 
 * **npm:** `>= 9.0.0`
 
@@ -142,12 +153,13 @@ npx karma start karma.conf.cjs --single-run=false
 
 ```bash
 git clone https://github.com/090Santander/lif-store.git
-cd lif-store/lif-store-react
+cd lif-store
 ```
 
-2. **Instalar dependencias del proyecto:**
+2. **Entrar al frontend e instalar dependencias:**
 
 ```bash
+cd frontend/lif-store/lif-store-react
 npm install
 ```
 

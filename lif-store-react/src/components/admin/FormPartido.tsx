@@ -3,30 +3,36 @@ import Campo from '../Campo'
 import type { Partido } from '../../data/datosLIF'
 
 interface FormPartidoProps {
-  onAgregar: (partido: Omit<Partido, 'id'>) => void
+  onAgregar: (partido: Omit<Partido, 'id'>) => Promise<boolean> | void
 }
 
 const vacio = { local: '', visitante: '', fecha: '', hora: '', sede: '', fase: '', precio: '', desc: '' }
 
 export default function FormPartido({ onAgregar }: FormPartidoProps) {
   const [form, setForm] = useState(vacio)
+  const [guardando, setGuardando] = useState(false)
 
   const cambiar = (campo: keyof typeof vacio) => (valor: string) =>
     setForm({ ...form, [campo]: valor })
 
-  const enviar = (e: FormEvent) => {
+  const enviar = async (e: FormEvent) => {
     e.preventDefault()
-    onAgregar({
-      equipoLocal: form.local.trim(),
-      equipoVisitante: form.visitante.trim(),
-      fecha: form.fecha.trim(),
-      hora: form.hora.trim(),
-      sede: form.sede.trim(),
-      fase: form.fase.trim(),
-      precio: Number(form.precio),
-      descripcion: form.desc.trim(),
-    })
-    setForm(vacio)
+    setGuardando(true)
+    try {
+      const resultado = await onAgregar({
+        equipoLocal: form.local.trim(),
+        equipoVisitante: form.visitante.trim(),
+        fecha: form.fecha.trim(),
+        hora: form.hora.trim(),
+        sede: form.sede.trim(),
+        fase: form.fase.trim(),
+        precio: Number(form.precio),
+        descripcion: form.desc.trim(),
+      })
+      if (resultado !== false) setForm(vacio)
+    } finally {
+      setGuardando(false)
+    }
   }
 
   return (
@@ -61,8 +67,8 @@ export default function FormPartido({ onAgregar }: FormPartidoProps) {
           value={form.desc}
           onChange={cambiar('desc')}
         />
-        <button type="submit" className="btn btn-success w-100 rounded-pill fw-bold mt-2">
-          Publicar Partido y Tickets
+        <button type="submit" disabled={guardando} className="btn btn-success w-100 rounded-pill fw-bold mt-2">
+          {guardando ? 'Guardando…' : 'Publicar Partido y Tickets'}
         </button>
       </form>
     </div>

@@ -25,8 +25,8 @@ export function crearTicket(partido: Partido): Ticket {
   }
 }
 
-export function calcularResumen(tickets: Ticket[]) {
-  const subtotal = tickets.reduce((suma, t) => suma + (Number(t.precio) || 0), 0)
+export function calcularResumen(tickets: Array<{ precio?: number; cantidad?: number }>) {
+  const subtotal = tickets.reduce((suma, t) => suma + (Number(t.precio) || 0) * Math.max(1, Number(t.cantidad) || 1), 0)
   const cargo = subtotal > 0 ? Math.round(subtotal * CARGO_SERVICIO) : 0
   return { subtotal, cargo, total: subtotal + cargo }
 }

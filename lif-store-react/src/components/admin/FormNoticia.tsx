@@ -11,7 +11,7 @@ interface FormNoticiaProps {
   filas?: number
   textoBoton: string
   claseBoton?: string
-  onAgregar: (noticia: Omit<Noticia, 'id'>) => void
+  onAgregar: (noticia: Omit<Noticia, 'id'>) => Promise<boolean> | void
 }
 
 export default function FormNoticia({
@@ -20,19 +20,25 @@ export default function FormNoticia({
 }: FormNoticiaProps) {
   const vacio = { titulo: '', categoria: categorias[0], fecha: '', resumen: '' }
   const [form, setForm] = useState(vacio)
+  const [guardando, setGuardando] = useState(false)
 
   const cambiar = (campo: keyof typeof vacio) => (valor: string) =>
     setForm({ ...form, [campo]: valor })
 
-  const enviar = (e: FormEvent) => {
+  const enviar = async (e: FormEvent) => {
     e.preventDefault()
-    onAgregar({
-      titulo: form.titulo.trim(),
-      categoria: form.categoria,
-      fecha: form.fecha.trim(),
-      resumen: form.resumen.trim(),
-    })
-    setForm(vacio)
+    setGuardando(true)
+    try {
+      const resultado = await onAgregar({
+        titulo: form.titulo.trim(),
+        categoria: form.categoria,
+        fecha: form.fecha.trim(),
+        resumen: form.resumen.trim(),
+      })
+      if (resultado !== false) setForm(vacio)
+    } finally {
+      setGuardando(false)
+    }
   }
 
   return (
@@ -74,8 +80,8 @@ export default function FormNoticia({
           value={form.resumen}
           onChange={cambiar('resumen')}
         />
-        <button type="submit" className={`btn ${claseBoton} w-100 rounded-pill fw-bold mt-2`}>
-          {textoBoton}
+        <button type="submit" disabled={guardando} className={`btn ${claseBoton} w-100 rounded-pill fw-bold mt-2`}>
+          {guardando ? 'Guardando…' : textoBoton}
         </button>
       </form>
     </div>

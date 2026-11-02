@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import FormNoticia from '../components/admin/FormNoticia'
 import ListaNoticias from '../components/admin/ListaNoticias'
 import FormPartido from '../components/admin/FormPartido'
@@ -6,22 +6,28 @@ import ListaPartidos from '../components/admin/ListaPartidos'
 import FormJugador from '../components/admin/FormJugador'
 import TablaJugadores from '../components/admin/TablaJugadores'
 import PanelSolicitudes from '../components/admin/PanelSolicitudes'
+import PanelOrdenes from '../components/admin/PanelOrdenes'
 import ModalStats, { type Estadisticas } from '../components/admin/ModalStats'
 import { useColeccion } from '../hooks/useColeccion'
-import type { Jugador, Noticia, Partido, Solicitud } from '../data/datosLIF'
+import type { Jugador, Noticia, OrdenEntrada, Partido, Solicitud } from '../data/datosLIF'
+import { apiGet, mensajeApi } from '../api/client'
 
-type Pestana = 'noticias' | 'partidos' | 'jugadores' | 'solicitud'
+type Pestana = 'noticias' | 'partidos' | 'jugadores' | 'solicitud' | 'entradas'
 
 const pestanas: { clave: Pestana; icono: string; texto: string }[] = [
   { clave: 'noticias', icono: '📰', texto: 'Gestor de Noticias' },
   { clave: 'partidos', icono: '⚽', texto: 'Partidos, Entradas y Noticias' },
   { clave: 'jugadores', icono: '🏃', texto: 'Gestor de Jugadores' },
   { clave: 'solicitud', icono: '📨', texto: 'Solicitudes' },
+  { clave: 'entradas', icono: '🎟️', texto: 'Órdenes de entradas' },
 ]
 
 export default function Admin() {
   const [pestana, setPestana] = useState<Pestana>('noticias')
   const [editando, setEditando] = useState<Jugador | null>(null)
+  const [ordenes, setOrdenes] = useState<OrdenEntrada[]>([])
+  const [ordenesCargando, setOrdenesCargando] = useState(true)
+  const [ordenesError, setOrdenesError] = useState<string | null>(null)
 
   const noticias = useColeccion<Noticia>('noticias')
   const partidos = useColeccion<Partido>('partidos')
@@ -29,16 +35,41 @@ export default function Admin() {
   const solicitudes = useColeccion<Solicitud>('solicitudes')
   const pendientes = solicitudes.items.filter((s) => s.estado === 'Pendiente').length
 
-  const guardarStats = (stats: Estadisticas) => {
+  useEffect(() => {
+    let activo = true
+    apiGet<OrdenEntrada[]>('/entradas')
+      .then((respuesta) => {
+        if (activo) setOrdenes(respuesta)
+      })
+      .catch((e: unknown) => {
+        if (activo) setOrdenesError(mensajeApi(e))
+      })
+      .finally(() => {
+        if (activo) setOrdenesCargando(false)
+      })
+    return () => { activo = false }
+  }, [])
+
+  const guardarStats = async (stats: Estadisticas) => {
     if (!editando) return
-    jugadores.actualizar(editando.id, stats)
-    setEditando(null)
-    alert('Estadísticas guardadas con éxito')
+    if (await jugadores.actualizar(editando.id, stats)) {
+      setEditando(null)
+      alert('Estadísticas guardadas con éxito')
+    }
   }
+
+  const erroresApi = [...new Set([noticias.error, partidos.error, jugadores.error, solicitudes.error, ordenesError]
+    .filter((error): error is string => error !== null))]
+  const cargando = noticias.cargando || partidos.cargando || jugadores.cargando || solicitudes.cargando || ordenesCargando
 
   return (
     <div className="container py-4">
       <h1 className="fw-bold mb-4">Panel de Administración</h1>
+
+      {erroresApi.map((error) => (
+        <div key={error} className="alert alert-danger" role="alert">{error}</div>
+      ))}
+      {cargando && <p className="text-body-secondary" role="status">Cargando datos del panel…</p>}
 
       <ul className="nav nav-tabs mb-4" role="tablist">
         {pestanas.map((p) => (
@@ -137,6 +168,7 @@ export default function Admin() {
           onCerrar={() => setEditando(null)}
         />
       )}
+      {pestana === 'entradas' && <PanelOrdenes ordenes={ordenes} />}
     </div>
   )
 }

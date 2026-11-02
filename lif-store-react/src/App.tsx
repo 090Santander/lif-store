@@ -15,6 +15,7 @@ import Contacto from './pages/Contacto'
 import Complejos from './pages/Complejos'
 import Actas from './pages/Actas'
 import Solicitudes from './pages/Solicitudes'
+import MisEntradas from './pages/MisEntradas'
 import Admin from './pages/Admin'
 import Pendiente from './pages/Pendiente'
 
@@ -36,6 +37,8 @@ function App() {
         <Route path="complejos" element={<Complejos />} />
         <Route path="actas" element={<Actas />} />
         <Route path="solicitud" element={<Solicitudes />} />
+        <Route path="solicitudes" element={<Solicitudes />} />
+        <Route path="mis-entradas" element={<MisEntradas />} />
         <Route element={<RutaAdmin />}>
           <Route path="admin" element={<Admin />} />
         </Route>

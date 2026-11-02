@@ -3,7 +3,7 @@ import TarjetaSolicitud from './TarjetaSolicitud'
 
 interface MisSolicitudesProps {
   solicitudes: Solicitud[]
-  onCancelar: (id: number) => void
+  onCancelar: (id: number) => Promise<boolean> | void
 }
 
 export default function MisSolicitudes({ solicitudes, onCancelar }: MisSolicitudesProps) {

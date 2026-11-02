@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react'
 import { Link } from 'react-router'
 import Campo from '../components/Campo'
-import { DatosLIF } from '../data/datosLIF'
+import { apiPost, mensajeApi } from '../api/client'
 import { validarRegistro, type CamposRegistro, type ErroresRegistro } from '../utils/validaciones'
 
 const vacio: CamposRegistro = {
@@ -12,29 +12,39 @@ export default function Registro() {
   const [valores, setValores] = useState<CamposRegistro>(vacio)
   const [errores, setErrores] = useState<ErroresRegistro>({})
   const [exito, setExito] = useState(false)
+  const [errorApi, setErrorApi] = useState<string | null>(null)
+  const [enviando, setEnviando] = useState(false)
 
   const cambiar = (campo: keyof CamposRegistro) => (valor: string) =>
     setValores({ ...valores, [campo]: valor })
 
-  const enviar = (e: FormEvent) => {
+  const enviar = async (e: FormEvent) => {
     e.preventDefault()
     const nuevosErrores = validarRegistro(valores)
     setErrores(nuevosErrores)
+    setErrorApi(null)
+    setExito(false)
 
     if (Object.keys(nuevosErrores).length > 0) {
-      setExito(false)
       return
     }
 
-    // La contraseña no se guarda: este registro es solo una demostración.
-    DatosLIF.agregar('usuarios', {
-      run: valores.run.trim().toUpperCase(),
-      correo: valores.correo.trim().toLowerCase(),
-      nombre: valores.nombre.trim(),
-      apellidos: valores.apellidos.trim(),
-    })
-    setValores(vacio)
-    setExito(true)
+    setEnviando(true)
+    try {
+      await apiPost('/auth/register', {
+        run: valores.run.trim().toUpperCase(),
+        correo: valores.correo.trim().toLowerCase(),
+        nombre: valores.nombre.trim(),
+        apellidos: valores.apellidos.trim(),
+        clave: valores.clave,
+      }, false)
+      setValores(vacio)
+      setExito(true)
+    } catch (e) {
+      setErrorApi(mensajeApi(e))
+    } finally {
+      setEnviando(false)
+    }
   }
 
   return (
@@ -52,7 +62,7 @@ export default function Registro() {
             <form noValidate onSubmit={enviar}>
               <div className="row g-3">
                 <div className="col-md-6">
-                  <Campo id="reg-run" etiqueta="RUN (sin puntos ni guión)" maxLength={9} placeholder="19011022K"
+                  <Campo id="reg-run" etiqueta="RUN (sin puntos ni guión)" maxLength={9} placeholder="190110222"
                     value={valores.run} onChange={cambiar('run')} error={errores.run} />
                 </div>
                 <div className="col-md-6">
@@ -78,12 +88,13 @@ export default function Registro() {
               </div>
 
               <div className="d-grid mt-4">
-                <button type="submit" className="btn btn-success btn-lg rounded-pill fw-bold shadow-sm">
-                  Registrarme
+                <button type="submit" disabled={enviando} className="btn btn-success btn-lg rounded-pill fw-bold shadow-sm">
+                  {enviando ? 'Creando cuenta…' : 'Registrarme'}
                 </button>
               </div>
             </form>
 
+            {errorApi && <div className="alert alert-danger text-center mt-3 mb-0 rounded-3" role="alert">{errorApi}</div>}
             {exito && (
               <div className="alert alert-success text-center mt-3 mb-0 rounded-3" role="alert">
                 ¡Cuenta creada exitosamente!{' '}

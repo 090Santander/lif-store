@@ -1,11 +1,11 @@
-import { useState } from 'react'
 import PageHero from '../components/PageHero'
 import NoticiaDestacada from '../components/NoticiaDestacada'
 import NoticiaCard from '../components/NoticiaCard'
-import { DatosLIF, type Noticia } from '../data/datosLIF'
+import type { Noticia } from '../data/datosLIF'
+import { useColeccion } from '../hooks/useColeccion'
 
 export default function Noticias() {
-  const [noticias] = useState(() => DatosLIF.get<Noticia>('noticias'))
+  const { items: noticias, cargando, error } = useColeccion<Noticia>('noticias')
 
   const destacada = noticias.find((n) => n.destacada) ?? noticias[0]
   const restantes = noticias.filter((n) => n.id !== destacada?.id)
@@ -19,7 +19,10 @@ export default function Noticias() {
       />
 
       <section className="container py-5">
-        {!destacada ? (
+        {error && <div className="alert alert-danger" role="alert">{error}</div>}
+        {cargando ? (
+          <p className="text-center text-body-secondary py-4" role="status">Cargando noticias…</p>
+        ) : !destacada ? (
           <div className="card border-0 shadow-sm rounded-4 p-5 text-center text-body-secondary">
             <p className="fs-5 mb-0">📰 No hay noticias publicadas en este momento.</p>
           </div>

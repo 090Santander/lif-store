@@ -1,11 +1,16 @@
+/* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useContext, useState, useEffect } from 'react'
 
 export interface ItemCarrito {
   id: number | string
+  partidoId: number
   nombre: string
+  encuentro: string
   precio: number
   cantidad: number
-  [key: string]: any
+  fecha: string
+  localidad: string
+  sede: string
 }
 
 interface CarritoContextType {
@@ -23,7 +28,23 @@ export const CarritoProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const [carrito, setCarrito] = useState<ItemCarrito[]>(() => {
     try {
       const guardado = localStorage.getItem('carrito_lif')
-      return guardado ? JSON.parse(guardado) : []
+      if (!guardado) return []
+      const items = JSON.parse(guardado) as Partial<ItemCarrito>[]
+      return items.map((item) => {
+        const partidoId = Number(item.partidoId ?? item.id)
+        const encuentro = item.encuentro ?? item.nombre ?? 'Partido LIF'
+        return {
+          id: item.id ?? partidoId,
+          partidoId,
+          nombre: item.nombre ?? encuentro,
+          encuentro,
+          precio: Number(item.precio) || 0,
+          cantidad: Math.min(10, Math.max(1, Number(item.cantidad) || 1)),
+          fecha: item.fecha ?? '',
+          localidad: item.localidad ?? item.sede ?? 'General',
+          sede: item.sede ?? item.localidad ?? '',
+        }
+      })
     } catch {
       return []
     }
@@ -40,13 +61,13 @@ export const CarritoProvider: React.FC<{ children: React.ReactNode }> = ({ child
   const agregarAlCarrito = (item: ItemCarrito) => {
     setCarrito((prev) => {
       const existe = prev.find((i) => i.id === item.id)
-      const cantidadAAgregar = item.cantidad || 1
+      const cantidadAAgregar = Math.max(1, item.cantidad || 1)
       if (existe) {
         return prev.map((i) =>
-          i.id === item.id ? { ...i, cantidad: i.cantidad + cantidadAAgregar } : i
+          i.id === item.id ? { ...i, cantidad: Math.min(10, i.cantidad + cantidadAAgregar) } : i
         )
       }
-      return [...prev, { ...item, cantidad: cantidadAAgregar }]
+      return [...prev, { ...item, cantidad: Math.min(10, cantidadAAgregar) }]
     })
   }
 
@@ -59,7 +80,8 @@ export const CarritoProvider: React.FC<{ children: React.ReactNode }> = ({ child
   }
 
   const obtenerTotal = () => {
-    return carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0)
+    const subtotal = carrito.reduce((sum, item) => sum + item.precio * item.cantidad, 0)
+    return subtotal + Math.round(subtotal * 0.1)
   }
 
   const obtenerCantidadTotal = () => {

@@ -6,28 +6,35 @@ import { validarSolicitud, valoresIniciales, type ErroresSolicitud } from '../..
 
 interface FormSolicitudProps {
   def: TipoSolicitudDef
-  onEnviar: (datos: Record<string, string>, detalle: string) => void
+  onEnviar: (datos: Record<string, string>, detalle: string) => Promise<boolean> | void
 }
 
 export default function FormSolicitud({ def, onEnviar }: FormSolicitudProps) {
   const [datos, setDatos] = useState(() => valoresIniciales(def))
   const [detalle, setDetalle] = useState('')
   const [errores, setErrores] = useState<ErroresSolicitud>({})
+  const [enviando, setEnviando] = useState(false)
 
   // Actualización funcional obligatoria para evitar cierres obsoletos en eventos en lote
   const cambiar = (id: string) => (valor: string) =>
     setDatos((prev) => ({ ...prev, [id]: valor }))
 
-  const enviar = (e: FormEvent) => {
+  const enviar = async (e: FormEvent) => {
     e.preventDefault()
     const nuevos = validarSolicitud(def, datos, detalle)
     setErrores(nuevos)
     if (Object.keys(nuevos).length > 0) return
 
-    onEnviar(datos, detalle)
-    setDatos(valoresIniciales(def))
-    setDetalle('')
-    setErrores({})
+    setEnviando(true)
+    try {
+      const resultado = await onEnviar(datos, detalle)
+      if (resultado === false) return
+      setDatos(valoresIniciales(def))
+      setDetalle('')
+      setErrores({})
+    } finally {
+      setEnviando(false)
+    }
   }
 
   return (
@@ -75,8 +82,8 @@ export default function FormSolicitud({ def, onEnviar }: FormSolicitudProps) {
         </div>
       </div>
 
-      <button type="submit" className="btn btn-success w-100 rounded-pill fw-bold mt-3">
-        Enviar solicitud
+      <button type="submit" disabled={enviando} className="btn btn-success w-100 rounded-pill fw-bold mt-3">
+        {enviando ? 'Enviando…' : 'Enviar solicitud'}
       </button>
     </form>
   )

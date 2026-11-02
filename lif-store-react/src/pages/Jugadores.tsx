@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import PageHero from '../components/PageHero'
 import JugadorCard from '../components/JugadorCard'
-import { DatosLIF, type Jugador } from '../data/datosLIF'
+import type { Jugador } from '../data/datosLIF'
+import { useColeccion } from '../hooks/useColeccion'
 
 export default function Jugadores() {
-  const [jugadores] = useState(() => DatosLIF.get<Jugador>('jugadores'))
+  const { items: jugadores, cargando, error } = useColeccion<Jugador>('jugadores')
   const [busqueda, setBusqueda] = useState('')
 
   const termino = busqueda.trim().toLowerCase()
@@ -23,6 +24,7 @@ export default function Jugadores() {
       />
 
       <section className="container py-5">
+        {error && <div className="alert alert-danger" role="alert">{error}</div>}
         <div className="row justify-content-center mb-4">
           <div className="col-md-8 col-lg-6">
             <div className="input-group shadow-sm rounded-pill overflow-hidden bg-body border border-success">
@@ -39,7 +41,9 @@ export default function Jugadores() {
           </div>
         </div>
 
-        {jugadores.length === 0 ? (
+        {cargando ? (
+          <p className="text-center text-body-secondary py-4" role="status">Cargando jugadores…</p>
+        ) : jugadores.length === 0 ? (
           <p className="text-center text-body-secondary py-4">No hay jugadores registrados en la liga.</p>
         ) : filtrados.length === 0 ? (
           <div className="text-center py-5">

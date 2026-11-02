@@ -49,9 +49,36 @@ export interface Solicitud {
 }
 
 export interface Usuario {
+  id?: number
+  run?: string
   nombre: string
+  apellidos?: string
   correo: string
   rol: 'admin' | 'usuario'
+  creadoEn?: string
+}
+
+export type EstadoOrdenEntrada = 'PENDIENTE_PAGO' | 'PAGADA' | 'CANCELADA'
+
+export interface EntradaOrden {
+  partidoId: number
+  encuentro: string
+  fechaPartido: string
+  sede: string
+  cantidad: number
+  precioUnitario: number
+  subtotal: number
+}
+
+export interface OrdenEntrada {
+  id: number
+  solicitante: string
+  nombreSolicitante: string
+  creadoEn: string
+  estado: EstadoOrdenEntrada
+  cargoServicio: number
+  total: number
+  entradas: EntradaOrden[]
 }
 
 export type ClaveColeccion = 'noticias' | 'jugadores' | 'partidos' | 'solicitudes' | 'usuarios'
@@ -113,5 +140,3 @@ export const DatosLIF = {
   getUsuario,
   cerrarSesion,
 }
-
-DatosLIF.init()

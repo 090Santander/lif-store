@@ -1,31 +1,27 @@
 import { useState, type FormEvent } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { useAuth } from '../context/AuthContext'
-import { crearSesion, validarCredenciales } from '../utils/auth'
+import { mensajeApi } from '../api/client'
 
 export default function Login() {
   const { iniciarSesion } = useAuth()
   const navigate = useNavigate()
   const [correo, setCorreo] = useState('')
   const [clave, setClave] = useState('')
+  const [error, setError] = useState<string | null>(null)
+  const [enviando, setEnviando] = useState(false)
 
-  const enviar = (e: FormEvent) => {
+  const enviar = async (e: FormEvent) => {
     e.preventDefault()
-
-    if (!validarCredenciales(correo, clave)) {
-      alert('Por favor, ingresa credenciales válidas.')
-      return
-    }
-
-    const usuario = crearSesion(correo, clave)
-    iniciarSesion(usuario)
-
-    if (usuario.rol === 'admin') {
-      alert('🛡️ ¡Bienvenido, Administrador!')
-      navigate('/admin')
-    } else {
-      alert('👋 ¡Bienvenido de nuevo!')
-      navigate('/perfil')
+    setError(null)
+    setEnviando(true)
+    try {
+      const usuario = await iniciarSesion(correo.trim(), clave)
+      navigate(usuario.rol === 'admin' ? '/admin' : '/perfil', { replace: true })
+    } catch (e) {
+      setError(mensajeApi(e))
+    } finally {
+      setEnviando(false)
     }
   }
 
@@ -39,6 +35,7 @@ export default function Login() {
           </div>
 
           <div className="card-body p-4 p-md-5">
+            {error && <div className="alert alert-danger" role="alert">{error}</div>}
             <form onSubmit={enviar}>
               <div className="form-floating mb-3">
                 <input
@@ -79,8 +76,8 @@ export default function Login() {
               </div>
 
               <div className="d-grid mb-4">
-                <button type="submit" className="btn btn-success btn-lg rounded-pill fw-bold shadow-sm">
-                  Iniciar Sesión
+                <button type="submit" disabled={enviando} className="btn btn-success btn-lg rounded-pill fw-bold shadow-sm">
+                  {enviando ? 'Ingresando…' : 'Iniciar Sesión'}
                 </button>
               </div>
 

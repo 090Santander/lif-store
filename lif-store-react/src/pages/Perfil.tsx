@@ -3,11 +3,12 @@ import { Link, Navigate, useNavigate } from 'react-router'
 import { useAuth } from '../context/AuthContext'
 
 export default function Perfil() {
-  const { usuario, cerrarSesion } = useAuth()
+  const { usuario, cerrarSesion, cargando } = useAuth()
   const navigate = useNavigate()
   const [saliendo, setSaliendo] = useState(false)
 
 
+  if (cargando) return <p className="container py-5 text-center text-body-secondary" role="status">Cargando perfil…</p>
   if (!usuario) return saliendo ? null : <Navigate to="/login" replace />
 
   const salir = () => {
@@ -57,6 +58,12 @@ export default function Perfil() {
                 className="list-group-item list-group-item-action border-0 rounded-3 text-secondary px-3 py-2"
               >
                 Mis solicitudes
+              </Link>
+              <Link
+                to="/mis-entradas"
+                className="list-group-item list-group-item-action border-0 rounded-3 text-secondary px-3 py-2"
+              >
+                Mis órdenes de entradas
               </Link>
             </div>
 

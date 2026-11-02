@@ -1,28 +1,47 @@
 import { useState } from 'react'
 import { Link } from 'react-router'
 import ModalPago from '../components/ModalPago'
-import { useCarrito } from '../context/CarritoContext'
+import { useCarrito, type ItemCarrito } from '../context/CarritoContext'
 import { calcularResumen } from '../utils/carrito'
 import { formatearPesos } from '../utils/formato'
 import PageHero from '../components/PageHero'
+import { useAuth } from '../context/AuthContext'
+import { apiPost, mensajeApi } from '../api/client'
+
+interface OrdenCreada {
+  id: number
+  estado: string
+  total: number
+  cargoServicio: number
+}
 
 export default function Carrito() {
-  const context = useCarrito() as any
-  const tickets = context?.tickets || context?.carrito || context?.items || []
-  const eliminar = context?.eliminar || context?.eliminarDelCarrito || (() => {})
-  const vaciar = context?.vaciar || context?.vaciarCarrito || (() => {})
+  const { carrito: tickets, eliminarDelCarrito, vaciarCarrito } = useCarrito()
+  const { usuario, cargando: authCargando } = useAuth()
 
   const [mostrarPago, setMostrarPago] = useState(false)
+  const [enviando, setEnviando] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [ordenCreada, setOrdenCreada] = useState<OrdenCreada | null>(null)
   const { subtotal, cargo, total } = calcularResumen(tickets)
 
-  const pagar = (metodo: string) => {
-    if (tickets.length === 0) {
-      alert('Tu carrito está vacío.')
-      return
+  const crearOrden = async () => {
+    if (!usuario || tickets.length === 0 || enviando) return
+    setError(null)
+    setOrdenCreada(null)
+    setEnviando(true)
+    try {
+      const orden = await apiPost<OrdenCreada>('/entradas/compras', {
+        entradas: tickets.map((ticket: ItemCarrito) => ({ partidoId: ticket.partidoId, cantidad: ticket.cantidad })),
+      })
+      vaciarCarrito()
+      setMostrarPago(false)
+      setOrdenCreada(orden)
+    } catch (e) {
+      setError(mensajeApi(e))
+    } finally {
+      setEnviando(false)
     }
-    alert(`🎉 ¡Pago vía ${metodo.toUpperCase()} exitoso! Tus e-Tickets han sido generados.`)
-    setMostrarPago(false)
-    vaciar()
   }
 
   return (
@@ -30,9 +49,16 @@ export default function Carrito() {
       <PageHero
         etiqueta="Boletería"
         titulo="Tu Carrito"
-        subtitulo="Revisa tus e-Tickets antes de pagar"
+        subtitulo="Revisa tus entradas antes de crear la orden"
       />
       <section className="container py-5">
+        {ordenCreada && (
+          <div className="alert alert-success" role="status">
+            Orden #{ordenCreada.id} creada por {formatearPesos(ordenCreada.total)}. Estado: {ordenCreada.estado}. El pago está pendiente.
+            {' '}<Link to="/mis-entradas" className="alert-link">Ver mis órdenes</Link>
+          </div>
+        )}
+        {error && <div className="alert alert-danger" role="alert">{error}</div>}
         <div className="row g-4">
           <div className="col-lg-8">
             <div className="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
@@ -45,10 +71,10 @@ export default function Carrito() {
                     No tienes entradas agregadas a tu carrito.
                   </div>
                 ) : (
-                  tickets.map((t: any) => {
+                  tickets.map((t) => {
                     const esVip = t.localidad?.includes('VIP')
                     return (
-                      <div className="list-group-item p-4" key={t.idUnico || t.id}>
+                      <div className="list-group-item p-4" key={t.id}>
                         <div className="row align-items-center g-3">
                           <div className="col-auto">
                             <span className={`display-6 ${esVip ? 'text-warning' : 'text-success'} opacity-75`}>
@@ -63,13 +89,14 @@ export default function Carrito() {
                           </div>
                           <div className="col-12 col-sm-auto d-flex align-items-center gap-3">
                             <span className="fw-bold text-body" style={{ width: 80, textAlign: 'right' }}>
-                              {formatearPesos(t.precio || 0)}
+                              {t.cantidad > 1 && <span className="text-body-secondary small">×{t.cantidad} </span>}
+                              {formatearPesos((t.precio || 0) * t.cantidad)}
                             </span>
                             <button
                               type="button"
                               className="btn btn-sm btn-outline-danger border-0"
                               aria-label="Eliminar entrada"
-                              onClick={() => eliminar(t.idUnico || t.id)}
+                              onClick={() => eliminarDelCarrito(t.id)}
                             >
                               🗑️
                             </button>
@@ -110,25 +137,21 @@ export default function Carrito() {
                 <button
                   type="button"
                   className="btn btn-warning fw-bold text-dark rounded-pill py-2 shadow-sm"
-                  disabled={subtotal === 0}
-                  onClick={() => setMostrarPago(true)}
+                  disabled={subtotal === 0 || !usuario || authCargando}
+                  onClick={() => { setError(null); setMostrarPago(true) }}
                 >
-                  Proceder al Pago
+                  {authCargando ? 'Verificando sesión…' : usuario ? 'Crear orden' : 'Inicia sesión para continuar'}
                 </button>
               </div>
 
-              <div className="mt-4 text-center">
-                <p className="extra-small text-body-secondary mb-2">Medios de pago seguros</p>
-                <div className="d-flex justify-content-center gap-2 opacity-50">
-                  <span className="fs-4">💳</span> <span className="fs-4">🏦</span> <span className="fs-4">📱</span>
-                </div>
-              </div>
+              {!authCargando && !usuario && <p className="small text-center text-body-secondary mt-3 mb-0">Necesitas <Link to="/login">iniciar sesión</Link> para asociar esta orden a tu cuenta.</p>}
+              <p className="small text-center text-body-secondary mt-3 mb-0">El pago en línea todavía no está disponible.</p>
             </div>
           </div>
         </div>
 
         {mostrarPago && (
-          <ModalPago onConfirmar={pagar} onCerrar={() => setMostrarPago(false)} />
+          <ModalPago onConfirmar={() => void crearOrden()} onCerrar={() => setMostrarPago(false)} enviando={enviando} />
         )}
       </section>
     </>

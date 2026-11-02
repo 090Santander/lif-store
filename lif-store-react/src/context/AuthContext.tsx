@@ -1,33 +1,81 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useState, type ReactNode } from 'react'
-import { DatosLIF, type Usuario } from '../data/datosLIF'
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
+import { apiGet, apiPost, borrarToken, guardarToken, obtenerToken } from '../api/client'
+import type { Usuario } from '../data/datosLIF'
+
+interface RespuestaAutenticacion {
+  token: string
+  usuario: Usuario
+}
 
 interface AuthContextValue {
   usuario: Usuario | null
   esAdmin: boolean
-  iniciarSesion: (usuario: Usuario) => void
+  cargando: boolean
+  iniciarSesion: (correo: string, clave: string) => Promise<Usuario>
   cerrarSesion: () => void
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [usuario, setUsuario] = useState<Usuario | null>(() => DatosLIF.getUsuario())
+  const [usuario, setUsuario] = useState<Usuario | null>(null)
+  const [cargando, setCargando] = useState(() => Boolean(obtenerToken()))
 
-  const iniciarSesion = (u: Usuario) => {
-    DatosLIF.setUsuario(u)
-    setUsuario(u)
-  }
-
-  const cerrarSesion = () => {
-    DatosLIF.cerrarSesion()
+  const cerrarSesion = useCallback(() => {
+    borrarToken()
+    localStorage.removeItem('LIF_USUARIO_ACTIVO')
     setUsuario(null)
+  }, [])
+
+  useEffect(() => {
+    let activo = true
+    const token = obtenerToken()
+
+    const cerrarSesionExpirada = () => {
+      if (activo) setUsuario(null)
+    }
+    window.addEventListener('lif:unauthorized', cerrarSesionExpirada)
+
+    if (!token) {
+      return () => {
+        activo = false
+        window.removeEventListener('lif:unauthorized', cerrarSesionExpirada)
+      }
+    }
+
+    apiGet<Usuario>('/auth/me')
+      .then((perfil) => {
+        if (activo) setUsuario(perfil)
+      })
+      .catch(() => {
+        borrarToken()
+        if (activo) setUsuario(null)
+      })
+      .finally(() => {
+        if (activo) setCargando(false)
+      })
+
+    return () => {
+      activo = false
+      window.removeEventListener('lif:unauthorized', cerrarSesionExpirada)
+    }
+  }, [])
+
+  const iniciarSesion = async (correo: string, clave: string) => {
+    setCargando(true)
+    try {
+      const respuesta = await apiPost<RespuestaAutenticacion>('/auth/login', { correo, clave }, false)
+      guardarToken(respuesta.token)
+      setUsuario(respuesta.usuario)
+      return respuesta.usuario
+    } finally {
+      setCargando(false)
+    }
   }
 
   return (
-    <AuthContext.Provider
-      value={{ usuario, esAdmin: usuario?.rol === 'admin', iniciarSesion, cerrarSesion }}
-    >
+    <AuthContext.Provider value={{ usuario, esAdmin: usuario?.rol === 'admin', cargando, iniciarSesion, cerrarSesion }}>
       {children}
     </AuthContext.Provider>
   )
