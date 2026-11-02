@@ -1,0 +1,146 @@
+x-app-environment: &app-environment
+  SPRING_DATASOURCE_USERNAME: lif_app
+  SPRING_DATASOURCE_PASSWORD: ${LIF_DB_PASSWORD:?Define LIF_DB_PASSWORD en .env}
+  EUREKA_URL: http://eureka-server:8761/eureka/
+  JWT_SECRET: ${JWT_SECRET:?Define JWT_SECRET en .env}
+  CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
+
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Copia .env.example a .env y define MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: lif_usuarios
+      MYSQL_USER: lif_app
+      MYSQL_PASSWORD: ${LIF_DB_PASSWORD:?Define LIF_DB_PASSWORD en .env}
+    volumes:
+      - lif_mysql_data:/var/lib/mysql
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h localhost -u root -p$${MYSQL_ROOT_PASSWORD} --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+      start_period: 20s
+    restart: unless-stopped
+
+  eureka-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: eureka-server
+    environment:
+      SERVER_PORT: 8761
+    ports:
+      - "8761:8761"
+    restart: unless-stopped
+
+  auth-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: auth-service
+    environment:
+      <<: *app-environment
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/lif_usuarios?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      LIF_ADMIN_EMAIL: ${LIF_ADMIN_EMAIL:?Define LIF_ADMIN_EMAIL en .env}
+      LIF_ADMIN_PASSWORD: ${LIF_ADMIN_PASSWORD:?Define LIF_ADMIN_PASSWORD en .env}
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    ports:
+      - "8081:8081"
+    restart: unless-stopped
+
+  league-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: league-service
+    environment:
+      <<: *app-environment
+      SERVER_PORT: 8082
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/lif_liga?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    ports:
+      - "8082:8082"
+    restart: unless-stopped
+
+  request-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: request-service
+    environment:
+      <<: *app-environment
+      SERVER_PORT: 8083
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/lif_solicitudes?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    ports:
+      - "8083:8083"
+    restart: unless-stopped
+
+  tickets-service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: tickets-service
+    environment:
+      <<: *app-environment
+      SERVER_PORT: 8084
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/lif_entradas?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      LEAGUE_SERVICE_URL: http://league-service:8082
+    depends_on:
+      mysql:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+      league-service:
+        condition: service_started
+    ports:
+      - "8084:8084"
+    restart: unless-stopped
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        SERVICE: api-gateway
+    environment:
+      SERVER_PORT: 8080
+      EUREKA_URL: http://eureka-server:8761/eureka/
+      JWT_SECRET: ${JWT_SECRET:?Define JWT_SECRET en .env}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS:-http://localhost:5173,http://127.0.0.1:5173}
+    depends_on:
+      eureka-server:
+        condition: service_started
+      auth-service:
+        condition: service_started
+      league-service:
+        condition: service_started
+      request-service:
+        condition: service_started
+      tickets-service:
+        condition: service_started
+    ports:
+      - "8080:8080"
+    restart: unless-stopped
+
+volumes:
+  lif_mysql_data:

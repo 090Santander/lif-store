@@ -73,9 +73,9 @@ La plataforma tradicional de la Liga Independiente de Fútbol (`lif.cl`) present
 
 ### Backend Spring Boot
 
-El frontend se conecta al backend modular ubicado en [`../../backend`](../../backend/README.md), con API Gateway, Eureka y servicios independientes para autenticación, liga, solicitudes y entradas. El usuario puede consultar sus órdenes y administración puede revisar las órdenes creadas. Para desarrollo local, revisa [`lif-store-react/.env.example`](lif-store-react/.env.example) si necesitas cambiar la URL de la API; por defecto usa `http://localhost:8080/api`.
+El frontend se conecta al backend modular ubicado en [`backend/`](backend/README.md), con API Gateway, Eureka y servicios independientes para autenticación, liga, solicitudes y entradas. El usuario puede consultar sus órdenes y administración puede revisar las órdenes creadas. Para desarrollo local, revisa [`frontend/lif-store-react/.env.example`](frontend/lif-store-react/.env.example) si necesitas cambiar la URL de la API; por defecto usa `http://localhost:8080/api`.
 
-Primero inicia el backend siguiendo su [guía de ejecución](../../backend/README.md). Después, desde `frontend/lif-store/lif-store-react`, ejecuta:
+Primero inicia el backend siguiendo su [guía de ejecución](backend/README.md). Después, desde `frontend/lif-store-react`, ejecuta:
 
 ```bash
 npm install
@@ -85,8 +85,16 @@ npm run dev
 ## 🏗️ Arquitectura de Directorios
 
 ```text
-lif-store-react/
-├── .github/                 # Workflows y plantillas de CI/CD
+backend/                     # Microservicios Spring Boot
+frontend/
+├── lif-store-react/         # Frontend React integrado con el API Gateway
+└── legacy/                  # Fuentes anteriores preservadas del frontend
+```
+
+La aplicación activa tiene esta estructura:
+
+```text
+frontend/lif-store-react/
 ├── public/                  # Assets estáticos servidos directamente
 ├── src/
 │   ├── assets/              # Identidad visual, logos y multimedia
@@ -159,7 +167,7 @@ cd lif-store
 2. **Entrar al frontend e instalar dependencias:**
 
 ```bash
-cd frontend/lif-store/lif-store-react
+cd frontend/lif-store-react
 npm install
 ```
 
