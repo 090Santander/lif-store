@@ -1,213 +1,123 @@
-# ⚽ LIF 2.0 — Liga Independiente de Fútbol
+# LIF Store
 
-> **Plataforma web dinámica, responsive y escalable** diseñada para centralizar la gestión de torneos deportivos, automatizar procesos administrativos y transformar la experiencia del jugador mediante estadísticas en tiempo real y módulos interactivos.
+Plataforma web para la Liga Independiente de Fútbol. El repositorio incluye un frontend React y un backend Spring Boot modular que administra usuarios, partidos, noticias, jugadores, solicitudes y órdenes de entradas.
 
-## 📌 Contexto Institucional y Créditos
+## Estructura
 
-* **Asignatura:** FULLSTACK II
+    backend/
+      api-gateway/       # API pública en el puerto 8080
+      auth-service/      # Usuarios y autenticación
+      league-service/    # Partidos, noticias y jugadores
+      request-service/   # Solicitudes
+      tickets-service/   # Órdenes de entradas
+      eureka-server/     # Descubrimiento de servicios
+      shared/            # Seguridad y manejo común de errores
+    frontend/
+      lif-store-react/   # Aplicación React activa
+      legacy/            # Fuentes anteriores preservadas
 
-* **Docente Supervisor:** Roberto Moreno
+Cada servicio de negocio sigue las capas controller, service, repository, model y dto. Los datos se guardan en MySQL y Flyway administra las migraciones.
 
-* **Desarrolladores:** Antonia Inostroza & Renato Santander
+## Requisitos
 
-* **Organización / Repositorio:** [`090Santander/lif-store`](https://github.com/090Santander/lif-store)
+- Git.
+- Docker Desktop con Docker Compose v2 en Windows, o Docker Engine y el plugin Docker Compose v2 en Linux.
+- Node.js 20.19+ o 22.12+ y npm para el frontend.
+- Java 21 solo si vas a compilar o ejecutar servicios fuera de Docker. El modo Docker no requiere instalar Java ni Maven en el equipo.
 
-## 🎯 Declaración del Problema y Solución Técnica
+- **Windows:** inicia Docker Desktop antes de continuar y usa contenedores Linux (WSL 2 recomendado).
+- **Linux:** inicia el servicio Docker y confirma que tu usuario tenga permiso para ejecutar docker.
 
-### El Problema
+La primera ejecución necesita conexión a Internet para descargar imágenes y dependencias.
 
-La plataforma tradicional de la Liga Independiente de Fútbol (`lif.cl`) presentaba severas limitaciones operativas: procesamiento lento de datos, tablas de posiciones desactualizadas y flujos de trabajo basados en registros físicos en papel (control de tarjetas, planillas de partidos y acreditaciones). Esto generaba opacidad informativa y cuellos de botella administrativos.
+## Puesta en marcha
 
-### La Solución
+Ejecuta los pasos desde la raíz del repositorio, donde están las carpetas backend y frontend.
 
-**LIF 2.0** rearchitectura el ecosistema digital mediante una Single Page Application (SPA) construida en React + TypeScript. La solución automatiza la compilación de datos de partidos, la venta diferida de entradas con carrito persistente, el control de acceso basado en roles (RBAC) y la visualización interactiva de métricas del torneo en tiempo real.
+### 1. Clonar el repositorio
 
-## 📋 Matriz de Requerimientos y Trazabilidad
+    git clone https://github.com/090Santander/lif-store.git
+    cd lif-store
 
-### Requerimientos Funcionales (RF)
+### 2. Crear los archivos de entorno
 
-| Código | Módulo | Descripción Técnica | Estado | 
-| ----- | ----- | ----- | ----- | 
-| **RF-01** | Seguridad | Autenticación de usuarios, gestión de sesiones y protección de rutas administrativas mediante `RutaAdmin`. | **Implementado** | 
-| **RF-05** | Competición | Módulo de actas digitales, registro de goles, sanciones y eventos en vivo. | **Implementado** | 
-| **RF-06** | Estadísticas | Renderizado dinámico de tablas de posiciones, rendimiento de plantillas y goleadores. | **Implementado** | 
-| **RF-07** | Geolocalización | Integración de mapa de sedes y fichas informativas de los complejos deportivos. | **Implementado** | 
-| **RF-08** | E-Commerce | Carrito de compras reactivo con persistencia local (`localStorage`) y cálculo de totales. | **Implementado** | 
+En PowerShell:
 
-### Requerimientos No Funcionales (RNF)
+    Copy-Item backend/.env.example backend/.env
+    Copy-Item frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
 
-| Código | Categoría | Criterio de Aceptación | Estado | 
-| ----- | ----- | ----- | ----- | 
-| **RNF-03** | Seguridad | Cifrado y procesamiento seguro de credenciales con hashing (BCrypt). | **Cumplido** | 
-| **RNF-08** | Compatibilidad | Interfaz Responsive (Mobile-First) optimizada para Chrome, Firefox, Safari y Edge. | **Cumplido** | 
-| **RNF-09** | Calidad / QA | Cobertura de pruebas unitarias superior al 80% global en la suite de componentes y contextos. | **Superado (98.88%)** | 
+En Linux:
 
-## 🛠️ Stack Tecnológico
+    cp backend/.env.example backend/.env
+    cp frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
 
-```text
-┌─────────────────────────────────────────────────────────────────┐
-│                     CAPA DE PRESENTACIÓN                        │
-│        React 19  │  TypeScript 6  │  Vite 8  │  Bootstrap 5     │
-└────────────────────────────────┬────────────────────────────────┘
-                                 │
-┌────────────────────────────────┴────────────────────────────────┐
-│                   GESTIÓN DE ESTADO Y LÓGICA                    │
-│   Context API (AuthContext, CarritoContext)  │  Web Storage API │
-└────────────────────────────────┬────────────────────────────────┘
-                                 │
-┌────────────────────────────────┴────────────────────────────────┐
-│                     CALIDAD & TESTING SUITE                     │
-│   Karma Test Runner  │  Jasmine Framework  │  RTL  │  esbuild   │
-└─────────────────────────────────────────────────────────────────┘
-```
+Edita backend/.env y reemplaza las claves de ejemplo, al menos:
 
-* **Core Framework:** React 19 (Arquitectura funcional orientada a Hooks).
+- MYSQL_ROOT_PASSWORD y LIF_DB_PASSWORD con contraseñas locales.
+- JWT_SECRET con una clave aleatoria de al menos 32 bytes.
+- LIF_ADMIN_EMAIL y LIF_ADMIN_PASSWORD con las credenciales del administrador local.
 
-* **Lenguaje:** TypeScript 6 (Tipado estricto e interfaces desacopladas).
+No subas los archivos .env al repositorio. El archivo .env.local del frontend usa por defecto http://localhost:8080/api.
 
-* **Build System & HMR:** Vite 8 + Rolldown.
+### 3. Iniciar el backend
 
-* **UI & Estilos:** CSS3 modular, Bootstrap 5, utilidades responsivas y soporte dinámico de temas (Light/Dark mode).
+Desde la raíz del repositorio, el mismo comando funciona en PowerShell y Linux:
 
-* **Validaciones de Dominio:** Módulo 11 para la verificación del RUT chileno, restricción de correo institucional y regla de negocio +18.
+    docker compose --env-file backend/.env -f backend/docker-compose.yml up --build -d
 
-### Backend Spring Boot
+La primera compilación puede tardar varios minutos. Comprueba el estado de los servicios:
 
-El frontend se conecta al backend modular ubicado en [`backend/`](backend/README.md), con API Gateway, Eureka y servicios independientes para autenticación, liga, solicitudes y entradas. El usuario puede consultar sus órdenes y administración puede revisar las órdenes creadas. Para desarrollo local, revisa [`frontend/lif-store-react/.env.example`](frontend/lif-store-react/.env.example) si necesitas cambiar la URL de la API; por defecto usa `http://localhost:8080/api`.
+    docker compose --env-file backend/.env -f backend/docker-compose.yml ps
 
-Primero inicia el backend siguiendo su [guía de ejecución](backend/README.md). Después, desde `frontend/lif-store-react`, ejecuta:
+### 4. Iniciar el frontend
 
-```bash
-npm install
-npm run dev
-```
+En una segunda terminal, desde la raíz del repositorio:
 
-## 🏗️ Arquitectura de Directorios
+    cd frontend/lif-store-react
+    npm ci
+    npm run dev
 
-```text
-backend/                     # Microservicios Spring Boot
-frontend/
-├── lif-store-react/         # Frontend React integrado con el API Gateway
-└── legacy/                  # Fuentes anteriores preservadas del frontend
-```
+Abre http://localhost:5173. El administrador inicial usa el correo y la contraseña definidos en LIF_ADMIN_EMAIL y LIF_ADMIN_PASSWORD.
 
-La aplicación activa tiene esta estructura:
+## Servicios y documentación API
 
-```text
-frontend/lif-store-react/
-├── public/                  # Assets estáticos servidos directamente
-├── src/
-│   ├── assets/              # Identidad visual, logos y multimedia
-│   ├── components/          # Componentes presentacionales aislados
-│   │   ├── admin/           # Módulos exclusivos de administración
-│   │   ├── solicitud/       # Formulario y flujos de inscripción
-│   │   └── *.spec.tsx       # Pruebas unitarias asociadas a componentes
-│   ├── context/             # Proveedores de estado global de la aplicación
-│   │   ├── AuthContext.tsx  # Estado de sesión y tokens
-│   │   └── CarritoContext.tsx # Estado reactivo del carrito de compras
-│   ├── data/                # Mock data y adaptadores de la capa de datos
-│   ├── utils/               # Funciones puras (Módulo 11, formateadores)
-│   ├── App.tsx              # Ruteador central y Layout principal
-│   └── main.tsx             # Bootstrap de la aplicación React
-├── karma.conf.cjs           # Configuración del ejecutor de pruebas Karma
-├── tsconfig.json            # Configuración del compilador TypeScript
-└── package.json             # Manifiesto de dependencias y scripts
-```
+| Componente | URL local |
+|---|---|
+| Frontend | http://localhost:5173 |
+| API Gateway | http://localhost:8080/api |
+| Eureka | http://localhost:8761 |
+| Swagger de autenticación | http://localhost:8081/swagger-ui.html |
+| Swagger de liga | http://localhost:8082/swagger-ui.html |
+| Swagger de solicitudes | http://localhost:8083/swagger-ui.html |
+| Swagger de entradas | http://localhost:8084/swagger-ui.html |
 
-## 🧪 Control de Calidad y Pruebas Unitarias
+La API usa JWT Bearer. El registro valida el RUN chileno con módulo 11; las operaciones administrativas requieren el rol ADMIN. Los precios de las entradas se consultan desde el backend.
 
-La plataforma implementa un entorno de pruebas automatizado basado en **Karma**, **Jasmine** y **React Testing Library** (`@testing-library/react`), garantizando la resiliencia del software ante refactorizaciones.
+Las órdenes de compra quedan en estado PENDIENTE_PAGO. El proyecto todavía no integra un proveedor de pagos, por lo que no realiza cobros ni emite entradas pagadas.
 
-### Reporte de Cobertura Ejecutado (`npm test`)
+## Comandos útiles
 
-```text
------------------------|---------|----------|---------|---------|-------------------
-File                   | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s 
------------------------|---------|----------|---------|---------|-------------------
-All files              |    97.1 |    88.78 |   94.66 |   98.88 |                   
- components/           |     100 |    93.44 |     100 |     100 |                   
- components/admin/     |   98.43 |    95.23 |   97.29 |     100 |                   
- components/solicitud/ |     100 |      100 |     100 |     100 |                   
- context/              |     100 |      100 |     100 |     100 |                   
- data/                 |     100 |      100 |     100 |     100 |                   
- hooks/                |     100 |      100 |     100 |     100 |                   
- pages/                |   93.75 |     87.5 |   85.07 |    97.2 |                   
- utils/                |   96.55 |    83.33 |   97.05 |   98.92 |                   
------------------------|---------|----------|---------|---------|-------------------
-TOTAL: 158 SUCCESS | 0 FAILED
-```
+Ejecuta estos comandos desde frontend/lif-store-react:
 
-### Ejecución de Pruebas
+    npm run dev       # servidor de desarrollo
+    npm run build     # compilación de producción
+    npm run lint      # revisión estática
 
-```bash
-# Lanzar la suite completa de tests en entorno Chrome Headless
-npm test
+Para ver logs del backend desde la raíz del repositorio:
 
-# Modo observación durante el desarrollo
-npx karma start karma.conf.cjs --single-run=false
-```
+    docker compose --env-file backend/.env -f backend/docker-compose.yml logs -f api-gateway
 
-## 🚀 Guía de Instalación y Despliegue Local
+Detener los contenedores y conservar la base de datos:
 
-### Prerrequisitos
+    docker compose --env-file backend/.env -f backend/docker-compose.yml down
 
-* **Node.js:** `^20.19.0` o `>= 22.12.0` (requerido por Vite 8)
+Para borrar también los datos locales de MySQL, añade -v a down. Esa acción elimina las órdenes y usuarios locales guardados en el volumen.
 
-* **npm:** `>= 9.0.0`
+## Solución de problemas
 
-### Proceso de Despliegue
+- **No se puede conectar con Docker:** inicia Docker Desktop en Windows o el servicio Docker en Linux; verifica con docker compose version.
+- **El puerto ya está en uso:** libera los puertos 3306, 5173, 8080–8084 y 8761, o cambia las asignaciones en backend/docker-compose.yml.
+- **El frontend muestra error de conexión:** espera a que los servicios terminen de iniciar y revisa los logs con el comando anterior. Confirma que VITE_API_URL apunte a http://localhost:8080/api.
+- **Cambiaste dependencias del frontend:** vuelve a ejecutar npm ci desde frontend/lif-store-react.
 
-1. **Clonar el repositorio:**
-
-```bash
-git clone https://github.com/090Santander/lif-store.git
-cd lif-store
-```
-
-2. **Entrar al frontend e instalar dependencias:**
-
-```bash
-cd frontend/lif-store-react
-npm install
-```
-
-3. **Ejecutar en entorno de desarrollo:**
-
-```bash
-npm run dev
-```
-
-*La aplicación estará disponible en `http://localhost:5173`.*
-
-4. **Compilar artefacto de producción:**
-
-```bash
-npm run build
-```
-
-*Los archivos optimizados se generarán en la carpeta `dist/`.*
-
-## 🔄 Metodología de Desarrollo y Flujo de Trabajo
-
-* **Metodología Ágil:** Ciclos de desarrollo estructurados bajo **Scrum** con iteraciones orientadas a incrementos funcionales de software.
-
-* **Estrategia de Ramificación (GitFlow Adaptado):**
-
-  * `main`: Código verificado y listo para despliegue.
-
-  * `feature/*`: Ramas de desarrollo para nuevas características.
-
-  * `fix/*`: Correcciones de errores y parches de estabilidad.
-
-* **Estándar de Conmutación:** Formato *Conventional Commits* (`feat:`, `fix:`, `test:`, `docs:`, `refactor:`).
-
-## 👥 Matriz de Responsabilidades del Equipo
-
-| Integrante | Rol Principal | Áreas de Contribución | 
-| ----- | ----- | ----- | 
-| **Antonia Inostroza** | Frontend Architect & UI Engineer | Diseños responsivos, semántica HTML5, maquetación de vistas, tematización (Dark Mode) e integración con Bootstrap 5. | 
-| **Renato Santander** | Lead Software & QA Engineer | Implementación de TypeScript, lógica de estado global (`CarritoContext`), algoritmo Módulo 11, suite de pruebas unitarias en Karma/Jasmine e integración de repositorios. | 
-
-## 📄 Licencia
-
-Este proyecto está distribuido bajo la Licencia **MIT**. Consulta el archivo [`LICENSE`](LICENSE) para obtener más información.
+Para levantar un servicio Spring Boot desde el IDE se requiere Java 21 y configurar las variables de base de datos, Eureka y JWT descritas en backend/README.md.

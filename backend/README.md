@@ -32,26 +32,36 @@ Cada servicio mantiene las capas `controller`, `service`, `repository`, `model` 
 
 ## Ejecución local con Docker
 
-Desde esta carpeta:
+Ejecuta los comandos desde la raíz del repositorio, donde están las carpetas backend y frontend.
 
-```bash
-cp .env.example .env
-```
+En PowerShell:
 
-Edita `.env` y define claves propias para MySQL, JWT y el usuario administrador. Después ejecuta:
+    Copy-Item backend/.env.example backend/.env
 
-```bash
-docker compose up --build -d
-```
+En Linux:
 
-La URL base para el frontend es `http://localhost:8080/api`. En el frontend React configura `VITE_API_URL=http://localhost:8080/api` (o usa su valor predeterminado) y ejecuta `npm run dev` desde `frontend/lif-store-react`. Autenticación, solicitudes, contenido administrativo y órdenes usan estos endpoints; el carrito se conserva temporalmente en el navegador. Eureka queda en `http://localhost:8761`. Las interfaces Swagger de los servicios están disponibles en:
+    cp backend/.env.example backend/.env
+
+Edita backend/.env y reemplaza las contraseñas de ejemplo. JWT_SECRET debe tener al menos 32 bytes; define también LIF_ADMIN_EMAIL y LIF_ADMIN_PASSWORD. Después, en Windows o Linux, inicia la plataforma desde la raíz:
+
+    docker compose --env-file backend/.env -f backend/docker-compose.yml up --build -d
+
+Consulta el estado:
+
+    docker compose --env-file backend/.env -f backend/docker-compose.yml ps
+
+La URL base para el frontend es http://localhost:8080/api. El frontend React usa esa dirección por defecto; para cambiarla, configura VITE_API_URL en frontend/lif-store-react/.env.local y ejecuta npm run dev desde frontend/lif-store-react. Autenticación, solicitudes, contenido administrativo y órdenes usan estos endpoints; el carrito se conserva temporalmente en el navegador. Eureka queda en http://localhost:8761. Las interfaces Swagger de los servicios están disponibles en:
 
 - Auth y usuarios: `http://localhost:8081/swagger-ui.html`
 - Liga: `http://localhost:8082/swagger-ui.html`
 - Solicitudes: `http://localhost:8083/swagger-ui.html`
 - Entradas: `http://localhost:8084/swagger-ui.html`
 
-Para detener los contenedores conserva los datos de MySQL con `docker compose down`; para borrar también la base local usa `docker compose down -v`.
+Para detener los contenedores y conservar los datos de MySQL:
+
+    docker compose --env-file backend/.env -f backend/docker-compose.yml down
+
+Para borrar también la base local usa el mismo comando con -v. Esa acción elimina los usuarios y órdenes guardados en el volumen.
 
 ## Ejecución de un servicio desde el IDE
 
