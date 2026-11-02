@@ -1,4 +1,6 @@
-const API_BASE_URL = (import.meta.env.VITE_API_URL || 'http://localhost:8080/api').replace(/\/$/, '')
+const API_BASE_URL = (
+  import.meta.env.VITE_API_URL || (import.meta.env.DEV ? 'http://localhost:8080/api' : '')
+).replace(/\/$/, '')
 const ACCESS_TOKEN_KEY = 'lif_access_token'
 
 export class ApiError extends Error {
@@ -25,6 +27,10 @@ export async function apiRequest<T>(
   options: RequestInit = {},
   requiereAutenticacion = true,
 ): Promise<T> {
+  if (!API_BASE_URL) {
+    throw new ApiError('La API no está configurada para esta publicación. Define VITE_API_URL para habilitar esta función.', 0)
+  }
+
   const headers = new Headers(options.headers)
   if (options.body && !headers.has('Content-Type')) headers.set('Content-Type', 'application/json')
 

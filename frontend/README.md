@@ -152,6 +152,10 @@ docker compose --env-file backend/.env -f backend/docker-compose.yml up --build 
 
 Después inicia Vite en otra terminal. El frontend apunta por defecto a `http://localhost:8080/api`; la guía completa de servicios, credenciales y API está en [backend/README.md](../backend/README.md).
 
+## Publicación en GitHub Pages
+
+El workflow del repositorio compila esta aplicación con base `/lif-store/` y publica `dist/` en <https://090santander.github.io/lif-store/> al actualizar la rama `main`. En **Settings → Pages**, el origen debe ser **GitHub Actions**. Para conectar el sitio publicado al backend, configura la variable de Actions `VITE_API_URL` con la URL HTTPS pública del API Gateway, incluyendo `/api`, y permite el origen `https://090santander.github.io` en CORS. GitHub Pages no publica el backend.
+
 ## Aplicación anterior
 
 El código previo se conserva en `frontend/legacy/`. La aplicación activa es `frontend/lif-store-react/`.

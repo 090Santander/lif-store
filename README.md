@@ -135,6 +135,12 @@ Visita <http://localhost:5173>. La aplicación usa por defecto el API Gateway en
 | Swagger de solicitudes | <http://localhost:8083/swagger-ui.html> |
 | Swagger de entradas | <http://localhost:8084/swagger-ui.html> |
 
+## Publicación en GitHub Pages
+
+El workflow de GitHub Actions publica el frontend en <https://090santander.github.io/lif-store/> cuando se actualiza `main`; también se puede iniciar manualmente desde la pestaña **Actions**. La primera vez, selecciona **Settings → Pages → Build and deployment → GitHub Actions** como origen.
+
+GitHub Pages solo aloja el frontend estático. Para habilitar autenticación y las funciones conectadas a la API, define `VITE_API_URL` como variable del repositorio en **Settings → Secrets and variables → Actions → Variables**. Debe apuntar a una API pública con HTTPS y permitir el origen `https://090santander.github.io` mediante CORS. Sin esa variable, el sitio carga y las funciones que requieren backend muestran un aviso de configuración.
+
 ## Comandos habituales
 
 Desde `frontend/lif-store-react`:
