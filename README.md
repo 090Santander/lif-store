@@ -171,6 +171,7 @@ Para eliminar también la base de datos local y sus órdenes, añade `-v` al com
 - **Docker no responde:** inicia Docker Desktop en Windows o el servicio Docker en Linux; comprueba `docker compose version`.
 - **Un puerto está ocupado:** libera los puertos `3306`, `5173`, `8080–8084` y `8761`, o ajusta las asignaciones en `backend/docker-compose.yml`.
 - **La web no conecta con la API:** confirma que el backend esté iniciado y que `VITE_API_URL` apunte a `http://localhost:8080/api`.
+- **El login responde 503:** revisa `docker compose --env-file backend/.env -f backend/docker-compose.yml logs --tail=120 auth-service mysql`. Si cambiaste `LIF_DB_PASSWORD` después de crear el volumen de MySQL, el usuario de la base conserva la contraseña anterior; restaura esa contraseña o actualízala dentro de MySQL.
 - **Cambiaste dependencias de JavaScript:** vuelve a ejecutar `npm ci` dentro de `frontend/lif-store-react`.
 
 ---
