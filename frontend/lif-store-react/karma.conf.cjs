@@ -112,7 +112,9 @@ module.exports = function(config) {
       loader: { '.ts': 'ts', '.tsx': 'tsx' },
       resolveExtensions: ['.tsx', '.ts', '.jsx', '.js', '.json', '.mjs', '.cjs'],
       define: {
-        'process.env.NODE_ENV': JSON.stringify('development')
+        'process.env.NODE_ENV': JSON.stringify('development'),
+        'import.meta.env.VITE_API_URL': JSON.stringify('http://localhost:8080/api'),
+        'import.meta.env.DEV': 'true'
       },
       plugins: [assetStubPlugin, cleanCoveragePlugin]
     },

@@ -11,11 +11,10 @@ import java.time.Duration;
 @Configuration
 public class PartidoClientConfiguration {
     @Bean
-    RestClient ligaRestClient(RestClient.Builder builder,
-                              @Value("${app.services.league-url}") String leagueUrl) {
+    RestClient ligaRestClient(@Value("${app.services.league-url}") String leagueUrl) {
         SimpleClientHttpRequestFactory requestFactory = new SimpleClientHttpRequestFactory();
         requestFactory.setConnectTimeout(Duration.ofSeconds(2));
         requestFactory.setReadTimeout(Duration.ofSeconds(3));
-        return builder.baseUrl(leagueUrl).requestFactory(requestFactory).build();
+        return RestClient.builder().baseUrl(leagueUrl).requestFactory(requestFactory).build();
     }
 }

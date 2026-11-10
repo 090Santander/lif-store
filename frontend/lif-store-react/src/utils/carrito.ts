@@ -12,7 +12,9 @@ export const PRECIO_POR_DEFECTO = 5000
 export const CARGO_SERVICIO = 0.1 // 10 %
 
 export function precioDe(partido: Partido): number {
-  return Number(partido.precio) || PRECIO_POR_DEFECTO
+  if (partido.precio === null || partido.precio === undefined) return PRECIO_POR_DEFECTO
+  const precio = Number(partido.precio)
+  return Number.isFinite(precio) && precio >= 0 ? precio : PRECIO_POR_DEFECTO
 }
 
 export function crearTicket(partido: Partido): Ticket {

@@ -36,10 +36,11 @@ describe('precioDe', () => {
     expect(precioDe(partido({ precio: '7000' }))).toBe(7000);
   });
 
-  it('usa el precio por defecto si falta, es 0 o no es numérico', () => {
+  it('respeta el precio cero y usa el valor por defecto si falta o no es válido', () => {
     expect(precioDe(partido({ precio: undefined }))).toBe(PRECIO_POR_DEFECTO);
-    expect(precioDe(partido({ precio: 0 }))).toBe(PRECIO_POR_DEFECTO);
+    expect(precioDe(partido({ precio: 0 }))).toBe(0);
     expect(precioDe(partido({ precio: 'gratis' }))).toBe(PRECIO_POR_DEFECTO);
+    expect(precioDe(partido({ precio: -1 }))).toBe(PRECIO_POR_DEFECTO);
   });
 });
 

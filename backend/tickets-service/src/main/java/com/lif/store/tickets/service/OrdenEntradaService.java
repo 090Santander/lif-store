@@ -88,6 +88,9 @@ public class OrdenEntradaService {
             if (partido == null || partido.precio() == null || partido.precio().signum() < 0) {
                 throw new ApiException(HttpStatus.BAD_GATEWAY, "El servicio de partidos devolvió datos incompletos.");
             }
+            if (!"Programado".equalsIgnoreCase(partido.estado())) {
+                throw new ApiException(HttpStatus.CONFLICT, "El partido no está disponible para entradas.");
+            }
             return partido;
         } catch (RestClientResponseException exception) {
             if (exception.getStatusCode().is4xxClientError()) {

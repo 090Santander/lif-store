@@ -137,7 +137,7 @@ export default function Carrito() {
                 <button
                   type="button"
                   className="btn btn-warning fw-bold text-dark rounded-pill py-2 shadow-sm"
-                  disabled={subtotal === 0 || !usuario || authCargando}
+                  disabled={tickets.length === 0 || !usuario || authCargando || enviando}
                   onClick={() => { setError(null); setMostrarPago(true) }}
                 >
                   {authCargando ? 'Verificando sesión…' : usuario ? 'Crear orden' : 'Inicia sesión para continuar'}

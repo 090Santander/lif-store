@@ -8,6 +8,7 @@ import { precioDe } from '../utils/carrito'
 export default function Entradas() {
   const { items: partidos, cargando, error, recargar } = useColeccion<Partido>('partidos')
   const { agregarAlCarrito } = useCarrito()
+  const disponibles = partidos.filter((partido) => partido.estado?.toLowerCase() === 'programado')
 
   const comprar = (partido: Partido) => {
     const encuentro = `${partido.equipoLocal} vs ${partido.equipoVisitante}`
@@ -41,13 +42,13 @@ export default function Entradas() {
         {error && <div className="alert alert-danger" role="alert">{error} <button className="btn btn-sm btn-outline-danger ms-2" onClick={() => void recargar()}>Reintentar</button></div>}
         {cargando ? (
           <p className="text-center text-body-secondary py-4" role="status">Cargando partidos…</p>
-        ) : partidos.length === 0 ? (
+        ) : disponibles.length === 0 ? (
           <p className="text-center text-body-secondary py-4">
             No hay partidos disponibles para la compra de tickets en este momento.
           </p>
         ) : (
           <div className="row g-4">
-            {partidos.map((p) => (
+            {disponibles.map((p) => (
               <EntradaCard key={p.id} partido={p} onComprar={comprar} />
             ))}
           </div>

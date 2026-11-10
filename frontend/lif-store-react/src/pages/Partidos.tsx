@@ -19,7 +19,7 @@ export default function Partidos() {
           <div className="col-lg-10">
             <div className="card border-0 shadow-sm rounded-4 overflow-hidden">
               <div className="card-header bg-dark-green text-white fw-bold py-3 text-center border-0">
-                📅 Próximas Fechas Programadas
+                📅 Partidos y resultados
               </div>
               <div className="table-responsive">
                 <table className="table table-hover align-middle text-center m-0">
@@ -49,7 +49,7 @@ export default function Partidos() {
                             <td>{p.sede}</td>
                             <td className="text-end fw-bold">{p.equipoLocal}</td>
                             <td className="text-body-secondary">
-                            {p.golesLocal !== undefined && p.golesVisita !== undefined
+                            {p.golesLocal != null && p.golesVisita != null
                                 ? `${p.golesLocal} - ${p.golesVisita}`
                                 : 'vs'}
                             </td>

@@ -18,8 +18,8 @@ export interface Partido {
   precio: number
   descripcion?: string
   estado?: string
-  golesLocal?: number
-  golesVisita?: number
+  golesLocal?: number | null
+  golesVisita?: number | null
 }
 
 export interface Jugador {
