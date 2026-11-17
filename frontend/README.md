@@ -36,13 +36,13 @@ Desde la raíz del repositorio, crea la configuración de Vite.
 PowerShell:
 
 ```powershell
-Copy-Item frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
+Copy-Item frontend/.env.example frontend/.env.local
 ```
 
 Linux:
 
 ```bash
-cp frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
+cp frontend/.env.example frontend/.env.local
 ```
 
 La variable `VITE_API_URL` define la URL base del backend. Su valor por defecto es:
@@ -51,18 +51,18 @@ La variable `VITE_API_URL` define la URL base del backend. Su valor por defecto 
 VITE_API_URL=http://localhost:8080/api
 ```
 
-Si el API Gateway está en otra dirección, actualiza `VITE_API_URL` en `frontend/lif-store-react/.env.local` y reinicia Vite. Este archivo local está excluido de Git.
+Si el API Gateway está en otra dirección, actualiza `VITE_API_URL` en `frontend/.env.local` y reinicia Vite. Este archivo local está excluido de Git.
 
 Instala las dependencias desde la aplicación React:
 
 ```bash
-cd frontend/lif-store-react
+cd frontend
 npm ci
 ```
 
 ## Comandos
 
-Ejecuta los comandos desde `frontend/lif-store-react`:
+Ejecuta los comandos desde `frontend`:
 
 | Comando | Descripción |
 |---|---|
@@ -127,7 +127,7 @@ También están disponibles las páginas `/actas`, `/complejos`, `/contacto`, `/
 ## Estructura del código
 
 ```text
-frontend/lif-store-react/
+frontend/
   src/
     api/          Cliente HTTP y manejo de errores de API
     components/   Componentes reutilizables y administrativos
@@ -147,7 +147,7 @@ El cliente HTTP agrega el token JWT en las solicitudes autenticadas. El token y 
 Levanta primero el backend desde la raíz del repositorio:
 
 ```bash
-docker compose --env-file backend/.env -f backend/docker-compose.yml up --build -d
+docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml up --build -d
 ```
 
 Después inicia Vite en otra terminal. El frontend apunta por defecto a `http://localhost:8080/api`; la guía completa de servicios, credenciales y API está en [backend/README.md](../backend/README.md).
@@ -158,7 +158,7 @@ El workflow del repositorio compila esta aplicación con base `/lif-store/` y pu
 
 ## Aplicación anterior
 
-El código previo se conserva en `frontend/legacy/`. La aplicación activa es `frontend/lif-store-react/`.
+La aplicación activa está en `frontend/`.
 
 ---
 

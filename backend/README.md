@@ -90,25 +90,25 @@ Usa valores locales propios y no publiques el archivo `backend/.env`.
 Desde la raíz del repositorio, el comando es igual en PowerShell y Linux:
 
 ```bash
-docker compose --env-file backend/.env -f backend/docker-compose.yml up --build -d
+docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml up --build -d
 ```
 
 Ver el estado de los contenedores:
 
 ```bash
-docker compose --env-file backend/.env -f backend/docker-compose.yml ps
+docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml ps
 ```
 
 Seguir los logs de un servicio:
 
 ```bash
-docker compose --env-file backend/.env -f backend/docker-compose.yml logs -f api-gateway
+docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml logs -f api-gateway
 ```
 
 Los servicios se conectan a un volumen persistente de MySQL. Para detenerlos y conservar los datos:
 
 ```bash
-docker compose --env-file backend/.env -f backend/docker-compose.yml down
+docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml down
 ```
 
 Para eliminar también el volumen local de MySQL, utiliza `down -v`. Esto borra los datos locales de la base.

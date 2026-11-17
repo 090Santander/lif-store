@@ -53,8 +53,8 @@ backend/
   eureka-server/     Descubrimiento de servicios
   shared/            Seguridad y componentes compartidos
 frontend/
-  lif-store-react/   Aplicación React activa
-  legacy/            Fuentes anteriores conservadas
+  src/              Aplicación React activa
+  assets/           Recursos del frontend
 ```
 
 ## Requisitos
@@ -67,6 +67,8 @@ frontend/
 En Windows, inicia Docker Desktop y utiliza contenedores Linux (WSL 2 recomendado). En Linux, inicia Docker y asegúrate de que tu usuario pueda ejecutar el comando `docker`.
 
 ## Inicio rápido
+
+Para Windows, consulta [Inicio para Windows](INICIO-WINDOWS.md).
 
 Los comandos de Docker se ejecutan desde la raíz del repositorio, donde se encuentran `backend/` y `frontend/`.
 
@@ -83,14 +85,14 @@ En PowerShell:
 
 ```powershell
 Copy-Item backend/.env.example backend/.env
-Copy-Item frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
+Copy-Item frontend/.env.example frontend/.env.local
 ```
 
 En Linux:
 
 ```bash
 cp backend/.env.example backend/.env
-cp frontend/lif-store-react/.env.example frontend/lif-store-react/.env.local
+cp frontend/.env.example frontend/.env.local
 ```
 
 Edita `backend/.env` y reemplaza las credenciales de ejemplo. Define contraseñas locales y un `JWT_SECRET` aleatorio de al menos 32 bytes. Configura también `LIF_ADMIN_EMAIL` y `LIF_ADMIN_PASSWORD` para crear la cuenta administradora local.
@@ -102,13 +104,13 @@ Los archivos `.env` y `.env.local` están excluidos de Git; conserva las credenc
 El mismo comando sirve en PowerShell y Linux:
 
 ```bash
-docker compose --env-file backend/.env -f backend/docker-compose.yml up --build -d
+docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml up --build -d
 ```
 
 La primera ejecución descarga imágenes y compila los servicios, por lo que puede tardar varios minutos. Comprueba su estado:
 
 ```bash
-docker compose --env-file backend/.env -f backend/docker-compose.yml ps
+docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml ps
 ```
 
 ### 4. Iniciar el frontend
@@ -116,7 +118,7 @@ docker compose --env-file backend/.env -f backend/docker-compose.yml ps
 Abre otra terminal desde la raíz del repositorio y ejecuta:
 
 ```bash
-cd frontend/lif-store-react
+cd frontend
 npm ci
 npm run dev
 ```
@@ -137,13 +139,15 @@ Visita <http://localhost:5173>. La aplicación usa por defecto el API Gateway en
 
 ## Publicación en GitHub Pages
 
+Consulta la [Guía de GitHub Pages](GITHUB-PAGES.md).
+
 El workflow de GitHub Actions publica el frontend en <https://090santander.github.io/lif-store/> cuando se actualiza `main`; también se puede iniciar manualmente desde la pestaña **Actions**. La primera vez, selecciona **Settings → Pages → Build and deployment → GitHub Actions** como origen.
 
 GitHub Pages solo aloja el frontend estático. Para habilitar autenticación y las funciones conectadas a la API, define `VITE_API_URL` como variable del repositorio en **Settings → Secrets and variables → Actions → Variables**. Debe apuntar a una API pública con HTTPS y permitir el origen `https://090santander.github.io` mediante CORS. Sin esa variable, el sitio carga y las funciones que requieren backend muestran un aviso de configuración.
 
 ## Comandos habituales
 
-Desde `frontend/lif-store-react`:
+Desde `frontend`:
 
 ```bash
 npm run dev      # Servidor local de desarrollo
@@ -155,13 +159,13 @@ npm run test     # Pruebas del frontend con Karma y Jasmine
 Desde la raíz del repositorio, para revisar los logs del API Gateway:
 
 ```bash
-docker compose --env-file backend/.env -f backend/docker-compose.yml logs -f api-gateway
+docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml logs -f api-gateway
 ```
 
 Detener los contenedores y conservar la base local:
 
 ```bash
-docker compose --env-file backend/.env -f backend/docker-compose.yml down
+docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml down
 ```
 
 Para eliminar también la base de datos local y sus órdenes, añade `-v` al comando `down`.
@@ -171,8 +175,8 @@ Para eliminar también la base de datos local y sus órdenes, añade `-v` al com
 - **Docker no responde:** inicia Docker Desktop en Windows o el servicio Docker en Linux; comprueba `docker compose version`.
 - **Un puerto está ocupado:** libera los puertos `3306`, `5173`, `8080–8084` y `8761`, o ajusta las asignaciones en `backend/docker-compose.yml`.
 - **La web no conecta con la API:** confirma que el backend esté iniciado y que `VITE_API_URL` apunte a `http://localhost:8080/api`.
-- **El login responde 503:** revisa `docker compose --env-file backend/.env -f backend/docker-compose.yml logs --tail=120 auth-service mysql`. Si cambiaste `LIF_DB_PASSWORD` después de crear el volumen de MySQL, el usuario de la base conserva la contraseña anterior; restaura esa contraseña o actualízala dentro de MySQL.
-- **Cambiaste dependencias de JavaScript:** vuelve a ejecutar `npm ci` dentro de `frontend/lif-store-react`.
+- **El login responde 503:** revisa `docker compose -p lif-semestral --env-file backend/.env -f backend/docker-compose.yml logs --tail=120 auth-service mysql`. Si cambiaste `LIF_DB_PASSWORD` después de crear el volumen de MySQL, el usuario de la base conserva la contraseña anterior; restaura esa contraseña o actualízala dentro de MySQL.
+- **Cambiaste dependencias de JavaScript:** vuelve a ejecutar `npm ci` dentro de `frontend`.
 
 ---
 
